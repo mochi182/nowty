@@ -1,7 +1,5 @@
 rutina:
 id
-id_frecuencia_por_dia
-id_frecuencia_por_fecha
 nombre
 descripcion
 imagen
@@ -10,8 +8,6 @@ hecho
 
 nota:
 id
-id_frecuencia_por_dia
-id_frecuencia_por_fecha
 nombre
 descripcion
 imagen
@@ -26,16 +22,37 @@ fecha_inicial (date)
 fecha_limite (date)
 hecho
 
-frecuencia_por_dia:
+frecuencia_por_semana:
 id
 dia_inicial -> dia
-cada_cuanto
+frecuencia_diaria
 frecuencia_horaria
+incluir_finde
 
 frecuencia_por_fecha:
 id
 fecha -> fecha
 frecuencia_horaria
+
+nota_vs_frecuencia_por_semana
+id
+id_nota
+id_frecuencia_por_semana
+
+nota_vs_frecuencia_por_fecha
+id
+id_nota
+id_frecuencia_por_fecha
+
+rutina_vs_frecuencia_por_semana
+id
+id_rutina
+id_frecuencia_por_semana
+
+rutina_vs_frecuencia_por_fecha
+id
+id_rutina
+id_frecuencia_por_fecha
 
 dia:
 id
