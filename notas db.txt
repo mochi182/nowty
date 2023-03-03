@@ -1,0 +1,55 @@
+rutina:
+id
+id_frecuencia_por_dia
+id_frecuencia_por_fecha
+nombre
+descripcion
+imagen
+duracion
+hecho
+
+nota:
+id
+id_frecuencia_por_dia
+id_frecuencia_por_fecha
+nombre
+descripcion
+imagen
+
+meta:
+id
+nombre
+descripcion
+imagen
+duracion
+fecha_inicial (date)
+fecha_limite (date)
+hecho
+
+frecuencia_por_dia:
+id
+dia_inicial -> dia
+cada_cuanto
+frecuencia_horaria
+
+frecuencia_por_fecha:
+id
+fecha -> fecha
+frecuencia_horaria
+
+dia:
+id
+nombre
+
+fecha:
+id
+hora (null)
+dia (null)
+mes (null)
+año (null)
+
+registro:
+id
+fecha (datetime)
+metas_alcanzadas
+rutinas_logradas

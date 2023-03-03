@@ -1,5 +1,5 @@
 {
-  "name": "dalenes",
+  "name": "nowty",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,5 +8,10 @@
   },
   "keywords": [],
   "author": "Frencisco",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.8",
+    "express": "^4.18.2"
+  }
 }
