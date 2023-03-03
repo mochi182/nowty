@@ -1,72 +1,53 @@
-rutina:
-id
-nombre
-descripcion
-imagen
-duracion
-hecho
+actividad:
+id (int, primary key, autoincrement)
+nombre (varchar, length: 1000)
+descripcion (varchar, length: 2000)
+imagen (varchar, length: 2000)
+duracion (int)
+hecho (boolean, false by default)
 
 nota:
-id
-nombre
-descripcion
-imagen
+id (int, primary key, autoincrement)
+nombre (varchar, length: 1000)
+descripcion (varchar, length: 2000)
+imagen (varchar, length: 2000)
 
-meta:
-id
-nombre
-descripcion
-imagen
-duracion
-fecha_inicial (date)
-fecha_limite (date)
-hecho
+configuracion:
+id (int, primary key, autoincrement)
+por_fecha (int, foreign key pointing to table fecha's id column, can be null)
+frecuencia_diaria (int, 1 by default)
+dia_inicial (int, foreign key pointing to table dia's id column, can be null)
+dia_final (int, foreign key pointing to table dia's id column, can be null)
+frecuencia_horaria (int, 1 by default)
+hora_inicial (double, can be null)
+hora_final (double, can be null)
+incluir_finde  (boolean, true by default)
 
-frecuencia_por_semana:
-id
-dia_inicial -> dia
-frecuencia_diaria
-frecuencia_horaria
-incluir_finde
+nota_vs_configuracion:
+id_nota (int, foreign key pointing to table nota's id column)
+id_configuracion (int, foreign key pointing to table configuracion's id column)
+(both id_nota and id_configuracion are the primary key)
 
-frecuencia_por_fecha:
-id
-fecha -> fecha
-frecuencia_horaria
-
-nota_vs_frecuencia_por_semana
-id
-id_nota
-id_frecuencia_por_semana
-
-nota_vs_frecuencia_por_fecha
-id
-id_nota
-id_frecuencia_por_fecha
-
-rutina_vs_frecuencia_por_semana
-id
-id_rutina
-id_frecuencia_por_semana
-
-rutina_vs_frecuencia_por_fecha
-id
-id_rutina
-id_frecuencia_por_fecha
+actividad_vs_configuracion:
+id_actividad (int, foreign key pointing to table actividad's id column)
+id_configuracion (int, foreign key pointing to table configuracion's id column)
+(both id_actividad and id_configuracion are the primary key)
 
 dia:
-id
-nombre
+id (int, primary key, autoincrement)
+nombre (varchar, length: 1000)
 
 fecha:
-id
-hora (null)
-dia (null)
-mes (null)
-año (null)
+id (int, primary key, autoincrement)
+hora (int, can be null)
+dia (int, can be null)
+mes (int, can be null)
+anho (int, can be null)
 
 registro:
-id
+id (int, primary key, autoincrement)
 fecha (datetime)
-metas_alcanzadas
-rutinas_logradas
+metas (int)
+metas_alcanzadas (int)
+rutinas (int)
+rutinas_logradas (int)
