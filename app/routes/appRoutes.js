@@ -8,7 +8,7 @@ exports.routes = function (app) {
     });
 
     app.get('/all', function (req, res) {
-        controller.read(req, res);
+        controller.select_all(req, res);
     });
 
     app.get('/insert', function (req, res) {

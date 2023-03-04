@@ -2,9 +2,9 @@
 
 let model = require('../models/appModel.js');
 
-exports.all = async function (req, res) {
+exports.select_all = async function (req, res) {
     try {
-        res.json(await model.all())
+        res.json(await model.select_all())
     } catch(err) {
         res.json({"Error": err})
     }

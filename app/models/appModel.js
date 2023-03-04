@@ -2,9 +2,10 @@
 
 let client = require('./db.js');
 
-exports.all = async function () {
-    var results = {0: 0};
-    return results;
+exports.select_all = async function () {
+    let query = 'SELECT * FROM actividad'
+    const results = await client.promise().query(query)
+    return results[0]
 }
 
 exports.insert = async function (req) {
