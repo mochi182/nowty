@@ -1,17 +1,19 @@
 'use strict';
 
-exports.routes = function (app) {
-    let controller = require('../controllers/appController.js');
+let controller = require('../controllers/appController.js');
 
-    app.get('/', function (req, res) {
-        res.json({ "Hola": "Adiós" });
+exports.routes = function (app) {
+
+    app.post("/heh", function (req, res) {
+        console.log(req.body.id, req.body.isChecked) // populated!
+        res.send(200, req.body);
     });
 
     app.get('/all', function (req, res) {
         controller.select_all(req, res);
     });
 
-    app.get('/done', function (req, res) {
+    app.post('/done', function (req, res) {
         controller.done(req, res);
     });
 

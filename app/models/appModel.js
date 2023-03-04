@@ -9,14 +9,10 @@ exports.select_all = async function () {
 }
 
 exports.done = async function (req) {
-    console.log(9009)
-    console.log(req.params.id, req.params.isChecked)
-    let id = req.params.id;
-    let isChecked = req.params.isChecked ? 1 : 0;
-    console.log(id, isChecked)
+    let id = req.body.id;
+    let isChecked = req.body.isChecked ? 1 : 0;
     let query = `UPDATE actividad SET hecho = ${isChecked} WHERE id = ${id}`
     const results = await client.promise().query(query)
-    console.log(results)
     return results[0]
 }
 
