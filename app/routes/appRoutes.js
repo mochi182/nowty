@@ -11,6 +11,10 @@ exports.routes = function (app) {
         controller.select_all(req, res);
     });
 
+    app.get('/done', function (req, res) {
+        controller.done(req, res);
+    });
+
     app.get('/insert', function (req, res) {
         controller.insert(req, res);
     });

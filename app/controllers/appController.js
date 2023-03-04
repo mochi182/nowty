@@ -4,7 +4,15 @@ let model = require('../models/appModel.js');
 
 exports.select_all = async function (req, res) {
     try {
-        res.json(await model.select_all())
+        res.render('index', {data: await model.select_all()})
+    } catch(err) {
+        res.json({"Error": err})
+    }
+};
+
+exports.done = async function (req, res) {
+    try {
+        res.json(await model.done(req))
     } catch(err) {
         res.json({"Error": err})
     }

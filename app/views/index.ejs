@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nowty</title>
+</head>
+<body>
+    <header>
+        Nowty
+    </header>
+    
+    <section>
+        <h1>Actividades del día</h1>
+    
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Imagen</th>
+                    <th>Duración</th>
+                    <th>Hecho</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (let i = 0; i < data.length; i++) { %>
+                    <tr>
+                        <td><%= data[i].nombre %></td>
+                        <td><%= data[i].descripcion %></td>
+                        <td><img src="<%= data[i].imagen %>" alt="Imagen de <%= data[i].nombre %>"></td>
+                        <td><%= data[i].duracion %> minutos</td>
+                        <td><input id="<%= data[i].id %>" type="checkbox" <% if (data[i].hecho) { %>checked<% } %>></td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </section>
+    
+    <footer>
+        Nowty 2023
+    </footer>
+
+    <script>
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach((checkbox) => {
+          checkbox.addEventListener('click', (event) => {
+            const id = event.target.id;
+            const done = event.target.checked;
+            const queryParams = new URLSearchParams({
+              id: id,
+              done: done,
+            });
+            fetch(`/done?${queryParams}`, { method: 'GET' })
+              .then((response) => response.text())
+              .then((data) => console.log(data))
+              .catch((error) => console.error(error));
+          });
+        });
+    </script>
+      
+
+    
+      
+    
+</body>
+</html>
