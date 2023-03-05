@@ -2,178 +2,233 @@
 <html lang="en">
 <%- include('head'); %>
 
-<body>
-    <header>
-        Nowty
-    </header>
+    <body>
+        <header class="h2">
+            Nowty
+        </header>
 
-    <section>
-        <label for="actividad-input">Agregar nueva actividad, nota o rutina:</label>
-        <input type="text" id="actividad-input" name="actividad-input">
-      
-        <div class="advanced-options">
-          <button class="btn-advanced" type="button">Opciones avanzadas ▼</button>
-          <div class="advanced-content">
-            <label for="dropdown-select">Seleccionar tipo:</label>
-            <select id="dropdown-select" name="dropdown-select">
-              <option value="actividad" selected>Actividad</option>
-              <option value="nota">Nota</option>
-              <option value="rutina">Rutina</option>
-            </select>
-            <label for="descripcion-textarea">Descripción:</label>
-            <textarea id="descripcion-textarea" name="descripcion-textarea" rows="4"></textarea>
-            <label for="imagen-input">Imagen:</label>
-            <input type="text" id="imagen-input" name="imagen-input">
-            <label for="duracion-input">Duración:</label>
-            <input type="number" id="duracion-input" name="duracion-input" placeholder="en minutos">
-            <span>minutos</span>
+        <section>
 
-            <hr>
-
-            <div class="date-config">
-              <label for="date-dropdown">Configuración de fecha:</label>
-              <select id="date-dropdown" name="date-dropdown">
-                <option value="por-semana" selected>Por semana</option>
-                <option value="por-fecha">Por fecha</option>
-              </select>
+            <div class="form-group">
+                <label for="actividad-input">Agregar nueva actividad:</label>
+                <input class="form-control" type="text" id="actividad-input" name="actividad-input">
             </div>
 
-            <br>
-            <div id="porSemanaInputs">
-                <label for="frecuenciaDiaria">Frecuencia diaria (1-7): </label>
-                <input type="number" id="frecuenciaDiaria" name="frecuenciaDiaria" min="1" max="7">
-                <br>
-                <label for="diaInicial">Día inicial: </label>
-                <select id="diaInicial" name="diaInicial">
-                  <option value="1">Lunes</option>
-                  <option value="2">Martes</option>
-                  <option value="3">Miércoles</option>
-                  <option value="4">Jueves</option>
-                  <option value="5">Viernes</option>
-                  <option value="6">Sábado</option>
-                  <option value="7">Domingo</option>
-                </select>
-                <br>
-                <label for="diaFinal">Día final: </label>
-                <select id="diaFinal" name="diaFinal">
-                  <option value="1">Lunes</option>
-                  <option value="2">Martes</option>
-                  <option value="3">Miércoles</option>
-                  <option value="4">Jueves</option>
-                  <option value="5">Viernes</option>
-                  <option value="6">Sábado</option>
-                  <option value="7">Domingo</option>
-                </select>
-                <br>
-                <label for="frecuenciaHoraria">Frecuencia horaria (1-24): </label>
-                <input type="number" id="frecuenciaHoraria" name="frecuenciaHoraria" min="1" max="24">
-                <br>
-                <label for="horaInicial">Hora inicial (1-24): </label>
-                <input type="number" id="horaInicial" name="horaInicial" min="1" max="24">
-                <br>
-                <label for="horaFinal">Hora final (1-24): </label>
-                <input type="number" id="horaFinal" name="horaFinal" min="1" max="24">
-                <br>
-                <label for="incluirFinde">Incluir fin de semana: </label>
-                <input type="checkbox" id="incluirFinde" name="incluirFinde" checked>
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                Button with data-target
+            </button>
+
+            <div class="" id="collapseExample">
+                <div class="card card-body">
+
+                    <div class="form-group">
+                        <label for="dropdown-select">Seleccionar tipo:</label>
+                        <select id="dropdown-select" class="form-control" name="dropdown-select">
+                            <option value="actividad" selected>Actividad</option>
+                            <option value="nota">Nota</option>
+                            <option value="rutina">Rutina</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descripcion-textarea">Descripción:</label>
+                        <textarea id="descripcion-textarea" class="form-control" name="descripcion-textarea"
+                            rows="4"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="imagen-input">Imagen:</label>
+                        <input type="text" id="imagen-input" class="form-control" name="imagen-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="duracion-input">Duración:</label>
+                        <input type="number" id="duracion-input" class="form-control" name="duracion-input"
+                            placeholder="Minutos">
+                    </div>
+
+                    <br>
+
+                    <div class="date-config form-group">
+                        <label for="date-dropdown">Configuración de fecha:</label>
+                        <select id="date-dropdown" class="form-control" name="date-dropdown">
+                            <option value="por-semana" selected>Por semana</option>
+                            <option value="por-fecha">Por fecha</option>
+                        </select>
+                    </div>
+
+                    <div id="porSemanaInputs">
+
+                        <div class="form-group">
+                            <label for="frecuenciaDiaria">Frecuencia diaria (1-7): </label>
+                            <input type="number" id="frecuenciaDiaria" class="form-control" name="frecuenciaDiaria"
+                                min="1" max="7">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="diaInicial">Día inicial: </label>
+                            <select id="diaInicial" class="form-control" name="diaInicial">
+                                <option value="1">Lunes</option>
+                                <option value="2">Martes</option>
+                                <option value="3">Miércoles</option>
+                                <option value="4">Jueves</option>
+                                <option value="5">Viernes</option>
+                                <option value="6">Sábado</option>
+                                <option value="7">Domingo</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="diaFinal">Día final: </label>
+                            <select id="diaFinal" class="form-control" name="diaFinal">
+                                <option value="1">Lunes</option>
+                                <option value="2">Martes</option>
+                                <option value="3">Miércoles</option>
+                                <option value="4">Jueves</option>
+                                <option value="5">Viernes</option>
+                                <option value="6">Sábado</option>
+                                <option value="7">Domingo</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="frecuenciaHoraria">Frecuencia horaria (1-24): </label>
+                            <input type="number" id="frecuenciaHoraria" class="form-control" name="frecuenciaHoraria"
+                                min="1" max="24">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="horaInicial">Hora inicial (1-24): </label>
+                            <input type="number" id="horaInicial" class="form-control" name="horaInicial" min="1"
+                                max="24">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="horaFinal">Hora final (1-24): </label>
+                            <input type="number" id="horaFinal" class="form-control" name="horaFinal" min="1" max="24">
+                        </div>
+
+                        <div class="form-check">
+                            <label for="incluirFinde" class="form-check-label">Incluir fin de semana: </label>
+                            <input type="checkbox" id="incluirFinde" class="form-check-input" name="incluirFinde"
+                                checked>
+                        </div>
+                    </div>
+
+                    <div id="porFechaInputs" style="display:none;">
+                        <div class="form-group">
+                            <label for="hora">Hora (1-24): </label>
+                            <input type="number" id="hora" class="form-control" name="hora" min="1" max="24">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dia">Día (1-31): </label>
+                            <input type="number" id="dia" class="form-control" name="dia" min="1" max="31">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mes">Mes (1-12): </label>
+                            <input type="number" id="mes" class="form-control" name="mes" min="1" max="12">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="anho">Año (2023-2100): </label>
+                            <input type="number" id="anho" class="form-control" name="anho" min="2023" max="2100">
+                        </div>
+                    </div>
+
+                </div>
             </div>
-              
-            <div id="porFechaInputs" style="display:none;">
-                <label for="hora">Hora (1-24): </label>
-                <input type="number" id="hora" name="hora" min="1" max="24">
-                <br>
-                <label for="dia">Día (1-31): </label>
-                <input type="number" id="dia" name="dia" min="1" max="31">
-                <br>
-                <label for="mes">Mes (1-12): </label>
-                <input type="number" id="mes" name="mes" min="1" max="12">
-                <br>
-                <label for="anho">Año (2023-2100): </label>
-                <input type="number" id="anho" name="anho" min="2023" max="2100">
-            </div>
-              
-        </div>
-    </section>
-      
-    
-    <section>
-        <h1>Actividades del día</h1>
-    
-        <table>
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Imagen</th>
-                    <th>Duración</th>
-                    <th>Hecho</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% for (let i = 0; i < data.length; i++) { %>
+        </section>
+
+        <br>
+
+        <section>
+            <h1>Actividades del día</h1>
+
+            <table>
+                <thead>
                     <tr>
-                        <td><%= data[i].nombre %></td>
-                        <td><%= data[i].descripcion %></td>
-                        <td><img src="<%= data[i].imagen %>" alt="Imagen de <%= data[i].nombre %>"></td>
-                        <td><%= data[i].duracion %> minutos</td>
-                        <td><input id="<%= data[i].id %>" type="checkbox" <% if (data[i].hecho) { %>checked<% } %>></td>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Imagen</th>
+                        <th>Duración</th>
+                        <th>Hecho</th>
                     </tr>
-                <% } %>
-            </tbody>
-        </table>
-    </section>
-    
-    <footer>
-        Nowty 2023
-    </footer>
+                </thead>
+                <tbody>
+                    <% for (let i=0; i < data.length; i++) { %>
+                        <tr>
+                            <td>
+                                <%= data[i].nombre %>
+                            </td>
+                            <td>
+                                <%= data[i].descripcion %>
+                            </td>
+                            <td><img src="<%= data[i].imagen %>" alt="Imagen de <%= data[i].nombre %>"></td>
+                            <td>
+                                <%= data[i].duracion %> minutos
+                            </td>
+                            <td><input id="<%= data[i].id %>" class="form-check-input" type="checkbox" <% if
+                                    (data[i].hecho) { %>checked<% } %>></td>
+                        </tr>
+                        <% } %>
+                </tbody>
+            </table>
+        </section>
 
-    <script>
-        // add an event listener to each checkbox
-        const checkboxes = document.querySelectorAll('input[type=checkbox]');
-        checkboxes.forEach((checkbox) => {
-          checkbox.addEventListener('click', () => {
-            const isChecked = checkbox.checked;
-            const id = checkbox.id;
-      
-            // send a POST request to the server when the checkbox is clicked
-            fetch('/done', {
-              method: 'POST',
-              headers: { 
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({ id, isChecked })
-            })
-            .then(response => {
-              if (!response.ok) {
-                throw new Error('Network response was not ok');
-              }
-              console.log('Checkbox status updated successfully');
-            })
-            .catch(error => {
-              console.error('There was a problem updating the checkbox status:', error);
+        <footer>
+            Nowty 2023
+        </footer>
+
+        <script>
+            // add an event listener to each checkbox
+            const checkboxes = document.querySelectorAll('input[type=checkbox]');
+            checkboxes.forEach((checkbox) => {
+                checkbox.addEventListener('click', () => {
+                    const isChecked = checkbox.checked;
+                    const id = checkbox.id;
+
+                    // send a POST request to the server when the checkbox is clicked
+                    fetch('/done', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ id, isChecked })
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            console.log('Checkbox status updated successfully');
+                        })
+                        .catch(error => {
+                            console.error('There was a problem updating the checkbox status:', error);
+                        });
+                });
             });
-          });
-        });
 
-        const dateDropdown = document.getElementById("date-dropdown");
-        const porSemanaDiv = document.getElementById("porSemanaInputs");
-        const porFechaDiv = document.getElementById("porFechaInputs");
+            const dateDropdown = document.getElementById("date-dropdown");
+            const porSemanaDiv = document.getElementById("porSemanaInputs");
+            const porFechaDiv = document.getElementById("porFechaInputs");
 
-        // add event listener to the date dropdown
-        dateDropdown.addEventListener("change", (event) => {
-        const selectedValue = event.target.value;
-        if (selectedValue === "por-semana") {
-            // show the por-semana div and hide the por-fecha div
-            porSemanaDiv.style.display = "block";
-            porFechaDiv.style.display = "none";
-        } else if (selectedValue === "por-fecha") {
-            // show the por-fecha div and hide the por-semana div
-            porSemanaDiv.style.display = "none";
-            porFechaDiv.style.display = "block";
-        }
-        });
+            // add event listener to the date dropdown
+            dateDropdown.addEventListener("change", (event) => {
+                const selectedValue = event.target.value;
+                if (selectedValue === "por-semana") {
+                    // show the por-semana div and hide the por-fecha div
+                    porSemanaDiv.style.display = "block";
+                    porFechaDiv.style.display = "none";
+                } else if (selectedValue === "por-fecha") {
+                    // show the por-fecha div and hide the por-semana div
+                    porSemanaDiv.style.display = "none";
+                    porFechaDiv.style.display = "block";
+                }
+            });
 
-    </script>
-    
-</body>
+        </script>
+
+    </body>
+
 </html>
