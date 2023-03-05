@@ -4,13 +4,12 @@ let controller = require('../controllers/appController.js');
 
 exports.routes = function (app) {
 
-    app.post("/heh", function (req, res) {
-        console.log(req.body.id, req.body.isChecked) // populated!
-        res.send(200, req.body);
+    app.get('/', function (req, res) {
+        controller.select_all(req, res);
     });
 
-    app.get('/all', function (req, res) {
-        controller.select_all(req, res);
+    app.get('/stats', function (req, res) {
+        controller.stats(req, res);
     });
 
     app.post('/done', function (req, res) {

@@ -10,6 +10,14 @@ exports.select_all = async function (req, res) {
     }
 };
 
+exports.stats = async function (req, res) {
+    try {
+        res.render('stats')
+    } catch(err) {
+        res.json({"Error": err})
+    }
+};
+
 exports.done = async function (req, res) {
     try {
         res.json(await model.done(req))

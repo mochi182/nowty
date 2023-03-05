@@ -10,6 +10,9 @@ app = express();
 // Usar JSON
 app.use(express.json());
 
+// Recursos
+app.use(express.static(__dirname + '/public'));
+
 // Configurar plantillas
 app.set('view engine', 'ejs');
 app.set('views', './app/views');
