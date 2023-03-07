@@ -16,7 +16,7 @@ accordionBtn.addEventListener('click', function () {
 });
 
 // add an event listener to each checkbox
-const checkboxes = document.querySelectorAll('input[type=checkbox]');
+const checkboxes = document.querySelectorAll('input[type=checkbox].hecho-checkbox');
 checkboxes.forEach((checkbox) => {
     checkbox.addEventListener('click', () => {
         const isChecked = checkbox.checked;

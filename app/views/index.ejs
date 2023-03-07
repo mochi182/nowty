@@ -24,8 +24,8 @@
                         <label for="dropdown-select">Seleccionar tipo:</label>
                         <select id="dropdown-select" class="form-control" name="dropdown-select">
                             <option value="actividad" selected>Actividad</option>
-                            <option value="nota">Nota</option>
                             <option value="rutina">Rutina</option>
+                            <option value="nota">Nota</option>
                         </select>
                     </div>
 
@@ -37,14 +37,63 @@
 
                     <div class="form-group">
                         <label for="imagen-input">Imagen:</label>
-                        <input type="text" id="imagen-input" class="form-control" name="imagen-input">
+                        <input type="file" class="form-control-file" id="imagen-input" class="form-control" name="imagen-input">
                     </div>
 
                     <div class="form-group">
-                        <label for="duracion-input">Duración:</label>
-                        <input type="number" id="duracion-input" class="form-control" name="duracion-input"
-                            placeholder="Minutos">
-                    </div>
+                        <fieldset id="horas-input">
+                          <legend class="sr-only">Horas:</legend>
+                          <div class="checkbox-group">
+                            <% for (var i = 1; i <= 24; i++) { %>
+                                <label class="checkbox-container">
+                                  <input type="checkbox" name="horas-input" value="<%= i %>" />
+                                  <span class="checkmark"></span>
+                                </label>
+                              <% } %>
+                          </div>
+                        </fieldset>
+                      </div>
+
+                      <style>
+                        .checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.checkbox-group label {
+  position: relative;
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+
+.checkbox-group label input[type="checkbox"] {
+    width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.checkbox-group label .checkmark {
+  position: relative;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
+
+.checkbox-group label input[type="checkbox"]:checked + .checkmark {
+  background-color: #007bff;
+}
+
+.checkbox-group label input[type="checkbox"]:focus + .checkmark {
+  outline: 1px dotted #ccc;
+}
+
+                      </style>
 
                     <br>
 
@@ -59,82 +108,53 @@
                     <div id="porSemanaInputs">
 
                         <div class="form-group">
-                            <label for="frecuenciaDiaria">Frecuencia diaria (1-7): </label>
-                            <input type="number" id="frecuenciaDiaria" class="form-control" name="frecuenciaDiaria"
-                                min="1" max="7">
-                        </div>
+                            <label for="diaInicial">Serie día</label>
 
-                        <div class="form-group">
-                            <label for="diaInicial">Día inicial: </label>
-                            <select id="diaInicial" class="form-control" name="diaInicial">
-                                <option value="1">Lunes</option>
-                                <option value="2">Martes</option>
-                                <option value="3">Miércoles</option>
-                                <option value="4">Jueves</option>
-                                <option value="5">Viernes</option>
-                                <option value="6">Sábado</option>
-                                <option value="7">Domingo</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="diaFinal">Día final: </label>
-                            <select id="diaFinal" class="form-control" name="diaFinal">
-                                <option value="1">Lunes</option>
-                                <option value="2">Martes</option>
-                                <option value="3">Miércoles</option>
-                                <option value="4">Jueves</option>
-                                <option value="5">Viernes</option>
-                                <option value="6">Sábado</option>
-                                <option value="7">Domingo</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="frecuenciaHoraria">Frecuencia horaria (1-24): </label>
-                            <input type="number" id="frecuenciaHoraria" class="form-control" name="frecuenciaHoraria"
-                                min="1" max="24">
                         </div>
 
                         <div class="form-group">
                             <label for="horaInicial">Hora inicial (1-24): </label>
-                            <input type="number" id="horaInicial" class="form-control" name="horaInicial" min="1"
-                                max="24">
+
                         </div>
 
-                        <div class="form-group">
-                            <label for="horaFinal">Hora final (1-24): </label>
-                            <input type="number" id="horaFinal" class="form-control" name="horaFinal" min="1" max="24">
-                        </div>
-
-                        <div class="form-check">
-                            <label for="incluirFinde" class="form-check-label">Incluir fin de semana: </label>
-                            <input type="checkbox" id="incluirFinde" class="form-check-input" name="incluirFinde"
-                                checked>
-                        </div>
                     </div>
 
                     <div id="porFechaInputs" style="display:none;">
-                        <div class="form-group">
-                            <label for="hora">Hora (1-24): </label>
-                            <input type="number" id="hora" class="form-control" name="hora" min="1" max="24">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="dia">Día (1-31): </label>
-                            <input type="number" id="dia" class="form-control" name="dia" min="1" max="31">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="mes">Mes (1-12): </label>
-                            <input type="number" id="mes" class="form-control" name="mes" min="1" max="12">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="anho">Año (2023-2100): </label>
-                            <input type="number" id="anho" class="form-control" name="anho" min="2023" max="2100">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="dia">Día (1-31): </label>
+                                    <input type="number" id="dia" class="form-control" name="dia" min="1" max="31">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="mes">Mes: </label>
+                                    <select id="mes" class="form-control" name="mes">
+                                        <option value="1">Enero</option>
+                                        <option value="2">Febrero</option>
+                                        <option value="3">Marzo</option>
+                                        <option value="4">Abril</option>
+                                        <option value="5">Mayo</option>
+                                        <option value="6">Junio</option>
+                                        <option value="7">Julio</option>
+                                        <option value="8">Agosto</option>
+                                        <option value="9">Septiembre</option>
+                                        <option value="10">Octubre</option>
+                                        <option value="11">Noviembre</option>
+                                        <option value="12">Diciembre</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="anho">Año (2023-2100): </label>
+                                    <input type="number" id="anho" class="form-control" name="anho" min="2023" max="2100">
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    
 
                 </div>
             </div>
@@ -168,7 +188,7 @@
                             <td>
                                 <%= data[i].duracion %> minutos
                             </td>
-                            <td><input id="<%= data[i].id %>" class="form-check-input" type="checkbox" <% if
+                            <td><input id="<%= data[i].id %>" class="form-check-input hecho-checkbox" type="checkbox" <% if
                                     (data[i].hecho) { %>checked<% } %>></td>
                         </tr>
                         <% } %>
