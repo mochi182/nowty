@@ -129,3 +129,19 @@ clearButton.addEventListener("click", function() {
     selects[l].dispatchEvent(event);
   }
 });
+
+// When a new option is selected, the value of the dropdown-select element is checked and the text of the texto-entidad element is updated accordingly.
+var dropdownSelect = document.querySelector("#dropdown-select");
+var textoEntidad = document.querySelector("#texto-entidad");
+
+dropdownSelect.addEventListener("change", function() {
+  var selectedValue = dropdownSelect.value;
+  
+  if (selectedValue === "actividad") {
+    textoEntidad.textContent = "actividad";
+  } else if (selectedValue === "rutina") {
+    textoEntidad.textContent = "rutina";
+  } else if (selectedValue === "nota") {
+    textoEntidad.textContent = "nota";
+  }
+});
