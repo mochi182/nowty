@@ -68,37 +68,64 @@ function selectActividad() {
     var event = new Event('change');
     var dropdownSelect = document.getElementById("dropdown-select");
     var dateDropdown = document.getElementById("date-dropdown");
-    
-    if (dropdownSelect.value === "actividad") {
-      dateDropdown.value = "por-fecha";
-      dateDropdown.dispatchEvent(event);
-      dateDropdown.disabled = true;
-    } else {
-      dateDropdown.disabled = false;
-    }
-  }
-  
-  // Call the function on page load and whenever the dropdown is changed
-  selectActividad();
-  document.getElementById("dropdown-select").addEventListener("change", selectActividad);
-  
 
-  // checks if the selected value of "dropdown-select" is "rutina".
-  // If it is, it clears the value of the "anho" input and disables it.
-  function disableAnhoInput() {
+    if (dropdownSelect.value === "actividad") {
+        dateDropdown.value = "por-fecha";
+        dateDropdown.dispatchEvent(event);
+        dateDropdown.disabled = true;
+    } else {
+        dateDropdown.disabled = false;
+    }
+}
+
+// Call the function on page load and whenever the dropdown is changed
+selectActividad();
+document.getElementById("dropdown-select").addEventListener("change", selectActividad);
+
+
+// checks if the selected value of "dropdown-select" is "rutina".
+// If it is, it clears the value of the "anho" input and disables it.
+function disableAnhoInput() {
     var event = new Event('change');
     var dropdownSelect = document.getElementById("dropdown-select");
     var anhoInput = document.getElementById("anho");
-  
+
     if (dropdownSelect.value === "rutina") {
-      anhoInput.value = "";
-      anhoInput.disabled = true;
+        anhoInput.value = "";
+        anhoInput.disabled = true;
     } else {
-      anhoInput.disabled = false;
+        anhoInput.disabled = false;
     }
+}
+
+// Call the function on page load and whenever the dropdown is changed
+disableAnhoInput();
+document.getElementById("dropdown-select").addEventListener("change", disableAnhoInput);
+
+// Clears all inputs, textareas and checkboxes. Reverts selects to default.
+var clearButton = document.querySelector(".btn-danger");
+
+clearButton.addEventListener("click", function() {
+  var inputs = document.querySelectorAll("input");
+  var checkboxes = document.querySelectorAll("input[type=checkbox]");
+  var textareas = document.querySelectorAll("textarea");
+  var selects = document.querySelectorAll("select");
+  
+  for (var i = 0; i < inputs.length; i++) {
+    inputs[i].value = "";
   }
   
-  // Call the function on page load and whenever the dropdown is changed
-  disableAnhoInput();
-  document.getElementById("dropdown-select").addEventListener("change", disableAnhoInput);
+  for (var j = 0; j < checkboxes.length; j++) {
+    checkboxes[j].checked = false;
+  }
   
+  for (var k = 0; k < textareas.length; k++) {
+    textareas[k].value = "";
+  }
+  
+  for (var l = 0; l < selects.length; l++) {
+    selects[l].selectedIndex = 0;
+    var event = new Event('change');
+    selects[l].dispatchEvent(event);
+  }
+});
