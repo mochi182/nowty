@@ -105,43 +105,86 @@ document.getElementById("dropdown-select").addEventListener("change", disableAnh
 // Clears all inputs, textareas and checkboxes. Reverts selects to default.
 var clearButton = document.querySelector(".btn-danger");
 
-clearButton.addEventListener("click", function() {
-  var inputs = document.querySelectorAll("input");
-  var checkboxes = document.querySelectorAll("input[type=checkbox]");
-  var textareas = document.querySelectorAll("textarea");
-  var selects = document.querySelectorAll("select");
-  
-  for (var i = 0; i < inputs.length; i++) {
-    inputs[i].value = "";
-  }
-  
-  for (var j = 0; j < checkboxes.length; j++) {
-    checkboxes[j].checked = false;
-  }
-  
-  for (var k = 0; k < textareas.length; k++) {
-    textareas[k].value = "";
-  }
-  
-  for (var l = 0; l < selects.length; l++) {
-    selects[l].selectedIndex = 0;
-    var event = new Event('change');
-    selects[l].dispatchEvent(event);
-  }
+clearButton.addEventListener("click", function () {
+    var inputs = document.querySelectorAll("input");
+    var checkboxes = document.querySelectorAll("input[type=checkbox]");
+    var textareas = document.querySelectorAll("textarea");
+    var selects = document.querySelectorAll("select");
+
+    for (var i = 0; i < inputs.length; i++) {
+        inputs[i].value = "";
+    }
+
+    for (var j = 0; j < checkboxes.length; j++) {
+        checkboxes[j].checked = false;
+    }
+
+    for (var k = 0; k < textareas.length; k++) {
+        textareas[k].value = "";
+    }
+
+    for (var l = 0; l < selects.length; l++) {
+        selects[l].selectedIndex = 0;
+        var event = new Event('change');
+        selects[l].dispatchEvent(event);
+    }
 });
 
 // When a new option is selected, the value of the dropdown-select element is checked and the text of the texto-entidad element is updated accordingly.
 var dropdownSelect = document.querySelector("#dropdown-select");
 var textoEntidad = document.querySelector("#texto-entidad");
 
-dropdownSelect.addEventListener("change", function() {
-  var selectedValue = dropdownSelect.value;
-  
-  if (selectedValue === "actividad") {
-    textoEntidad.textContent = "actividad";
-  } else if (selectedValue === "rutina") {
-    textoEntidad.textContent = "rutina";
-  } else if (selectedValue === "nota") {
-    textoEntidad.textContent = "nota";
-  }
+dropdownSelect.addEventListener("change", function () {
+    var selectedValue = dropdownSelect.value;
+
+    if (selectedValue === "actividad") {
+        textoEntidad.textContent = "actividad";
+    } else if (selectedValue === "rutina") {
+        textoEntidad.textContent = "rutina";
+    } else if (selectedValue === "nota") {
+        textoEntidad.textContent = "nota";
+    }
 });
+
+// When mouse drags around checkboxes, check or uncheck them
+// Credit to http://stackoverflow.com/questions/322378/javascript-check-if-mouse-button-down
+
+function selectAllCheckboxes() {
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+    // prevent default behavior of checkboxes when clicked
+    checkboxes.forEach((checkbox) => {
+        checkbox.addEventListener('click', (event) => {
+            event.preventDefault();
+        });
+    });
+
+    let mouseDown = false;
+
+    // add mousedown event to check boxes
+    checkboxes.forEach((checkbox) => {
+        checkbox.addEventListener('mousedown', () => {
+            mouseDown = true;
+            checkbox.checked = 1-checkbox.checked;
+        });
+    });
+
+    // add mouseover event to check boxes if mouse was already down
+    checkboxes.forEach((checkbox) => {
+        checkbox.addEventListener('mouseover', () => {
+            if (mouseDown) {
+                checkbox.checked = 1-checkbox.checked;
+            }
+        });
+    });
+
+    // add mouseup event to reset mouseDown flag
+    document.addEventListener('mouseup', () => {
+        mouseDown = false;
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    selectAllCheckboxes();
+  });
+  

@@ -36,45 +36,24 @@
     align-items: center;
     align-content: center;
     text-align: center;
+    margin-left: 4px;
+    margin-right: 4px;
 }
 
 .checkbox-group label {
     position: relative;
-    margin-right: 8px;
-    margin-bottom: 8px;
+    height: fit-content;
+    margin: none;
 }
 
-.checkbox-group label input[type="checkbox"] {
-    width: 30px;
-    height: 30px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    cursor: pointer;
-}
-
-.checkbox-group label .checkmark {
-    position: relative;
-    display: inline-block;
-    border: 1px solid #ccc;
-    background-color: #fff;
-}
-
-.checkbox-group label input[type="checkbox"]:checked+.checkmark {
-    background-color: #007bff;
-}
-
-.checkbox-group label input[type="checkbox"]:focus+.checkmark {
-    outline: 1px dotted #ccc;
-}
-
-.dias {
+input[type='checkbox'].horas {
+    height: 50px;
     width: 50px;
-    height: 50px;
+    accent-color: red;
 }
 
-.horas {
-    width: 30px;
+input[type='checkbox'].dias {
     height: 50px;
+    width: 50px;
+    accent-color: green;
 }
