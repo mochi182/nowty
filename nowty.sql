@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 03, 2023 at 11:46 PM
+-- Generation Time: Mar 08, 2023 at 03:48 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -32,9 +32,19 @@ CREATE TABLE `actividad` (
   `nombre` varchar(1000) NOT NULL,
   `descripcion` varchar(2000) DEFAULT NULL,
   `imagen` varchar(2000) DEFAULT NULL,
-  `duracion` int(11) DEFAULT NULL,
   `hecho` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `actividad`
+--
+
+INSERT INTO `actividad` (`id`, `nombre`, `descripcion`, `imagen`, `hecho`) VALUES
+(1, 'Cycling', 'Ride a bike for 30 minutes', 'cycling.jpg', 0),
+(2, 'Running', 'Run 5 kilometers at a moderate pace', 'running.jpg', 1),
+(3, 'Yoga', 'Practice yoga for 1 hour', 'yoga.jpg', 1),
+(4, 'Swimming', 'Swim 20 laps in the pool', 'swimming.jpg', 1),
+(5, 'Weight lifting', 'Do a full body workout with weights', 'weightlifting.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -57,23 +67,7 @@ CREATE TABLE `configuracion` (
   `id` int(11) NOT NULL,
   `por_fecha` int(11) DEFAULT NULL,
   `frecuencia_diaria` int(11) DEFAULT 1,
-  `dia_inicial` int(11) DEFAULT NULL,
-  `dia_final` int(11) DEFAULT NULL,
-  `frecuencia_horaria` int(11) DEFAULT 1,
-  `hora_inicial` double DEFAULT NULL,
-  `hora_final` double DEFAULT NULL,
-  `incluir_finde` tinyint(1) DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `dia`
---
-
-CREATE TABLE `dia` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(1000) NOT NULL
+  `frecuencia_horaria` int(11) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -84,7 +78,6 @@ CREATE TABLE `dia` (
 
 CREATE TABLE `fecha` (
   `id` int(11) NOT NULL,
-  `hora` int(11) DEFAULT NULL,
   `dia` int(11) DEFAULT NULL,
   `mes` int(11) DEFAULT NULL,
   `anho` int(11) DEFAULT NULL
@@ -166,15 +159,7 @@ ALTER TABLE `actividad_vs_configuracion`
 --
 ALTER TABLE `configuracion`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `por_fecha` (`por_fecha`),
-  ADD KEY `dia_inicial` (`dia_inicial`),
-  ADD KEY `dia_final` (`dia_final`);
-
---
--- Indexes for table `dia`
---
-ALTER TABLE `dia`
-  ADD PRIMARY KEY (`id`);
+  ADD KEY `por_fecha` (`por_fecha`);
 
 --
 -- Indexes for table `fecha`
@@ -215,18 +200,12 @@ ALTER TABLE `rutina`
 -- AUTO_INCREMENT for table `actividad`
 --
 ALTER TABLE `actividad`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `configuracion`
 --
 ALTER TABLE `configuracion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `dia`
---
-ALTER TABLE `dia`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -268,9 +247,7 @@ ALTER TABLE `actividad_vs_configuracion`
 -- Constraints for table `configuracion`
 --
 ALTER TABLE `configuracion`
-  ADD CONSTRAINT `configuracion_ibfk_1` FOREIGN KEY (`por_fecha`) REFERENCES `fecha` (`id`),
-  ADD CONSTRAINT `configuracion_ibfk_2` FOREIGN KEY (`dia_inicial`) REFERENCES `dia` (`id`),
-  ADD CONSTRAINT `configuracion_ibfk_3` FOREIGN KEY (`dia_final`) REFERENCES `dia` (`id`);
+  ADD CONSTRAINT `configuracion_ibfk_1` FOREIGN KEY (`por_fecha`) REFERENCES `fecha` (`id`);
 
 --
 -- Constraints for table `nota_vs_configuracion`
