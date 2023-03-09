@@ -264,9 +264,11 @@ function fillDateInputs() {
     diaInput.value = now.getDate();
     mesSelect.value = now.getMonth() + 1; // Note that getMonth() returns a zero-indexed value, so we add 1 to get the correct month number
     anhoInput.value = now.getFullYear();
+
   }
   
   fillDateInputs(); // Call the function once the page loads
+  updateMaxDayOfMonth();
 
   // adds the required classes to the hour elements based on their content. 
   function addClassesToHourElements() {
@@ -304,3 +306,26 @@ document.addEventListener('DOMContentLoaded', () => {
     convertTo12HourClock();
   });
   
+  //
+
+  function updateMaxDayOfMonth() {
+    const monthSelect = document.querySelector('#mes');
+    const dayInput = document.querySelector('#dia');
+    const maxDaySpan = document.querySelector('#max-day-of-month');
+    const selectedMonth = parseInt(monthSelect.value);
+  
+    let maxDay = 31;
+  
+    if (selectedMonth === 4 || selectedMonth === 6 || selectedMonth === 9 || selectedMonth === 11) {
+      maxDay = 30;
+    } else if (selectedMonth === 2) {
+      const year = new Date().getFullYear();
+      maxDay = year % 4 === 0 ? 29 : 28;
+    }
+  
+    maxDaySpan.textContent = maxDay;
+    dayInput.max = maxDay;
+  }
+
+  const monthSelect = document.querySelector('#mes');
+monthSelect.addEventListener('change', updateMaxDayOfMonth);
