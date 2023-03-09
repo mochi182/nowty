@@ -17,6 +17,7 @@ exports.done = async function (req) {
 }
 
 exports.insert = async function (data) {
+    console.log(data)
     try {
       const insertQuery = `INSERT INTO ${data.entidad} (${Object.keys(data.atributos).join(',')}) VALUES (${Object.values(data.atributos).map(value => `"${value}"`).join(',')})`;
       const insertResult = await client.promise().query(insertQuery);
@@ -27,8 +28,10 @@ exports.insert = async function (data) {
       const insertEntityVsConfiguracionQuery = `INSERT INTO ${data.entidad}_vs_configuracion (id_${data.entidad}, id_configuracion) VALUES (${insertResult[0].insertId}, ${insertConfiguracionResult[0].insertId})`;
       const insertEntityVsConfiguracionResult = await client.promise().query(insertEntityVsConfiguracionQuery);
   
+      console.log(insertEntityVsConfiguracionResult[0])
       return insertEntityVsConfiguracionResult[0];
     } catch (err) {
+        console.log(err)
       throw err;
     }
   };
