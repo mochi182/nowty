@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 09, 2023 at 07:30 AM
+-- Generation Time: Mar 09, 2023 at 07:56 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -72,6 +72,13 @@ CREATE TABLE `configuracion` (
   `anho` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `configuracion`
+--
+
+INSERT INTO `configuracion` (`id`, `frecuencia_diaria`, `frecuencia_horaria`, `dia`, `mes`, `anho`) VALUES
+(1, 1, 1, NULL, NULL, 3);
+
 -- --------------------------------------------------------
 
 --
@@ -122,9 +129,15 @@ CREATE TABLE `rutina` (
   `nombre` varchar(1000) DEFAULT NULL,
   `descripcion` varchar(2000) DEFAULT NULL,
   `imagen` varchar(2000) DEFAULT NULL,
-  `duracion` int(11) DEFAULT NULL,
   `hecho` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `rutina`
+--
+
+INSERT INTO `rutina` (`id`, `nombre`, `descripcion`, `imagen`, `hecho`) VALUES
+(1, 'gege', 'gege', 'comment.PNG', NULL);
 
 -- --------------------------------------------------------
 
@@ -136,6 +149,13 @@ CREATE TABLE `rutina_vs_configuracion` (
   `id_rutina` int(11) NOT NULL,
   `id_configuracion` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `rutina_vs_configuracion`
+--
+
+INSERT INTO `rutina_vs_configuracion` (`id_rutina`, `id_configuracion`) VALUES
+(1, 1);
 
 --
 -- Indexes for dumped tables
@@ -206,7 +226,7 @@ ALTER TABLE `actividad`
 -- AUTO_INCREMENT for table `configuracion`
 --
 ALTER TABLE `configuracion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `nota`
@@ -224,7 +244,7 @@ ALTER TABLE `registro`
 -- AUTO_INCREMENT for table `rutina`
 --
 ALTER TABLE `rutina`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
