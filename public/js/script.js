@@ -192,10 +192,17 @@ document.addEventListener('DOMContentLoaded', () => {
   
 // Sends the form data as a POST request to the backend
 
-const addForm = document.querySelector('#addForm');
 const addButton = document.querySelector('#addButton');
 
 addButton.addEventListener('click', () => {
+    const addForm = document.querySelector('#addForm');
+    const isValid = validateForm(addForm);
+
+    if (!isValid) {
+      alert("Form inválido, revisa los datos ingresados.")
+      return;
+    }
+
   const formData = new FormData(addForm);
 
   const horasInputs = document.querySelectorAll('.horas');
@@ -306,7 +313,7 @@ document.addEventListener('DOMContentLoaded', () => {
     convertTo12HourClock();
   });
   
-  //
+  // ensure that the maximum day is updated whenever the user selects a new month.
 
   function updateMaxDayOfMonth() {
     const monthSelect = document.querySelector('#mes');
@@ -329,3 +336,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const monthSelect = document.querySelector('#mes');
 monthSelect.addEventListener('change', updateMaxDayOfMonth);
+
+// checks if each input is valid using the checkValidity() method.
+
+function validateForm(form) {
+    const inputs = form.querySelectorAll('input, select, textarea');
+    let isValid = true;
+  
+    for (const input of inputs) {
+      if (!input.checkValidity()) {
+        isValid = false;
+        break;
+      }
+    }
+  
+    return isValid;
+  }
+  
