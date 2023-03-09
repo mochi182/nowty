@@ -7,7 +7,7 @@
             Nowty
         </header>
 
-        <section>
+        <form id="addForm">
 
             <div class="form-group">
                 <label for="actividad-input">Agregar nueva <span id="texto-entidad">actividad</span>:</label>
@@ -37,9 +37,9 @@
 
                     <div class="form-group">
                         <label for="imagen-input">Imagen:</label>
-                        <input type="file" class="form-control-file" id="imagen-input" class="form-control"
-                            name="imagen-input">
-                    </div>
+                        <input readonly type="text" class="form-control" id="imagen-input" class="form-control" name="imagen-input">
+                        <button id="select-file-btn" class="btn btn-secondary">Seleccionar archivo</button>
+                      </div>                      
 
                     <div class="form-group">
                         <fieldset id="horas-input">
@@ -50,7 +50,7 @@
                                         <label class="checkbox-container">
                                             <input type="checkbox" class="horas" name="horas-input" value="<%= i %>" />
                                         </label>
-                                        <small><%= i %></small>
+                                        <small class="hora-num"><%= i %></small>
                                     </div>
                                 <% } %>
                             </div>
@@ -76,7 +76,6 @@
                                         <div class="checkbox-unit">
                                             <label class="checkbox-container">
                                                 <input type="checkbox" class="dias" name="dias-input" value="<%= i %>" />
-                                                <span class="checkmark dias"></span>
                                             </label>
                                             <small><%= i %></small>
                                         </div>
@@ -98,6 +97,7 @@
                                 <div class="form-group">
                                     <label for="mes">Mes: </label>
                                     <select id="mes" class="form-control" name="mes">
+                                        <option value=""></option>
                                         <option value="1">Enero</option>
                                         <option value="2">Febrero</option>
                                         <option value="3">Marzo</option>
@@ -126,9 +126,9 @@
 
                 </div>
             </div>
-        </section>
+        </form>
 
-        <button class="btn btn-primary">
+        <button class="btn btn-primary" id="addButton">
             Add
         </button>
 

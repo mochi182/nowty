@@ -36,8 +36,6 @@
     align-items: center;
     align-content: center;
     text-align: center;
-    margin-left: 4px;
-    margin-right: 4px;
 }
 
 .checkbox-group label {
@@ -56,4 +54,16 @@ input[type='checkbox'].dias {
     height: 50px;
     width: 50px;
     accent-color: green;
+}
+
+.dark {
+    background-color: #444;
+}
+
+.semilight {
+    background-color: aqua;
+}
+
+.light {
+    background-color: yellow;
 }

@@ -17,6 +17,7 @@ exports.done = async function (req) {
 }
 
 exports.insert = async function (req) {
-    var results = {0: 0};
-    return results;
+    let body = req.body;
+    console.log(req.body)
+    return req.body;
 }

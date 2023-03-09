@@ -16,7 +16,8 @@ exports.routes = function (app) {
         controller.done(req, res);
     });
 
-    app.get('/insert', function (req, res) {
+    app.post('/insert', function (req, res) {
         controller.insert(req, res);
     });
+
 };

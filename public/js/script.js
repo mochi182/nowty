@@ -107,7 +107,7 @@ var clearButton = document.querySelector(".btn-danger");
 
 clearButton.addEventListener("click", function () {
     var inputs = document.querySelectorAll("input");
-    var checkboxes = document.querySelectorAll("input[type=checkbox]");
+    var checkboxes = document.querySelectorAll("input[type=checkbox]:not(.hecho-checkbox)");
     var textareas = document.querySelectorAll("textarea");
     var selects = document.querySelectorAll("select");
 
@@ -128,6 +128,8 @@ clearButton.addEventListener("click", function () {
         var event = new Event('change');
         selects[l].dispatchEvent(event);
     }
+
+    fillDateInputs();
 });
 
 // When a new option is selected, the value of the dropdown-select element is checked and the text of the texto-entidad element is updated accordingly.
@@ -186,5 +188,119 @@ function selectAllCheckboxes() {
 
 document.addEventListener('DOMContentLoaded', () => {
     selectAllCheckboxes();
+  });
+  
+// Sends the form data as a POST request to the backend
+
+const addForm = document.querySelector('#addForm');
+const addButton = document.querySelector('#addButton');
+
+addButton.addEventListener('click', () => {
+  const formData = new FormData(addForm);
+
+  const horasInputs = document.querySelectorAll('.horas');
+  const horasValues = Array.from(horasInputs).map(input => input.checked ? 1 : 0);
+
+  const diasInputs = document.querySelectorAll('.dias');
+  const diasValues = Array.from(diasInputs).map(input => input.checked ? 1 : 0);
+
+  formData.append('horas-input', JSON.stringify(horasValues));
+  formData.append('dias-input', JSON.stringify(diasValues));
+
+  let object = {};
+  formData.forEach(function(value, key){
+      object[key] = value;
+  });
+  let json = JSON.stringify(object);
+
+  console.log(json)
+
+  fetch('/insert', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: json
+})
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        console.log('Data inserted successfully');
+    })
+    .catch(error => {
+        console.error('There was a problem inserting the data:', error);
+    });
+});
+
+// creates a new input element of type file when the button is clicked,
+// then listens for the change event on that element to extract the selected file's name and type and set the value of the imagen-input element accordingly.
+
+const selectFileBtn = document.getElementById("select-file-btn");
+const imagenInput = document.getElementById("imagen-input");
+
+selectFileBtn.addEventListener("click", (event1) => {
+    event1.preventDefault();
+  const fileInput = document.createElement("input");
+  fileInput.type = "file";
+  fileInput.setAttribute('accept', 'image/*');
+  fileInput.addEventListener("change", (event2) => {
+    const file = event2.target.files[0];
+    const fileName = file.name;
+    const fileType = file.type;
+    imagenInput.value = `${fileName}`;
+  });
+  fileInput.click();
+});
+
+// fill date inputs with the current date
+
+function fillDateInputs() {
+    const now = new Date();
+    const diaInput = document.getElementById('dia');
+    const mesSelect = document.getElementById('mes');
+    const anhoInput = document.getElementById('anho');
+  
+    diaInput.value = now.getDate();
+    mesSelect.value = now.getMonth() + 1; // Note that getMonth() returns a zero-indexed value, so we add 1 to get the correct month number
+    anhoInput.value = now.getFullYear();
+  }
+  
+  fillDateInputs(); // Call the function once the page loads
+
+  // adds the required classes to the hour elements based on their content. 
+  function addClassesToHourElements() {
+    const hourElements = document.querySelectorAll('.hora-num');
+  
+    for (let i = 0; i < hourElements.length; i++) {
+      const hourElement = hourElements[i];
+      const hour = parseInt(hourElement.textContent);
+  
+      if (hour >= 1 && hour <= 6 || hour >= 18 && hour <= 24) {
+        hourElement.classList.add('dark');
+      } else if (hour === 7 || hour === 17) {
+        hourElement.classList.add('semilight');
+      } else if (hour >= 8 && hour <= 16) {
+        hourElement.classList.add('light');
+      }
+    }
+  }
+  
+// selects all elements with class "hora-num" and converts the hour to 12-hour format
+function convertTo12HourClock() {
+const hourElements = document.querySelectorAll('.hora-num');
+
+    for (let i = 0; i < hourElements.length; i++) {
+        const hourElement = hourElements[i];
+        const hour = parseInt(hourElement.textContent);
+        const ampm = hour < 12 ? 'AM' : 'PM';
+        const convertedHour = hour % 12 || 12;
+        hourElement.textContent = `${convertedHour} ${ampm}`;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    addClassesToHourElements();
+    convertTo12HourClock();
   });
   
