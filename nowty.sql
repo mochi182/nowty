@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 08, 2023 at 03:48 AM
+-- Generation Time: Mar 09, 2023 at 07:30 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -65,19 +65,8 @@ CREATE TABLE `actividad_vs_configuracion` (
 
 CREATE TABLE `configuracion` (
   `id` int(11) NOT NULL,
-  `por_fecha` int(11) DEFAULT NULL,
   `frecuencia_diaria` int(11) DEFAULT 1,
-  `frecuencia_horaria` int(11) DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `fecha`
---
-
-CREATE TABLE `fecha` (
-  `id` int(11) NOT NULL,
+  `frecuencia_horaria` int(11) DEFAULT 1,
   `dia` int(11) DEFAULT NULL,
   `mes` int(11) DEFAULT NULL,
   `anho` int(11) DEFAULT NULL
@@ -137,6 +126,17 @@ CREATE TABLE `rutina` (
   `hecho` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rutina_vs_configuracion`
+--
+
+CREATE TABLE `rutina_vs_configuracion` (
+  `id_rutina` int(11) NOT NULL,
+  `id_configuracion` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 --
 -- Indexes for dumped tables
 --
@@ -158,13 +158,6 @@ ALTER TABLE `actividad_vs_configuracion`
 -- Indexes for table `configuracion`
 --
 ALTER TABLE `configuracion`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `por_fecha` (`por_fecha`);
-
---
--- Indexes for table `fecha`
---
-ALTER TABLE `fecha`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -193,6 +186,13 @@ ALTER TABLE `rutina`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `rutina_vs_configuracion`
+--
+ALTER TABLE `rutina_vs_configuracion`
+  ADD PRIMARY KEY (`id_rutina`,`id_configuracion`),
+  ADD KEY `id_configuracion` (`id_configuracion`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -206,12 +206,6 @@ ALTER TABLE `actividad`
 -- AUTO_INCREMENT for table `configuracion`
 --
 ALTER TABLE `configuracion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `fecha`
---
-ALTER TABLE `fecha`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -244,17 +238,18 @@ ALTER TABLE `actividad_vs_configuracion`
   ADD CONSTRAINT `actividad_vs_configuracion_ibfk_2` FOREIGN KEY (`id_configuracion`) REFERENCES `configuracion` (`id`);
 
 --
--- Constraints for table `configuracion`
---
-ALTER TABLE `configuracion`
-  ADD CONSTRAINT `configuracion_ibfk_1` FOREIGN KEY (`por_fecha`) REFERENCES `fecha` (`id`);
-
---
 -- Constraints for table `nota_vs_configuracion`
 --
 ALTER TABLE `nota_vs_configuracion`
   ADD CONSTRAINT `nota_vs_configuracion_ibfk_1` FOREIGN KEY (`id_nota`) REFERENCES `nota` (`id`),
   ADD CONSTRAINT `nota_vs_configuracion_ibfk_2` FOREIGN KEY (`id_configuracion`) REFERENCES `configuracion` (`id`);
+
+--
+-- Constraints for table `rutina_vs_configuracion`
+--
+ALTER TABLE `rutina_vs_configuracion`
+  ADD CONSTRAINT `rutina_vs_configuracion_ibfk_1` FOREIGN KEY (`id_rutina`) REFERENCES `rutina` (`id`),
+  ADD CONSTRAINT `rutina_vs_configuracion_ibfk_2` FOREIGN KEY (`id_configuracion`) REFERENCES `configuracion` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
