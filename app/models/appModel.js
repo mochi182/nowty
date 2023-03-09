@@ -9,11 +9,16 @@ exports.select_all = async function () {
 }
 
 exports.done = async function (req) {
-    let id = req.body.id;
-    let isChecked = req.body.isChecked ? 1 : 0;
-    let query = `UPDATE actividad SET hecho = ${isChecked} WHERE id = ${id}`
-    const results = await client.promise().query(query)
-    return results[0]
+    try {
+        let id = req.body.id;
+        let isChecked = req.body.isChecked ? 1 : 0;
+        let query = `UPDATE actividad SET hecho = ${isChecked} WHERE id = ${id}`
+        const results = await client.promise().query(query)
+        return results[0]
+    } catch (err) {
+        console.log(err)
+        throw err;
+    }
 }
 
 exports.insert = async function (data) {
@@ -28,7 +33,6 @@ exports.insert = async function (data) {
       const insertEntityVsConfiguracionQuery = `INSERT INTO ${data.entidad}_vs_configuracion (id_${data.entidad}, id_configuracion) VALUES (${insertResult[0].insertId}, ${insertConfiguracionResult[0].insertId})`;
       const insertEntityVsConfiguracionResult = await client.promise().query(insertEntityVsConfiguracionQuery);
   
-      console.log(insertEntityVsConfiguracionResult[0])
       return insertEntityVsConfiguracionResult[0];
     } catch (err) {
         console.log(err)

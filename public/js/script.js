@@ -16,7 +16,7 @@ accordionBtn.addEventListener('click', function () {
 });
 
 // add an event listener to each checkbox
-const checkboxes = document.querySelectorAll('input[type=checkbox].hecho-checkbox');
+const checkboxes = document.querySelectorAll('.hecho-checkbox');
 checkboxes.forEach((checkbox) => {
     checkbox.addEventListener('click', () => {
         const isChecked = checkbox.checked;
@@ -152,7 +152,7 @@ dropdownSelect.addEventListener("change", function () {
 // Credit to http://stackoverflow.com/questions/322378/javascript-check-if-mouse-button-down
 
 function selectAllCheckboxes() {
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]:not(.hecho-checkbox)');
 
     // prevent default behavior of checkboxes when clicked
     checkboxes.forEach((checkbox) => {
