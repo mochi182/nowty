@@ -27,8 +27,54 @@ exports.done = async function (req, res) {
 };
 
 exports.insert = async function (req, res) {
+    let data = {}
     try {
-        res.json(await model.insert(req))
+        if (req.body['dropdown-select'] === 'actividad') {
+            data.entidad = req.body['dropdown-select'];
+            data.atributos = {
+                nombre: req.body['actividad-input'],
+            }
+            if (req.body['descripcion-textarea']) {
+                data.atributos.descripcion = req.body['descripcion-textarea'];
+            }
+            if (req.body['imagen-input']) {
+                data.atributos.imagen = req.body['imagen-input'];
+            }
+            data.configuracion = {};
+            if (req.body['date-dropdown'] === 'por-semana') {
+                data.configuracion.frecuencia_horaria = JSON.parse(req.body['horas-input']);
+                data.configuracion.frecuencia_diaria = JSON.parse(req.body['dias-input']);
+            } else if (req.body['date-dropdown'] === 'por-fecha') {
+                data.configuracion.dia = req.body['dia'];
+                data.configuracion.mes = req.body['mes'];
+                if (req.body['anho']) {
+                    data.configuracion.anho = req.body['anho'];
+                }
+            }
+        } else if (req.body['dropdown-select'] === 'nota') {
+            data.entidad = req.body['dropdown-select'];
+            data.atributos = {
+                nombre: req.body['actividad-input'],
+            }
+            if (req.body['descripcion-textarea']) {
+                data.atributos.descripcion = req.body['descripcion-textarea'];
+            }
+            if (req.body['imagen-input']) {
+                data.atributos.imagen = req.body['imagen-input'];
+            }
+            data.configuracion = {};
+            if (req.body['date-dropdown'] === 'por-semana') {
+                data.configuracion.frecuencia_horaria = JSON.parse(req.body['horas-input']);
+                data.configuracion.frecuencia_diaria = JSON.parse(req.body['dias-input']);
+            } else if (req.body['date-dropdown'] === 'por-fecha') {
+                data.configuracion.dia = req.body['dia'];
+                data.configuracion.mes = req.body['mes'];
+                if (req.body['anho']) {
+                    data.configuracion.anho = req.body['anho'];
+                }
+            }
+        }
+        res.json(await model.insert(data));
     } catch(err) {
         res.json({"Error": err})
     }

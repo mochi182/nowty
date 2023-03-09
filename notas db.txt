@@ -12,16 +12,19 @@ nombre (varchar, length: 1000)
 descripcion (varchar, length: 2000)
 imagen (varchar, length: 2000)
 
+rutina:
+id (int, primary key, autoincrement)
+nombre (varchar, length: 1000)
+descripcion (varchar, length: 2000)
+imagen (varchar, length: 2000)
+
 configuracion:
 id (int, primary key, autoincrement)
-por_fecha (int, foreign key pointing to table fecha's id column, can be null)
+dia (int, can be null)
+mes (int, can be null)
+anho (int, can be null)
 frecuencia_diaria (int, 1 by default)
-dia_inicial (int, foreign key pointing to table dia's id column, can be null)
-dia_final (int, foreign key pointing to table dia's id column, can be null)
 frecuencia_horaria (int, 1 by default)
-hora_inicial (double, can be null)
-hora_final (double, can be null)
-incluir_finde  (boolean, true by default)
 
 nota_vs_configuracion:
 id_nota (int, foreign key pointing to table nota's id column)
@@ -33,16 +36,10 @@ id_actividad (int, foreign key pointing to table actividad's id column)
 id_configuracion (int, foreign key pointing to table configuracion's id column)
 (both id_actividad and id_configuracion are the primary key)
 
-dia:
-id (int, primary key, autoincrement)
-nombre (varchar, length: 1000)
-
-fecha:
-id (int, primary key, autoincrement)
-hora (int, can be null)
-dia (int, can be null)
-mes (int, can be null)
-anho (int, can be null)
+rutina_vs_configuracion:
+id_rutina (int, foreign key pointing to table rutina's id column)
+id_configuracion (int, foreign key pointing to table configuracion's id column)
+(both id_rutina and id_configuracion are the primary key)
 
 registro:
 id (int, primary key, autoincrement)
