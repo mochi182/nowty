@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 09, 2023 at 07:56 AM
+-- Generation Time: Mar 09, 2023 at 08:35 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -40,7 +40,7 @@ CREATE TABLE `actividad` (
 --
 
 INSERT INTO `actividad` (`id`, `nombre`, `descripcion`, `imagen`, `hecho`) VALUES
-(1, 'Cycling', 'Ride a bike for 30 minutes', 'cycling.jpg', 0),
+(1, 'Cycling', 'Ride a bike for 30 minutes', 'cycling.jpg', 1),
 (2, 'Running', 'Run 5 kilometers at a moderate pace', 'running.jpg', 1),
 (3, 'Yoga', 'Practice yoga for 1 hour', 'yoga.jpg', 1),
 (4, 'Swimming', 'Swim 20 laps in the pool', 'swimming.jpg', 1),
@@ -65,8 +65,8 @@ CREATE TABLE `actividad_vs_configuracion` (
 
 CREATE TABLE `configuracion` (
   `id` int(11) NOT NULL,
-  `frecuencia_diaria` int(11) DEFAULT 1,
-  `frecuencia_horaria` int(11) DEFAULT 1,
+  `frecuencia_diaria` varchar(50) DEFAULT '1',
+  `frecuencia_horaria` varchar(50) DEFAULT '1',
   `dia` int(11) DEFAULT NULL,
   `mes` int(11) DEFAULT NULL,
   `anho` int(11) DEFAULT NULL
@@ -77,7 +77,9 @@ CREATE TABLE `configuracion` (
 --
 
 INSERT INTO `configuracion` (`id`, `frecuencia_diaria`, `frecuencia_horaria`, `dia`, `mes`, `anho`) VALUES
-(1, 1, 1, NULL, NULL, 3);
+(1, '1', '1', NULL, NULL, 3),
+(2, '1', '1', NULL, NULL, NULL),
+(3, '1,0,0,1,0,0,1', '1,1,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -137,7 +139,9 @@ CREATE TABLE `rutina` (
 --
 
 INSERT INTO `rutina` (`id`, `nombre`, `descripcion`, `imagen`, `hecho`) VALUES
-(1, 'gege', 'gege', 'comment.PNG', NULL);
+(1, 'gege', 'gege', 'comment.PNG', NULL),
+(2, 'hehe', 'hehe', '1678305282065159.jpg', NULL),
+(3, 'dede', 'dede', 'unicorn-graph3c.webp', NULL);
 
 -- --------------------------------------------------------
 
@@ -155,7 +159,9 @@ CREATE TABLE `rutina_vs_configuracion` (
 --
 
 INSERT INTO `rutina_vs_configuracion` (`id_rutina`, `id_configuracion`) VALUES
-(1, 1);
+(1, 1),
+(2, 2),
+(3, 3);
 
 --
 -- Indexes for dumped tables
@@ -226,7 +232,7 @@ ALTER TABLE `actividad`
 -- AUTO_INCREMENT for table `configuracion`
 --
 ALTER TABLE `configuracion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `nota`
@@ -244,7 +250,7 @@ ALTER TABLE `registro`
 -- AUTO_INCREMENT for table `rutina`
 --
 ALTER TABLE `rutina`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
