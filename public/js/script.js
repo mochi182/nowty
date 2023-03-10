@@ -377,3 +377,23 @@ function setYearDefaults() {
 
 // Call the setYearDefaults function when the document loads
 window.addEventListener("load", setYearDefaults);
+
+// Check or uncheck all hour checkboxes
+// Get the "Check all" button element
+const allHorasButton = document.querySelector("#all-horas-button");
+
+// Add a click event listener to the button
+allHorasButton.addEventListener("click", function(event) {
+    event.preventDefault();
+    
+    // Get all the checkboxes with class "horas"
+    const checkboxes = document.querySelectorAll(".horas");
+
+    // Check or uncheck all checkboxes based on button state
+    checkboxes.forEach(function(checkbox) {
+        checkbox.checked = allHorasButton.textContent === "Check all";
+    });
+
+    // Change button text based on new state
+    allHorasButton.textContent = allHorasButton.textContent === "Check all" ? "Uncheck all" : "Check all";
+});
