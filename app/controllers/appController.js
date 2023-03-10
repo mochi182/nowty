@@ -50,14 +50,14 @@ async function build_data(req) {
     }
     data.configuracion = {};
     if (req.body['date-dropdown'] === 'por-semana') {
-        data.configuracion.frecuencia_horaria = JSON.parse(req.body['horas-input']);
-        data.configuracion.frecuencia_diaria = JSON.parse(req.body['dias-input']);
-    } else if (req.body['date-dropdown'] === 'por-fecha') {
+        data.configuracion.frecuencia_horaria = req.body['horas-input'];
+        data.configuracion.frecuencia_diaria = req.body['dias-input'];
+    } else {
         if (req.body['dia']) {
-            data.configuracion.anho = req.body['dia'];
+            data.configuracion.dia = req.body['dia'];
         }
         if (req.body['mes']) {
-            data.configuracion.anho = req.body['mes'];
+            data.configuracion.mes = req.body['mes'];
         }
         if (req.body['anho']) {
             data.configuracion.anho = req.body['anho'];

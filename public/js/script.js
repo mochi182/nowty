@@ -105,7 +105,7 @@ document.getElementById("dropdown-select").addEventListener("change", disableAnh
 // Clears all inputs, textareas and checkboxes. Reverts selects to default.
 var clearButton = document.querySelector(".btn-danger");
 
-clearButton.addEventListener("click", function () {
+async function clearInputs(){
     var inputs = document.querySelectorAll("input");
     var checkboxes = document.querySelectorAll("input[type=checkbox]:not(.hecho-checkbox)");
     var textareas = document.querySelectorAll("textarea");
@@ -128,8 +128,11 @@ clearButton.addEventListener("click", function () {
         var event = new Event('change');
         selects[l].dispatchEvent(event);
     }
+}
 
-    fillDateInputs();
+clearButton.addEventListener("click", function () {
+    clearInputs()
+    fillDateInputs()
 });
 
 // When a new option is selected, the value of the dropdown-select element is checked and the text of the texto-entidad element is updated accordingly.
@@ -194,7 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 const addButton = document.querySelector('#addButton');
 
-addButton.addEventListener('click', () => {
+async function sendData () {
     const addForm = document.querySelector('#addForm');
     const isValid = validateForm(addForm);
 
@@ -238,6 +241,11 @@ addButton.addEventListener('click', () => {
         .catch(error => {
             console.error('There was a problem inserting the data:', error);
         });
+}
+
+addButton.addEventListener('click', async () => {
+    await sendData()
+    await clearInputs()
 });
 
 // creates a new input element of type file when the button is clicked,
@@ -352,3 +360,20 @@ function validateForm(form) {
 
     return isValid;
 }
+
+// Set current year as minimum possible value in year input, and its corresponding label
+function setYearDefaults() {
+    // Get the current year
+    const currentYear = new Date().getFullYear();
+
+    // Set the value of the span element
+    const spanAnhoActual = document.querySelector("#anho-actual");
+    spanAnhoActual.textContent = currentYear;
+
+    // Set the minimum value for the input element
+    const inputAnho = document.querySelector("#anho");
+    inputAnho.min = currentYear.toString();
+}
+
+// Call the setYearDefaults function when the document loads
+window.addEventListener("load", setYearDefaults);
