@@ -1,4 +1,4 @@
-// add an event listener to each checkbox
+// Add an event listener to each checkbox
 const checkboxes = document.querySelectorAll('.hecho-checkbox');
 checkboxes.forEach((checkbox) => {
     checkbox.addEventListener('click', () => {
@@ -24,3 +24,5 @@ checkboxes.forEach((checkbox) => {
             });
     });
 });
+
+// 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 09, 2023 at 08:35 PM
+-- Generation Time: Mar 10, 2023 at 07:07 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -32,30 +32,16 @@ CREATE TABLE `actividad` (
   `nombre` varchar(1000) NOT NULL,
   `descripcion` varchar(2000) DEFAULT NULL,
   `imagen` varchar(2000) DEFAULT NULL,
-  `hecho` tinyint(1) NOT NULL DEFAULT 0
+  `hecho` tinyint(1) NOT NULL DEFAULT 0,
+  `id_tipo_de_actividad` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `actividad`
 --
 
-INSERT INTO `actividad` (`id`, `nombre`, `descripcion`, `imagen`, `hecho`) VALUES
-(1, 'Cycling', 'Ride a bike for 30 minutes', 'cycling.jpg', 1),
-(2, 'Running', 'Run 5 kilometers at a moderate pace', 'running.jpg', 1),
-(3, 'Yoga', 'Practice yoga for 1 hour', 'yoga.jpg', 1),
-(4, 'Swimming', 'Swim 20 laps in the pool', 'swimming.jpg', 1),
-(5, 'Weight lifting', 'Do a full body workout with weights', 'weightlifting.jpg', 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `actividad_vs_configuracion`
---
-
-CREATE TABLE `actividad_vs_configuracion` (
-  `id_actividad` int(11) NOT NULL,
-  `id_configuracion` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO `actividad` (`id`, `nombre`, `descripcion`, `imagen`, `hecho`, `id_tipo_de_actividad`) VALUES
+(1, '', NULL, NULL, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -65,45 +51,20 @@ CREATE TABLE `actividad_vs_configuracion` (
 
 CREATE TABLE `configuracion` (
   `id` int(11) NOT NULL,
-  `frecuencia_diaria` varchar(50) DEFAULT '1',
-  `frecuencia_horaria` varchar(50) DEFAULT '1',
+  `frecuencia_diaria` varchar(50) DEFAULT NULL,
+  `frecuencia_horaria` varchar(50) DEFAULT NULL,
   `dia` int(11) DEFAULT NULL,
   `mes` int(11) DEFAULT NULL,
-  `anho` int(11) DEFAULT NULL
+  `anho` int(11) DEFAULT NULL,
+  `id_actividad` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `configuracion`
 --
 
-INSERT INTO `configuracion` (`id`, `frecuencia_diaria`, `frecuencia_horaria`, `dia`, `mes`, `anho`) VALUES
-(1, '1', '1', NULL, NULL, 3),
-(2, '1', '1', NULL, NULL, NULL),
-(3, '1,0,0,1,0,0,1', '1,1,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1', NULL, NULL, NULL);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `nota`
---
-
-CREATE TABLE `nota` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(1000) NOT NULL,
-  `descripcion` varchar(2000) DEFAULT NULL,
-  `imagen` varchar(2000) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `nota_vs_configuracion`
---
-
-CREATE TABLE `nota_vs_configuracion` (
-  `id_nota` int(11) NOT NULL,
-  `id_configuracion` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO `configuracion` (`id`, `frecuencia_diaria`, `frecuencia_horaria`, `dia`, `mes`, `anho`, `id_actividad`) VALUES
+(1, NULL, NULL, 10, 3, 2023, 1);
 
 -- --------------------------------------------------------
 
@@ -123,45 +84,22 @@ CREATE TABLE `registro` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `rutina`
+-- Table structure for table `tipo_de_actividad`
 --
 
-CREATE TABLE `rutina` (
+CREATE TABLE `tipo_de_actividad` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(1000) DEFAULT NULL,
-  `descripcion` varchar(2000) DEFAULT NULL,
-  `imagen` varchar(2000) DEFAULT NULL,
-  `hecho` tinyint(1) DEFAULT NULL
+  `tipo` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `rutina`
+-- Dumping data for table `tipo_de_actividad`
 --
 
-INSERT INTO `rutina` (`id`, `nombre`, `descripcion`, `imagen`, `hecho`) VALUES
-(1, 'gege', 'gege', 'comment.PNG', NULL),
-(2, 'hehe', 'hehe', '1678305282065159.jpg', NULL),
-(3, 'dede', 'dede', 'unicorn-graph3c.webp', NULL);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `rutina_vs_configuracion`
---
-
-CREATE TABLE `rutina_vs_configuracion` (
-  `id_rutina` int(11) NOT NULL,
-  `id_configuracion` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `rutina_vs_configuracion`
---
-
-INSERT INTO `rutina_vs_configuracion` (`id_rutina`, `id_configuracion`) VALUES
-(1, 1),
-(2, 2),
-(3, 3);
+INSERT INTO `tipo_de_actividad` (`id`, `tipo`) VALUES
+(1, 'puntual'),
+(2, 'rutina'),
+(3, 'nota');
 
 --
 -- Indexes for dumped tables
@@ -171,33 +109,15 @@ INSERT INTO `rutina_vs_configuracion` (`id_rutina`, `id_configuracion`) VALUES
 -- Indexes for table `actividad`
 --
 ALTER TABLE `actividad`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `actividad_vs_configuracion`
---
-ALTER TABLE `actividad_vs_configuracion`
-  ADD PRIMARY KEY (`id_actividad`,`id_configuracion`),
-  ADD KEY `id_configuracion` (`id_configuracion`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_tipo_de_actividad` (`id_tipo_de_actividad`);
 
 --
 -- Indexes for table `configuracion`
 --
 ALTER TABLE `configuracion`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `nota`
---
-ALTER TABLE `nota`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `nota_vs_configuracion`
---
-ALTER TABLE `nota_vs_configuracion`
-  ADD PRIMARY KEY (`id_nota`,`id_configuracion`),
-  ADD KEY `id_configuracion` (`id_configuracion`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_configuracion_actividad` (`id_actividad`);
 
 --
 -- Indexes for table `registro`
@@ -206,17 +126,10 @@ ALTER TABLE `registro`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `rutina`
+-- Indexes for table `tipo_de_actividad`
 --
-ALTER TABLE `rutina`
+ALTER TABLE `tipo_de_actividad`
   ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `rutina_vs_configuracion`
---
-ALTER TABLE `rutina_vs_configuracion`
-  ADD PRIMARY KEY (`id_rutina`,`id_configuracion`),
-  ADD KEY `id_configuracion` (`id_configuracion`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -226,19 +139,13 @@ ALTER TABLE `rutina_vs_configuracion`
 -- AUTO_INCREMENT for table `actividad`
 --
 ALTER TABLE `actividad`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `configuracion`
 --
 ALTER TABLE `configuracion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `nota`
---
-ALTER TABLE `nota`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `registro`
@@ -247,9 +154,9 @@ ALTER TABLE `registro`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `rutina`
+-- AUTO_INCREMENT for table `tipo_de_actividad`
 --
-ALTER TABLE `rutina`
+ALTER TABLE `tipo_de_actividad`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
@@ -257,25 +164,16 @@ ALTER TABLE `rutina`
 --
 
 --
--- Constraints for table `actividad_vs_configuracion`
+-- Constraints for table `actividad`
 --
-ALTER TABLE `actividad_vs_configuracion`
-  ADD CONSTRAINT `actividad_vs_configuracion_ibfk_1` FOREIGN KEY (`id_actividad`) REFERENCES `actividad` (`id`),
-  ADD CONSTRAINT `actividad_vs_configuracion_ibfk_2` FOREIGN KEY (`id_configuracion`) REFERENCES `configuracion` (`id`);
+ALTER TABLE `actividad`
+  ADD CONSTRAINT `fk_tipo_de_actividad` FOREIGN KEY (`id_tipo_de_actividad`) REFERENCES `tipo_de_actividad` (`id`);
 
 --
--- Constraints for table `nota_vs_configuracion`
+-- Constraints for table `configuracion`
 --
-ALTER TABLE `nota_vs_configuracion`
-  ADD CONSTRAINT `nota_vs_configuracion_ibfk_1` FOREIGN KEY (`id_nota`) REFERENCES `nota` (`id`),
-  ADD CONSTRAINT `nota_vs_configuracion_ibfk_2` FOREIGN KEY (`id_configuracion`) REFERENCES `configuracion` (`id`);
-
---
--- Constraints for table `rutina_vs_configuracion`
---
-ALTER TABLE `rutina_vs_configuracion`
-  ADD CONSTRAINT `rutina_vs_configuracion_ibfk_1` FOREIGN KEY (`id_rutina`) REFERENCES `rutina` (`id`),
-  ADD CONSTRAINT `rutina_vs_configuracion_ibfk_2` FOREIGN KEY (`id_configuracion`) REFERENCES `configuracion` (`id`);
+ALTER TABLE `configuracion`
+  ADD CONSTRAINT `fk_configuracion_actividad` FOREIGN KEY (`id_actividad`) REFERENCES `actividad` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
