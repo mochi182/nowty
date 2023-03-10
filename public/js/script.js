@@ -379,11 +379,11 @@ function setYearDefaults() {
 window.addEventListener("load", setYearDefaults);
 
 // Get the "Check all" and "Uncheck all" button elements
-const checkAllButton = document.querySelector("#check-all-button");
-const uncheckAllButton = document.querySelector("#uncheck-all-button");
+const checkAllHorasButton = document.querySelector("#check-all-horas-button");
+const uncheckAllHorasButton = document.querySelector("#uncheck-all-horas-button");
 
 // Add a click event listener to the "Check all" button
-checkAllButton.addEventListener("click", function(event) {
+checkAllHorasButton.addEventListener("click", function(event) {
     event.preventDefault();
 
     // Get all the checkboxes with class "horas"
@@ -396,11 +396,41 @@ checkAllButton.addEventListener("click", function(event) {
 });
 
 // Add a click event listener to the "Uncheck all" button
-uncheckAllButton.addEventListener("click", function(event) {
+uncheckAllHorasButton.addEventListener("click", function(event) {
     event.preventDefault();
 
     // Get all the checkboxes with class "horas"
     const checkboxes = document.querySelectorAll(".horas");
+
+    // Uncheck all checkboxes
+    checkboxes.forEach(function(checkbox) {
+        checkbox.checked = false;
+    });
+});
+
+// Get the "Check all" and "Uncheck all" button elements
+const checkAllDiasButton = document.querySelector("#check-all-dias-button");
+const uncheckAllDiasButton = document.querySelector("#uncheck-all-dias-button");
+
+// Add a click event listener to the "Check all" button
+checkAllDiasButton.addEventListener("click", function(event) {
+    event.preventDefault();
+
+    // Get all the checkboxes with class "horas"
+    const checkboxes = document.querySelectorAll(".dias");
+
+    // Check all checkboxes
+    checkboxes.forEach(function(checkbox) {
+        checkbox.checked = true;
+    });
+});
+
+// Add a click event listener to the "Uncheck all" button
+uncheckAllDiasButton.addEventListener("click", function(event) {
+    event.preventDefault();
+
+    // Get all the checkboxes with class "horas"
+    const checkboxes = document.querySelectorAll(".dias");
 
     // Uncheck all checkboxes
     checkboxes.forEach(function(checkbox) {
