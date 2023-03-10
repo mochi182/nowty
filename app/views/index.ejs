@@ -4,144 +4,8 @@
     <%- include('head'); %>
 
     <body>
-        <header class="h2">
-            Nowty
-        </header>
 
-        <form id="addForm">
-
-            <div class="form-group">
-                <label for="actividad-input">Agregar nueva <span id="texto-entidad">actividad</span>:</label>
-                <input class="form-control" type="text" id="actividad-input" name="actividad-input">
-            </div>
-
-            <div class="card">
-                <div class="card-header" id="heading">
-                    <button class="accordion-btn" type="button">Opciones avanzadas</button>
-                </div>
-                <div class="card-body" id="opcionesAvanzadas">
-
-                    <div class="form-group">
-                        <label for="dropdown-select">Seleccionar tipo:</label>
-                        <select id="dropdown-select" class="form-control" name="dropdown-select">
-                            <option value="actividad" selected>Actividad</option>
-                            <option value="rutina">Rutina</option>
-                            <option value="nota">Nota</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="descripcion-textarea">Descripción:</label>
-                        <textarea id="descripcion-textarea" class="form-control" name="descripcion-textarea"
-                            rows="4"></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="imagen-input">Imagen:</label>
-                        <input readonly type="text" class="form-control" id="imagen-input" class="form-control" name="imagen-input">
-                        <button id="select-file-btn" class="btn btn-secondary">Seleccionar archivo</button>
-                      </div>                      
-
-                    <div class="form-group">
-                        <fieldset id="horas-input">
-                            <legend class="sr-only">Horas:</legend>
-                            <div class="checkbox-group">
-                                <% for (var i=1; i <=24; i++) { %>
-                                    <div class="checkbox-unit">
-                                        <label class="checkbox-container">
-                                            <input type="checkbox" class="horas" name="horas-input" value="<%= i %>" <%= i >= 8 && i <= 16 ? "checked" : "" %> />
-                                        </label>
-                                        <small class="hora-num"><%= i %></small>
-                                    </div>
-                                <% } %>
-                            </div>
-                            <button id="check-all-horas-button">Check all</button>
-                            <button id="uncheck-all-horas-button">Uncheck all</button>
-                        </fieldset>
-                    </div>
-
-                    <br>
-
-                    <div class="date-config form-group">
-                        <label for="date-dropdown">Configuración:</label>
-                        <select id="date-dropdown" class="form-control" name="date-dropdown">
-                            <option value="por-fecha" selected>Por fecha</option>
-                            <option value="por-semana">Por semana</option>
-                        </select>
-                    </div>
-
-                    <div id="porSemanaInputs">
-                        <div class="form-group">
-                            <fieldset id="dias-input">
-                                <legend class="sr-only">Dias:</legend>
-                                <div class="checkbox-group">
-                                    <% for (var i=1; i <=7; i++) { %>
-                                        <div class="checkbox-unit">
-                                            <label class="checkbox-container">
-                                                <input type="checkbox" class="dias" name="dias-input" value="<%= i %>" />
-                                            </label>
-                                            <small><%= i %></small>
-                                        </div>
-                                    <% } %>
-                                </div>
-                                <button id="check-all-dias-button">Check all</button>
-                                <button id="uncheck-all-dias-button">Uncheck all</button>
-                            </fieldset>
-                        </div>
-                    </div>
-
-                    <div id="porFechaInputs" style="display:none;">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="dia">Día (1-<span id="max-day-of-month"></span>): </label>
-                                    <input type="number" id="dia" class="form-control" name="dia" min="1" max="31">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="mes">Mes: </label>
-                                    <select id="mes" class="form-control" name="mes">
-                                        <option value=""></option>
-                                        <option value="1">Enero</option>
-                                        <option value="2">Febrero</option>
-                                        <option value="3">Marzo</option>
-                                        <option value="4">Abril</option>
-                                        <option value="5">Mayo</option>
-                                        <option value="6">Junio</option>
-                                        <option value="7">Julio</option>
-                                        <option value="8">Agosto</option>
-                                        <option value="9">Septiembre</option>
-                                        <option value="10">Octubre</option>
-                                        <option value="11">Noviembre</option>
-                                        <option value="12">Diciembre</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="anho">Año (<span id="anho-actual"></span>-2100): </label>
-                                    <input type="number" id="anho" class="form-control" name="anho" min="2023"
-                                        max="2100">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-            </div>
-        </form>
-
-        <button class="btn btn-primary" id="addButton">
-            Add
-        </button>
-
-        <button class="btn btn-danger">
-            Clear
-        </button>
-
-        <br>
+        <%- include('header'); %>
 
         <section>
             <h1>Actividades del día</h1>
@@ -152,7 +16,6 @@
                         <th>Nombre</th>
                         <th>Descripción</th>
                         <th>Imagen</th>
-                        <th>Duración</th>
                         <th>Hecho</th>
                     </tr>
                 </thead>
@@ -165,23 +28,23 @@
                             <td>
                                 <%= data[i].descripcion %>
                             </td>
-                            <td><img src="<%= data[i].imagen %>" alt="Imagen de <%= data[i].nombre %>"></td>
                             <td>
-                                <%= data[i].duracion %> minutos
+                                <% if (data[i].imagen) { %>
+                                  <img src="<%= data[i].imagen %>" alt="Imagen de <%= data[i].nombre %>">
+                                <% } %>
+                            </td>                              
+                            <td>
+                                <input id="<%= data[i].id %>" class="form-check-input hecho-checkbox" type="checkbox" <% if (data[i].hecho) { %>checked<% } %>>
                             </td>
-                            <td><input id="<%= data[i].id %>" class="form-check-input hecho-checkbox" type="checkbox" <%
-                                    if (data[i].hecho) { %>checked<% } %>></td>
                         </tr>
                         <% } %>
                 </tbody>
             </table>
         </section>
 
-        <footer>
-            Nowty 2023
-        </footer>
+        <%- include('footer'); %>
 
-        <script src="js/script.js"></script>
+        <script src="js/indexScript.js"></script>
 
     </body>
 

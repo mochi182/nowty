@@ -15,33 +15,6 @@ accordionBtn.addEventListener('click', function () {
     }
 });
 
-// add an event listener to each checkbox
-const checkboxes = document.querySelectorAll('.hecho-checkbox');
-checkboxes.forEach((checkbox) => {
-    checkbox.addEventListener('click', () => {
-        const isChecked = checkbox.checked;
-        const id = checkbox.id;
-
-        // send a POST request to the server when the checkbox is clicked
-        fetch('/done', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ id, isChecked })
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                console.log('Checkbox status updated successfully');
-            })
-            .catch(error => {
-                console.error('There was a problem updating the checkbox status:', error);
-            });
-    });
-});
-
 const dateDropdown = document.getElementById("date-dropdown");
 const porSemanaDiv = document.getElementById("porSemanaInputs");
 const porFechaDiv = document.getElementById("porFechaInputs");
@@ -245,7 +218,7 @@ async function sendData () {
 
 addButton.addEventListener('click', async () => {
     await sendData()
-    await clearInputs()
+    location.reload();
 });
 
 // creates a new input element of type file when the button is clicked,
@@ -316,9 +289,27 @@ function convertTo12HourClock() {
     }
 }
 
+// convert the numbers in elements with class "dia-num" to Spanish weekday names
+function convertToSpanishWeekdays() {
+    const weekdayElements = document.querySelectorAll('.dia-num');
+  
+    const weekdays = [
+      'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'
+    ];
+  
+    for (let i = 0; i < weekdayElements.length; i++) {
+      const weekdayElement = weekdayElements[i];
+      const weekdayIndex = parseInt(weekdayElement.textContent) - 1;
+      const weekdayName = weekdays[weekdayIndex];
+      weekdayElement.textContent = weekdayName;
+    }
+  }
+
+// functions are called when the DOM content has finished loading
 document.addEventListener('DOMContentLoaded', () => {
     addClassesToHourElements();
     convertTo12HourClock();
+    convertToSpanishWeekdays();
 });
 
 // ensure that the maximum day is updated whenever the user selects a new month.

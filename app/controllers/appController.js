@@ -18,6 +18,22 @@ exports.stats = async function (req, res) {
     }
 };
 
+exports.insertform = async function (req, res) {
+    try {
+        res.render('insertform')
+    } catch(err) {
+        res.json({"Error": err})
+    }
+};
+
+exports.updateform = async function (req, res) {
+    try {
+        res.render('updateform')
+    } catch(err) {
+        res.json({"Error": err})
+    }
+};
+
 exports.done = async function (req, res) {
     try {
         res.json(await model.done(req))
