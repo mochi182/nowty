@@ -10,16 +10,20 @@ exports.routes = function (app) {
         controller.select_all(req, res);
     });
 
+    app.get('/advanced', function (req, res) {
+        controller.advanced(req, res);
+    });
+
     app.get('/stats', function (req, res) {
         controller.stats(req, res);
     });
 
-    app.get('/insertform', function (req, res) {
-        controller.insertform(req, res);
+    app.get('/config', function (req, res) {
+        controller.config(req, res);
     });
 
-    app.get('/updateform', function (req, res) {
-        controller.updateform(req, res);
+    app.get('/update', function (req, res) {
+        controller.update(req, res);
     });
 
     // Post:

@@ -1,20 +1,20 @@
+// check if the URL contains the word "advanced" and set the display property of the element accordingly 
 
-// accordion for advanced options
-const accordionBtn = document.querySelector('.accordion-btn');
-const opcionesAvanzadas = document.querySelector('#opcionesAvanzadas');
-
-// add click event listener to the accordion button
-accordionBtn.addEventListener('click', function () {
-    // toggle the active class on the accordion button
-    this.classList.toggle('active');
-    // toggle the display of the opcionesAvanzadas div
-    if (opcionesAvanzadas.style.display === 'block') {
-        opcionesAvanzadas.style.display = 'none';
+function toggleAdvancedOptions() {
+    var opcionesAvanzadas = document.getElementById("opcionesAvanzadas");
+    if (window.location.href.indexOf("advanced") !== -1) {
+      opcionesAvanzadas.style.display = "block";
     } else {
-        opcionesAvanzadas.style.display = 'block';
+      opcionesAvanzadas.style.display = "none";
     }
+  }
+
+document.addEventListener("DOMContentLoaded", function() {
+toggleAdvancedOptions();
 });
 
+
+  
 const dateDropdown = document.getElementById("date-dropdown");
 const porSemanaDiv = document.getElementById("porSemanaInputs");
 const porFechaDiv = document.getElementById("porFechaInputs");

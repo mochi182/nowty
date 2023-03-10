@@ -10,6 +10,14 @@ exports.select_all = async function (req, res) {
     }
 };
 
+exports.advanced = async function (req, res) {
+    try {
+        res.render('advanced')
+    } catch(err) {
+        res.json({"Error": err})
+    }
+};
+
 exports.stats = async function (req, res) {
     try {
         res.render('stats')
@@ -18,17 +26,17 @@ exports.stats = async function (req, res) {
     }
 };
 
-exports.insertform = async function (req, res) {
+exports.config = async function (req, res) {
     try {
-        res.render('insertform')
+        res.render('config')
     } catch(err) {
         res.json({"Error": err})
     }
 };
 
-exports.updateform = async function (req, res) {
+exports.update = async function (req, res) {
     try {
-        res.render('updateform')
+        res.render('update')
     } catch(err) {
         res.json({"Error": err})
     }
