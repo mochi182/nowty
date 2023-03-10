@@ -49,13 +49,14 @@
                                 <% for (var i=1; i <=24; i++) { %>
                                     <div class="checkbox-unit">
                                         <label class="checkbox-container">
-                                            <input type="checkbox" class="horas" name="horas-input" value="<%= i %>" />
+                                            <input type="checkbox" class="horas" name="horas-input" value="<%= i %>" <%= i >= 8 && i <= 16 ? "checked" : "" %> />
                                         </label>
                                         <small class="hora-num"><%= i %></small>
                                     </div>
                                 <% } %>
                             </div>
-                            <button id="all-horas-button">Check all</button>
+                            <button id="check-all-button">Check all</button>
+                            <button id="uncheck-all-button">Uncheck all</button>
                         </fieldset>
                     </div>
 
