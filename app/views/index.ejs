@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-    
-    <%- include('head'); %>
+
+<%- include('head'); %>
 
     <body>
 
@@ -20,7 +20,14 @@
                         <th>Nombre</th>
                         <th>Descripción</th>
                         <th>Imagen</th>
+                        <th>Frecuencia Diaria</th>
+                        <th>Frecuencia Horaria</th>
+                        <th>Día</th>
+                        <th>Mes</th>
+                        <th>Año</th>
+                        <th>Tipo</th>
                         <th>Hecho</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -34,11 +41,30 @@
                             </td>
                             <td>
                                 <% if (data[i].imagen) { %>
-                                  <img src="<%= data[i].imagen %>" alt="Imagen de <%= data[i].nombre %>">
-                                <% } %>
-                            </td>                              
+                                    <img src="<%= data[i].imagen %>" alt="Imagen de <%= data[i].nombre %>">
+                                    <% } %>
+                            </td>
                             <td>
-                                <input id="<%= data[i].id %>" class="form-check-input hecho-checkbox" type="checkbox" <% if (data[i].hecho) { %>checked<% } %>>
+                                <%= data[i].frecuencia_diaria %>
+                            </td>
+                            <td>
+                                <%= data[i].frecuencia_horaria %>
+                            </td>
+                            <td>
+                                <%= data[i].dia %>
+                            </td>
+                            <td>
+                                <%= data[i].mes %>
+                            </td>
+                            <td>
+                                <%= data[i].anho %>
+                            </td>
+                            <td>
+                                <%= data[i].tipo %>
+                            </td>
+                            <td>
+                                <input id="<%= data[i].id %>" class="form-check-input hecho-checkbox"
+                                    type="checkbox" <% if (data[i].hecho) { %>checked<% } %>>
                             </td>
                         </tr>
                         <% } %>

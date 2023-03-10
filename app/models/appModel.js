@@ -3,8 +3,14 @@
 let client = require('./db.js');
 
 exports.select_all = async function () {
-  let query = 'SELECT * FROM actividad'
+  let query = `
+    SELECT *
+    FROM actividad AS a
+    JOIN tipo_de_actividad AS ta ON a.id_tipo_de_actividad = ta.id
+    JOIN configuracion AS c ON a.id = c.id_actividad
+  `
   const results = await client.promise().query(query)
+  console.log(results[0])
   return results[0]
 }
 
