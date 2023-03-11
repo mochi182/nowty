@@ -26,6 +26,10 @@ exports.routes = function (app) {
         controller.update(req, res);
     });
 
+    app.get('/reset', function (req, res) {
+        controller.reset(req, res);
+    });
+
     // Post:
 
     app.post('/done', function (req, res) {

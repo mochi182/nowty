@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 10, 2023 at 07:07 PM
+-- Generation Time: Mar 11, 2023 at 05:38 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -41,7 +41,23 @@ CREATE TABLE `actividad` (
 --
 
 INSERT INTO `actividad` (`id`, `nombre`, `descripcion`, `imagen`, `hecho`, `id_tipo_de_actividad`) VALUES
-(1, '', NULL, NULL, 0, 1);
+(1, '', NULL, NULL, 0, 1),
+(2, 'Activity 1', NULL, NULL, 0, 1),
+(3, 'Activity 2', NULL, NULL, 0, 2),
+(4, 'Activity 3', NULL, NULL, 0, 3),
+(5, 'Activity 4', NULL, NULL, 0, 1),
+(6, 'Activity 5', NULL, NULL, 1, 2),
+(7, 'Activity 6', NULL, NULL, 0, 3),
+(8, 'Activity 7', NULL, NULL, 0, 1),
+(9, 'Regar las plantas', NULL, NULL, 0, 1),
+(10, 'Mear', 'Por semana ejemplo.', NULL, 0, 2),
+(11, 'prueba 2', 'prueba 2', NULL, 0, 2),
+(12, 'prueba 3', 'prueba 3', NULL, 0, 1),
+(13, 'prueba 4', 'prueba 4', NULL, 0, 1),
+(14, 'prueba 5', 'prueba 5', NULL, 0, 2),
+(15, 'prueba 6', 'prueba 6', NULL, 0, 2),
+(16, 'prueba 7', 'prueba 7', NULL, 1, 2),
+(17, 'prueba 8', 'prueba 8', 'comment.PNG', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -64,7 +80,23 @@ CREATE TABLE `configuracion` (
 --
 
 INSERT INTO `configuracion` (`id`, `frecuencia_diaria`, `frecuencia_horaria`, `dia`, `mes`, `anho`, `id_actividad`) VALUES
-(1, NULL, NULL, 10, 3, 2023, 1);
+(1, NULL, NULL, 10, 3, 2023, 1),
+(2, NULL, NULL, 10, 3, 2023, 2),
+(3, NULL, NULL, 10, 3, 2023, 3),
+(4, NULL, NULL, 10, 3, 2023, 4),
+(5, NULL, NULL, 11, 3, 2023, 5),
+(6, NULL, NULL, 11, 3, 2023, 6),
+(7, NULL, NULL, 11, 3, 2023, 7),
+(8, NULL, NULL, 12, 3, 2023, 8),
+(9, NULL, NULL, 10, 3, 2023, 9),
+(10, '0000100', '[0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0]', NULL, NULL, NULL, 10),
+(11, NULL, NULL, 10, 3, 2023, 11),
+(12, NULL, NULL, 10, 3, 2023, 12),
+(13, NULL, NULL, 10, 3, 2023, 13),
+(14, '0000001', '[0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0]', NULL, NULL, NULL, 14),
+(15, '1000010', '[0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0]', NULL, NULL, NULL, 15),
+(16, '0001001', '[0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0]', NULL, NULL, NULL, 16),
+(17, '0000001', '111010101010101010100111', NULL, NULL, NULL, 17);
 
 -- --------------------------------------------------------
 
@@ -84,6 +116,24 @@ CREATE TABLE `registro` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `registro_de_trabajo`
+--
+
+CREATE TABLE `registro_de_trabajo` (
+  `id` int(11) NOT NULL,
+  `tiempo` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `registro_de_trabajo`
+--
+
+INSERT INTO `registro_de_trabajo` (`id`, `tiempo`) VALUES
+(1, '2023-03-11');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tipo_de_actividad`
 --
 
@@ -99,7 +149,14 @@ CREATE TABLE `tipo_de_actividad` (
 INSERT INTO `tipo_de_actividad` (`id`, `tipo`) VALUES
 (1, 'puntual'),
 (2, 'rutina'),
-(3, 'nota');
+(3, 'nota'),
+(4, 'puntual'),
+(5, 'rutina'),
+(6, 'nota'),
+(7, 'puntual'),
+(8, 'rutina'),
+(9, 'nota'),
+(10, 'puntual');
 
 --
 -- Indexes for dumped tables
@@ -126,6 +183,12 @@ ALTER TABLE `registro`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `registro_de_trabajo`
+--
+ALTER TABLE `registro_de_trabajo`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `tipo_de_actividad`
 --
 ALTER TABLE `tipo_de_actividad`
@@ -139,13 +202,13 @@ ALTER TABLE `tipo_de_actividad`
 -- AUTO_INCREMENT for table `actividad`
 --
 ALTER TABLE `actividad`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `configuracion`
 --
 ALTER TABLE `configuracion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `registro`
@@ -154,10 +217,16 @@ ALTER TABLE `registro`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `registro_de_trabajo`
+--
+ALTER TABLE `registro_de_trabajo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `tipo_de_actividad`
 --
 ALTER TABLE `tipo_de_actividad`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables

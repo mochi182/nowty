@@ -100,4 +100,11 @@ function removeCommasAndBrackets(inputString) {
     const newString = lastCharacter + inputString.slice(0, -1);
     return newString;
   }
-  
+
+  exports.reset = async function (req, res) {
+    try {
+        await model.reset(req)
+    } catch(err) {
+        res.json({"Error": err})
+    }
+};
