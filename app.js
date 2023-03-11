@@ -30,12 +30,14 @@ app.listen(port);
 console.log('API server started on: ' + port);
 
 // Cronjob ----------
+var timeout = require('connect-timeout');
+app.use(timeout('600s'));
 const cron = require('node-cron');
 
 // Schedule the job to run every minute
 cron.schedule('* * * * *', () => {
     console.log(`Running the job at ${new Date()}`);
-    fetch('http://localhost:3000/reset')
-      .then(response => console.log(response))
-      .catch(err => console.error(err));
+    //fetch('http://localhost:3000/reset')
+    //  .then(response => console.log(response))
+    //  .catch(err => console.error(err));
   });

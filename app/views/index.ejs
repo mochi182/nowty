@@ -3,6 +3,11 @@
 
 <%- include('head'); %>
 
+<script>
+    const incomingData = <%- JSON.stringify(data) %>;
+</script>
+  
+
     <body>
 
         <%- include('header'); %>
@@ -11,65 +16,12 @@
 
         <a href="advanced" class="btn btn-primary">Más opciones</a>
 
-        <section>
-            <h1>Actividades del día</h1>
+        <section id="actividadesDivs">
+        </section>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Descripción</th>
-                        <th>Imagen</th>
-                        <th>Frecuencia Diaria</th>
-                        <th>Frecuencia Horaria</th>
-                        <th>Día</th>
-                        <th>Mes</th>
-                        <th>Año</th>
-                        <th>Tipo</th>
-                        <th>Hecho</th>
+        Notas
 
-                    </tr>
-                </thead>
-                <tbody>
-                    <% for (let i=0; i < data.length; i++) { %>
-                        <tr>
-                            <td>
-                                <%= data[i].nombre %>
-                            </td>
-                            <td>
-                                <%= data[i].descripcion %>
-                            </td>
-                            <td>
-                                <% if (data[i].imagen) { %>
-                                    <img src="<%= data[i].imagen %>" alt="Imagen de <%= data[i].nombre %>">
-                                    <% } %>
-                            </td>
-                            <td>
-                                <%= data[i].frecuencia_diaria %>
-                            </td>
-                            <td>
-                                <%= data[i].frecuencia_horaria %>
-                            </td>
-                            <td>
-                                <%= data[i].dia %>
-                            </td>
-                            <td>
-                                <%= data[i].mes %>
-                            </td>
-                            <td>
-                                <%= data[i].anho %>
-                            </td>
-                            <td>
-                                <%= data[i].tipo %>
-                            </td>
-                            <td>
-                                <input id="<%= data[i].id %>" class="form-check-input hecho-checkbox"
-                                    type="checkbox" <% if (data[i].hecho) { %>checked<% } %>>
-                            </td>
-                        </tr>
-                        <% } %>
-                </tbody>
-            </table>
+        <section id="notasDivs">
         </section>
 
         <%- include('footer'); %>
