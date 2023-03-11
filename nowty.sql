@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 11, 2023 at 05:38 PM
+-- Generation Time: Mar 11, 2023 at 08:42 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -46,7 +46,7 @@ INSERT INTO `actividad` (`id`, `nombre`, `descripcion`, `imagen`, `hecho`, `id_t
 (3, 'Activity 2', NULL, NULL, 0, 2),
 (4, 'Activity 3', NULL, NULL, 0, 3),
 (5, 'Activity 4', NULL, NULL, 0, 1),
-(6, 'Activity 5', NULL, NULL, 1, 2),
+(6, 'Activity 5', NULL, NULL, 0, 2),
 (7, 'Activity 6', NULL, NULL, 0, 3),
 (8, 'Activity 7', NULL, NULL, 0, 1),
 (9, 'Regar las plantas', NULL, NULL, 0, 1),
@@ -56,8 +56,8 @@ INSERT INTO `actividad` (`id`, `nombre`, `descripcion`, `imagen`, `hecho`, `id_t
 (13, 'prueba 4', 'prueba 4', NULL, 0, 1),
 (14, 'prueba 5', 'prueba 5', NULL, 0, 2),
 (15, 'prueba 6', 'prueba 6', NULL, 0, 2),
-(16, 'prueba 7', 'prueba 7', NULL, 1, 2),
-(17, 'prueba 8', 'prueba 8', 'comment.PNG', 1, 2);
+(16, 'prueba 7', 'prueba 7', NULL, 0, 2),
+(17, 'prueba 8', 'prueba 8', 'comment.PNG', 0, 2);
 
 -- --------------------------------------------------------
 
@@ -101,6 +101,45 @@ INSERT INTO `configuracion` (`id`, `frecuencia_diaria`, `frecuencia_horaria`, `d
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `cronjob_log`
+--
+
+CREATE TABLE `cronjob_log` (
+  `id` int(11) NOT NULL,
+  `tiempo` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `cronjob_log`
+--
+
+INSERT INTO `cronjob_log` (`id`, `tiempo`) VALUES
+(1, '2023-03-10'),
+(2, '2023-03-11');
+
+--
+-- Triggers `cronjob_log`
+--
+DELIMITER $$
+CREATE TRIGGER `reset_actividad_hecho` AFTER INSERT ON `cronjob_log` FOR EACH ROW BEGIN
+  UPDATE actividad SET hecho = 0 WHERE id_tipo_de_actividad = 2;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `reset_registro_de_trabajo` BEFORE INSERT ON `cronjob_log` FOR EACH ROW BEGIN
+  DECLARE row_count INT;
+  SELECT COUNT(*) INTO row_count FROM cronjob_log;
+  IF row_count >= 10 THEN
+    DELETE FROM cronjob_log;
+  END IF;
+END
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `registro`
 --
 
@@ -112,24 +151,6 @@ CREATE TABLE `registro` (
   `rutinas` int(11) NOT NULL,
   `rutinas_logradas` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `registro_de_trabajo`
---
-
-CREATE TABLE `registro_de_trabajo` (
-  `id` int(11) NOT NULL,
-  `tiempo` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `registro_de_trabajo`
---
-
-INSERT INTO `registro_de_trabajo` (`id`, `tiempo`) VALUES
-(1, '2023-03-11');
 
 -- --------------------------------------------------------
 
@@ -177,15 +198,15 @@ ALTER TABLE `configuracion`
   ADD KEY `fk_configuracion_actividad` (`id_actividad`);
 
 --
--- Indexes for table `registro`
+-- Indexes for table `cronjob_log`
 --
-ALTER TABLE `registro`
+ALTER TABLE `cronjob_log`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `registro_de_trabajo`
+-- Indexes for table `registro`
 --
-ALTER TABLE `registro_de_trabajo`
+ALTER TABLE `registro`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -211,16 +232,16 @@ ALTER TABLE `configuracion`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
+-- AUTO_INCREMENT for table `cronjob_log`
+--
+ALTER TABLE `cronjob_log`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `registro`
 --
 ALTER TABLE `registro`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `registro_de_trabajo`
---
-ALTER TABLE `registro_de_trabajo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tipo_de_actividad`
