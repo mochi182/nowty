@@ -52,7 +52,7 @@ exports.done = async function (req, res) {
 
 exports.insert = async function (req, res) {
     try {
-        const data = await build_data(req);
+        const data = await buildData(req);
         const result = await model.insert(data);
         res.json(result);
     } catch(err) {
@@ -60,7 +60,7 @@ exports.insert = async function (req, res) {
     }
 };
 
-async function build_data(req) {
+async function buildData(req) {
     let data = {}
     data.entidad = req.body['dropdown-select'];
     data.atributos = {
@@ -74,8 +74,8 @@ async function build_data(req) {
     }
     data.configuracion = {};
     if (req.body['date-dropdown'] === 'por-semana') {
-        data.configuracion.frecuencia_horaria = req.body['horas-input'];
-        data.configuracion.frecuencia_diaria = req.body['dias-input'];
+        data.configuracion.frecuencia_horaria = removeCommasAndBrackets(req.body['horas-input']);
+        data.configuracion.frecuencia_diaria = moveLastCharToFirst(removeCommasAndBrackets(req.body['dias-input']));
     } else {
         if (req.body['dia']) {
             data.configuracion.dia = req.body['dia'];
@@ -90,3 +90,14 @@ async function build_data(req) {
 
     return data;
 }
+
+function removeCommasAndBrackets(inputString) {
+    return inputString.replace(/[[\],]/g, '');
+  }
+  
+  function moveLastCharToFirst(inputString) {
+    const lastCharacter = inputString.slice(-1);
+    const newString = lastCharacter + inputString.slice(0, -1);
+    return newString;
+  }
+  
