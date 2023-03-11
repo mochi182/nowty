@@ -51,6 +51,7 @@ exports.done = async function (req, res) {
 };
 
 exports.insert = async function (req, res) {
+    console.log("FREEEG", req.body)
     try {
         const data = await buildData(req);
         const result = await model.insert(data);

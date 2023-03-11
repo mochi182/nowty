@@ -1,19 +1,3 @@
-// check if the URL contains the word "advanced" and set the display property of the element accordingly 
-
-function toggleAdvancedOptions() {
-    var opcionesAvanzadas = document.getElementById("opcionesAvanzadas");
-    if (window.location.href.indexOf("advanced") !== -1) {
-      opcionesAvanzadas.style.display = "block";
-    } else {
-      opcionesAvanzadas.style.display = "none";
-    }
-  }
-
-document.addEventListener("DOMContentLoaded", function() {
-toggleAdvancedOptions();
-});
-
-
   
 const dateDropdown = document.getElementById("date-dropdown");
 const porSemanaDiv = document.getElementById("porSemanaInputs");
@@ -108,22 +92,6 @@ clearButton.addEventListener("click", function () {
     fillDateInputs()
 });
 
-// When a new option is selected, the value of the dropdown-select element is checked and the text of the texto-entidad element is updated accordingly.
-var dropdownSelect = document.querySelector("#dropdown-select");
-var textoEntidad = document.querySelector("#texto-entidad");
-
-dropdownSelect.addEventListener("change", function () {
-    var selectedValue = dropdownSelect.value;
-
-    if (selectedValue === "actividad") {
-        textoEntidad.textContent = "actividad";
-    } else if (selectedValue === "rutina") {
-        textoEntidad.textContent = "rutina";
-    } else if (selectedValue === "nota") {
-        textoEntidad.textContent = "nota";
-    }
-});
-
 // When mouse drags around checkboxes, check or uncheck them
 // Credit to http://stackoverflow.com/questions/322378/javascript-check-if-mouse-button-down
 
@@ -190,13 +158,12 @@ async function sendData () {
     formData.append('horas-input', JSON.stringify(horasValues));
     formData.append('dias-input', JSON.stringify(diasValues));
 
+    // Converts formdata to JSON
     let object = {};
     formData.forEach(function (value, key) {
         object[key] = value;
     });
     let json = JSON.stringify(object);
-
-    console.log(json)
 
     fetch('/insert', {
         method: 'POST',

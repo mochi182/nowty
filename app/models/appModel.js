@@ -52,7 +52,6 @@ exports.select_all = async function () {
   // Combine the queries and get the results
   let query = `${queryPuntual} UNION ${queryRutinaNota} UNION ${queryRutinaNotaFrecuencia}`
   const results = await client.promise().query(query)
-  console.log(results[0])
   return results[0]
 }
 
