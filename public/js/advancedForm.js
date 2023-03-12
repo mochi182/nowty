@@ -2,8 +2,8 @@
 /* ==================== Form submission ==================== */
 
 // ---------- #addButton ----------
-// Button sends the form data as a POST request to the backend
 
+// Button sends the form data as a POST request to the backend
 const addButton = document.querySelector('#addButton');
 
 async function sendData () {
@@ -57,7 +57,6 @@ addButton.addEventListener('click', async () => {
 });
 
 // Checks if each input is valid using the checkValidity() method
-
 function validateForm(form) {
     const inputs = form.querySelectorAll('input, select, textarea');
     let isValid = true;
@@ -68,16 +67,15 @@ function validateForm(form) {
             break;
         }
     }
-
     return isValid;
 }
 
 /* ==================== Component specific scripts ==================== */
 
 // ---------- #date-dropdown ----------
+
 // Add event listener to the date dropdown
 // Selection toggles "por-fecha" and "por-semana" display
-
 const dateDropdown = document.getElementById("date-dropdown");
 const porSemanaDiv = document.getElementById("porSemanaInputs");
 const porFechaDiv = document.getElementById("porFechaInputs");
@@ -96,9 +94,9 @@ dateDropdown.addEventListener("change", (event) => {
 });
 
 // ---------- #date-dropdown ----------
+
 // Checks if the selected value of "dropdown-select" is "puntual"
 // If it is, it sets the value of "date-dropdown" to "por-fecha" and disables it
-
 function selectPuntual() {
     var event = new Event('change');
     var dropdownSelect = document.getElementById("dropdown-select");
@@ -114,13 +112,12 @@ function selectPuntual() {
 }
 
 // Call the function whenever the dropdown is changed
-
 document.getElementById("dropdown-select").addEventListener("change", selectPuntual);
 
 // ---------- #dropdown-select ----------
+
 // Checks if the selected value of "dropdown-select" is "rutina"
 // If it is, it clears the value of the "anho" input and disables it
-
 function disableAnhoInput() {
     let dropdownSelect = document.getElementById("dropdown-select");
     let anhoInput = document.getElementById("anho");
@@ -136,12 +133,11 @@ function disableAnhoInput() {
 }
 
 // Call the function whenever the dropdown is changed
-
 document.getElementById("dropdown-select").addEventListener("change", disableAnhoInput);
 
 // ---------- #clearButton ----------
-// Button for clearing all inputs, textareas and checkboxes. Reverts selects to default.
 
+// Button for clearing all inputs, textareas and checkboxes. Reverts selects to default.
 var clearButton = document.querySelector("#clearButton");
 
 async function clearInputs(){
@@ -175,8 +171,8 @@ clearButton.addEventListener("click", function () {
 });
 
 // ---------- input[type="checkbox"]:not(.hecho-checkbox) ----------
-// Mouse drag-around effect for checkboxes, checks or unchecks them
 
+// Mouse drag-around effect for checkboxes, checks or unchecks them
 function selectAllCheckboxes() {
     const checkboxes = document.querySelectorAll('input[type="checkbox"]:not(.hecho-checkbox)');
 
@@ -213,10 +209,9 @@ function selectAllCheckboxes() {
 }
 
 // ---------- #imagen-input ----------
-// Image input
+
 // Creates a new input element of type file when the button is clicked
 // Then listens for the change event on that element to extract the selected file's name and type and set the value of the imagen-input element accordingly
-
 const selectFileBtn = document.getElementById("select-file-btn");
 const imagenInput = document.getElementById("imagen-input");
 
@@ -235,8 +230,8 @@ selectFileBtn.addEventListener("click", (event1) => {
 });
 
 // ---------- #dia #mes #anho ----------
-// Fill date inputs with the current date
 
+// Fill date inputs with the current date
 function fillDateInputs() {
     const now = new Date();
     const diaInput = document.getElementById('dia');
@@ -250,8 +245,8 @@ function fillDateInputs() {
 }
 
 // ---------- .hora-num ----------
-// Adds classes to the hour elements based on their content
 
+// Adds classes to the hour elements based on their content
 function addClassesToHourElements() {
     const hourElements = document.querySelectorAll('.hora-num');
 
@@ -270,8 +265,8 @@ function addClassesToHourElements() {
 }
 
 // ---------- .hora-num ----------
-// Convert the numbers in elements with class "hora-num" to 12-hour format
 
+// Convert the numbers in elements with class "hora-num" to 12-hour format
 function convertTo12HourClock() {
     const hourElements = document.querySelectorAll('.hora-num');
 
@@ -285,8 +280,8 @@ function convertTo12HourClock() {
 }
 
 // ---------- .dia-num ----------
-// Convert the numbers in elements with class "dia-num" to Spanish weekday names
 
+// Convert the numbers in elements with class "dia-num" to Spanish weekday names
 function convertToSpanishWeekdays() {
     const weekdayElements = document.querySelectorAll('.dia-num');
   
@@ -303,8 +298,8 @@ function convertToSpanishWeekdays() {
   }
 
 // ---------- #max-day-of-month ----------
-// Ensure that the maximum day is updated whenever the user selects a new month
 
+// Ensure that the maximum day is updated whenever the user selects a new month
 function updateMaxDayOfMonth() {
     const monthSelect = document.querySelector('#mes');
     const dayInput = document.querySelector('#dia');
@@ -328,8 +323,8 @@ const monthSelect = document.querySelector('#mes');
 monthSelect.addEventListener('change', updateMaxDayOfMonth);
 
 // ---------- #anho-actual ----------
-// Set current year as the minimum possible value in year input, and its corresponding label
 
+// Set current year as the minimum possible value in year input, and its corresponding label
 function setYearDefaults() {
     // Get the current year
     const currentYear = new Date().getFullYear();
@@ -407,9 +402,33 @@ uncheckAllDiasButton.addEventListener("click", function(event) {
     });
 });
 
-/* ==================== Pageload ==================== */
-// Functions are called when the DOM content has finished loading
+// ---------- #dia #mes #anho ----------
 
+// Toggles the required attribute based on the selected value of dropdown-select
+function toggleRequired() {
+    var dropdownSelect = document.getElementById("dropdown-select");
+    var diaInput = document.getElementById("dia");
+    var mesSelect = document.getElementById("mes");
+    var anhoInput = document.getElementById("anho");
+  
+    if (dropdownSelect.value === "1") {
+      diaInput.required = true;
+      mesSelect.required = true;
+      anhoInput.required = true;
+    } else {
+      diaInput.required = false;
+      mesSelect.required = false;
+      anhoInput.required = false;
+    }
+  }
+  
+// Add event listener to dropdown-select
+  var dropdownSelect = document.getElementById("dropdown-select");
+  dropdownSelect.addEventListener("change", toggleRequired);  
+
+/* ==================== Pageload ==================== */
+
+// Functions are called when the DOM content has finished loading
 document.addEventListener('DOMContentLoaded', () => {
     selectPuntual();
     
