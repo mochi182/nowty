@@ -38,19 +38,16 @@ function createNotasDivs(notas) {
         children: [
           {
             tag: 'p',
-            text: nota.nombre,
-          },
-          {
-            tag: 'p',
-            text: nota.descripcion,
-          },
-        ],
+            className: 'actividad-text',
+            text: nota.nombre + '\n' + nota.descripcion,
+          }
+        ]
       };
       if (nota.imagen) {
         div.children.push({
           tag: 'img',
           attributes: {
-            src: nota.imagen,
+            src: 'imgs/' + nota.imagen,
           },
         });
       }
@@ -70,14 +67,20 @@ function createNotasDivs(notas) {
         },
         children: [
           {
-            tag: 'p',
-            text: actividad.nombre,
+            tag: 'input',
+            className: 'hecho-checkbox',
+            attributes: {
+              id: actividad.id,
+              type: 'checkbox',
+              checked: parseInt(actividad.hecho) ? true : false,
+            },
           },
           {
             tag: 'p',
-            text: actividad.descripcion,
-          },
-        ],
+            className: 'actividad-text',
+            text: actividad.nombre + '\n' + actividad.descripcion,
+          }
+        ]
       };
       if (actividad.imagen) {
         div.children.push({
@@ -87,16 +90,6 @@ function createNotasDivs(notas) {
           },
         });
       }
-      const checkbox = {
-        tag: 'input',
-        className: 'hecho-checkbox',
-        attributes: {
-          id: actividad.id,
-          type: 'checkbox',
-          checked: parseInt(actividad.hecho) ? true : false,
-        },
-      };
-      div.children.push(checkbox);
       return div;
     });
     return actividadesDivs;
