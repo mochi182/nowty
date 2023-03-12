@@ -1,140 +1,8 @@
   
-const dateDropdown = document.getElementById("date-dropdown");
-const porSemanaDiv = document.getElementById("porSemanaInputs");
-const porFechaDiv = document.getElementById("porFechaInputs");
+/* ==================== Form submission ==================== */
 
-// add event listener to the date dropdown
-dateDropdown.addEventListener("change", (event) => {
-    const selectedValue = event.target.value;
-    if (selectedValue === "por-semana") {
-        // show the por-semana div and hide the por-fecha div
-        porSemanaDiv.style.display = "block";
-        porFechaDiv.style.display = "none";
-    } else if (selectedValue === "por-fecha") {
-        // show the por-fecha div and hide the por-semana div
-        porSemanaDiv.style.display = "none";
-        porFechaDiv.style.display = "block";
-    }
-});
-
-
-//  checks if the selected value of "dropdown-select" is "actividad".
-// If it is, it sets the value of "date-dropdown" to "por-fecha" and disables it.
-
-function selectActividad() {
-    var event = new Event('change');
-    var dropdownSelect = document.getElementById("dropdown-select");
-    var dateDropdown = document.getElementById("date-dropdown");
-
-    if (dropdownSelect.value === "actividad") {
-        dateDropdown.value = "por-fecha";
-        dateDropdown.dispatchEvent(event);
-        dateDropdown.disabled = true;
-    } else {
-        dateDropdown.disabled = false;
-    }
-}
-
-// Call the function on page load and whenever the dropdown is changed
-selectActividad();
-document.getElementById("dropdown-select").addEventListener("change", selectActividad);
-
-
-// checks if the selected value of "dropdown-select" is "rutina".
-// If it is, it clears the value of the "anho" input and disables it.
-function disableAnhoInput() {
-    var event = new Event('change');
-    var dropdownSelect = document.getElementById("dropdown-select");
-    var anhoInput = document.getElementById("anho");
-
-    if (dropdownSelect.value === "rutina") {
-        anhoInput.value = "";
-        anhoInput.disabled = true;
-    } else {
-        anhoInput.disabled = false;
-    }
-}
-
-// Call the function on page load and whenever the dropdown is changed
-disableAnhoInput();
-document.getElementById("dropdown-select").addEventListener("change", disableAnhoInput);
-
-// Clears all inputs, textareas and checkboxes. Reverts selects to default.
-var clearButton = document.querySelector(".btn-danger");
-
-async function clearInputs(){
-    var inputs = document.querySelectorAll("input");
-    var checkboxes = document.querySelectorAll("input[type=checkbox]:not(.hecho-checkbox)");
-    var textareas = document.querySelectorAll("textarea");
-    var selects = document.querySelectorAll("select");
-
-    for (var i = 0; i < inputs.length; i++) {
-        inputs[i].value = "";
-    }
-
-    for (var j = 0; j < checkboxes.length; j++) {
-        checkboxes[j].checked = false;
-    }
-
-    for (var k = 0; k < textareas.length; k++) {
-        textareas[k].value = "";
-    }
-
-    for (var l = 0; l < selects.length; l++) {
-        selects[l].selectedIndex = 0;
-        var event = new Event('change');
-        selects[l].dispatchEvent(event);
-    }
-}
-
-clearButton.addEventListener("click", function () {
-    clearInputs()
-    fillDateInputs()
-});
-
-// When mouse drags around checkboxes, check or uncheck them
-// Credit to http://stackoverflow.com/questions/322378/javascript-check-if-mouse-button-down
-
-function selectAllCheckboxes() {
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]:not(.hecho-checkbox)');
-
-    // prevent default behavior of checkboxes when clicked
-    checkboxes.forEach((checkbox) => {
-        checkbox.addEventListener('click', (event) => {
-            event.preventDefault();
-        });
-    });
-
-    let mouseDown = false;
-
-    // add mousedown event to check boxes
-    checkboxes.forEach((checkbox) => {
-        checkbox.addEventListener('mousedown', () => {
-            mouseDown = true;
-            checkbox.checked = 1 - checkbox.checked;
-        });
-    });
-
-    // add mouseover event to check boxes if mouse was already down
-    checkboxes.forEach((checkbox) => {
-        checkbox.addEventListener('mouseover', () => {
-            if (mouseDown) {
-                checkbox.checked = 1 - checkbox.checked;
-            }
-        });
-    });
-
-    // add mouseup event to reset mouseDown flag
-    document.addEventListener('mouseup', () => {
-        mouseDown = false;
-    });
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    selectAllCheckboxes();
-});
-
-// Sends the form data as a POST request to the backend
+// ---------- #addButton ----------
+// Button sends the form data as a POST request to the backend
 
 const addButton = document.querySelector('#addButton');
 
@@ -188,8 +56,166 @@ addButton.addEventListener('click', async () => {
     location.reload();
 });
 
-// creates a new input element of type file when the button is clicked,
-// then listens for the change event on that element to extract the selected file's name and type and set the value of the imagen-input element accordingly.
+// Checks if each input is valid using the checkValidity() method
+
+function validateForm(form) {
+    const inputs = form.querySelectorAll('input, select, textarea');
+    let isValid = true;
+
+    for (const input of inputs) {
+        if (!input.checkValidity()) {
+            isValid = false;
+            break;
+        }
+    }
+
+    return isValid;
+}
+
+/* ==================== Component specific scripts ==================== */
+
+// ---------- #date-dropdown ----------
+// Add event listener to the date dropdown
+// Selection toggles "por-fecha" and "por-semana" display
+
+const dateDropdown = document.getElementById("date-dropdown");
+const porSemanaDiv = document.getElementById("porSemanaInputs");
+const porFechaDiv = document.getElementById("porFechaInputs");
+
+dateDropdown.addEventListener("change", (event) => {
+    const selectedValue = event.target.value;
+    if (selectedValue === "por-semana") {
+        // show the por-semana div and hide the por-fecha div
+        porSemanaDiv.style.display = "block";
+        porFechaDiv.style.display = "none";
+    } else if (selectedValue === "por-fecha") {
+        // show the por-fecha div and hide the por-semana div
+        porSemanaDiv.style.display = "none";
+        porFechaDiv.style.display = "block";
+    }
+});
+
+// ---------- #date-dropdown ----------
+// Checks if the selected value of "dropdown-select" is "puntual"
+// If it is, it sets the value of "date-dropdown" to "por-fecha" and disables it
+
+function selectPuntual() {
+    var event = new Event('change');
+    var dropdownSelect = document.getElementById("dropdown-select");
+    var dateDropdown = document.getElementById("date-dropdown");
+
+    if (dropdownSelect.value === "1") {
+        dateDropdown.value = "por-fecha";
+        dateDropdown.dispatchEvent(event);
+        dateDropdown.disabled = true;
+    } else {
+        dateDropdown.disabled = false;
+    }
+}
+
+// Call the function whenever the dropdown is changed
+
+document.getElementById("dropdown-select").addEventListener("change", selectPuntual);
+
+// ---------- #dropdown-select ----------
+// Checks if the selected value of "dropdown-select" is "rutina"
+// If it is, it clears the value of the "anho" input and disables it
+
+function disableAnhoInput() {
+    let dropdownSelect = document.getElementById("dropdown-select");
+    let anhoInput = document.getElementById("anho");
+
+    if (dropdownSelect.value === "2") {
+        anhoInput.value = "";
+        anhoInput.disabled = true;
+    } else {
+        const now = new Date();
+        anhoInput.disabled = false;
+        anhoInput.value = now.getFullYear();
+    }
+}
+
+// Call the function whenever the dropdown is changed
+
+document.getElementById("dropdown-select").addEventListener("change", disableAnhoInput);
+
+// ---------- #clearButton ----------
+// Button for clearing all inputs, textareas and checkboxes. Reverts selects to default.
+
+var clearButton = document.querySelector("#clearButton");
+
+async function clearInputs(){
+    var inputs = document.querySelectorAll("input");
+    var checkboxes = document.querySelectorAll("input[type=checkbox]:not(.hecho-checkbox)");
+    var textareas = document.querySelectorAll("textarea");
+    var selects = document.querySelectorAll("select");
+
+    for (var i = 0; i < inputs.length; i++) {
+        inputs[i].value = "";
+    }
+
+    for (var j = 0; j < checkboxes.length; j++) {
+        checkboxes[j].checked = false;
+    }
+
+    for (var k = 0; k < textareas.length; k++) {
+        textareas[k].value = "";
+    }
+
+    for (var l = 0; l < selects.length; l++) {
+        selects[l].selectedIndex = 0;
+        var event = new Event('change');
+        selects[l].dispatchEvent(event);
+    }
+}
+
+clearButton.addEventListener("click", function () {
+    clearInputs()
+    fillDateInputs()
+});
+
+// ---------- input[type="checkbox"]:not(.hecho-checkbox) ----------
+// Mouse drag-around effect for checkboxes, checks or unchecks them
+
+function selectAllCheckboxes() {
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]:not(.hecho-checkbox)');
+
+    // prevent default behavior of checkboxes when clicked
+    checkboxes.forEach((checkbox) => {
+        checkbox.addEventListener('click', (event) => {
+            event.preventDefault();
+        });
+    });
+
+    let mouseDown = false;
+
+    // add mousedown event to check boxes
+    checkboxes.forEach((checkbox) => {
+        checkbox.addEventListener('mousedown', () => {
+            mouseDown = true;
+            checkbox.checked = 1 - checkbox.checked;
+        });
+    });
+
+    // add mouseover event to check boxes if mouse was already down
+    checkboxes.forEach((checkbox) => {
+        checkbox.addEventListener('mouseover', () => {
+            if (mouseDown) {
+                checkbox.checked = 1 - checkbox.checked;
+            }
+        });
+    });
+
+    // add mouseup event to reset mouseDown flag
+    document.addEventListener('mouseup', () => {
+        mouseDown = false;
+    });
+}
+
+// ---------- #imagen-input ----------
+// Image input
+// Creates a new input element of type file when the button is clicked
+// Then listens for the change event on that element to extract the selected file's name and type and set the value of the imagen-input element accordingly
 
 const selectFileBtn = document.getElementById("select-file-btn");
 const imagenInput = document.getElementById("imagen-input");
@@ -208,7 +234,8 @@ selectFileBtn.addEventListener("click", (event1) => {
     fileInput.click();
 });
 
-// fill date inputs with the current date
+// ---------- #dia #mes #anho ----------
+// Fill date inputs with the current date
 
 function fillDateInputs() {
     const now = new Date();
@@ -222,10 +249,9 @@ function fillDateInputs() {
 
 }
 
-fillDateInputs(); // Call the function once the page loads
-updateMaxDayOfMonth();
+// ---------- .hora-num ----------
+// Adds classes to the hour elements based on their content
 
-// adds the required classes to the hour elements based on their content. 
 function addClassesToHourElements() {
     const hourElements = document.querySelectorAll('.hora-num');
 
@@ -243,7 +269,9 @@ function addClassesToHourElements() {
     }
 }
 
-// selects all elements with class "hora-num" and converts the hour to 12-hour format
+// ---------- .hora-num ----------
+// Convert the numbers in elements with class "hora-num" to 12-hour format
+
 function convertTo12HourClock() {
     const hourElements = document.querySelectorAll('.hora-num');
 
@@ -256,7 +284,9 @@ function convertTo12HourClock() {
     }
 }
 
-// convert the numbers in elements with class "dia-num" to Spanish weekday names
+// ---------- .dia-num ----------
+// Convert the numbers in elements with class "dia-num" to Spanish weekday names
+
 function convertToSpanishWeekdays() {
     const weekdayElements = document.querySelectorAll('.dia-num');
   
@@ -272,14 +302,8 @@ function convertToSpanishWeekdays() {
     }
   }
 
-// functions are called when the DOM content has finished loading
-document.addEventListener('DOMContentLoaded', () => {
-    addClassesToHourElements();
-    convertTo12HourClock();
-    convertToSpanishWeekdays();
-});
-
-// ensure that the maximum day is updated whenever the user selects a new month.
+// ---------- #max-day-of-month ----------
+// Ensure that the maximum day is updated whenever the user selects a new month
 
 function updateMaxDayOfMonth() {
     const monthSelect = document.querySelector('#mes');
@@ -303,23 +327,9 @@ function updateMaxDayOfMonth() {
 const monthSelect = document.querySelector('#mes');
 monthSelect.addEventListener('change', updateMaxDayOfMonth);
 
-// checks if each input is valid using the checkValidity() method.
+// ---------- #anho-actual ----------
+// Set current year as the minimum possible value in year input, and its corresponding label
 
-function validateForm(form) {
-    const inputs = form.querySelectorAll('input, select, textarea');
-    let isValid = true;
-
-    for (const input of inputs) {
-        if (!input.checkValidity()) {
-            isValid = false;
-            break;
-        }
-    }
-
-    return isValid;
-}
-
-// Set current year as minimum possible value in year input, and its corresponding label
 function setYearDefaults() {
     // Get the current year
     const currentYear = new Date().getFullYear();
@@ -333,10 +343,9 @@ function setYearDefaults() {
     inputAnho.min = currentYear.toString();
 }
 
-// Call the setYearDefaults function when the document loads
-window.addEventListener("load", setYearDefaults);
+// ---------- #check-all-horas-button #uncheck-all-horas-button ----------
 
-// Get the "Check all" and "Uncheck all" button elements
+// Get the button elements
 const checkAllHorasButton = document.querySelector("#check-all-horas-button");
 const uncheckAllHorasButton = document.querySelector("#uncheck-all-horas-button");
 
@@ -366,7 +375,9 @@ uncheckAllHorasButton.addEventListener("click", function(event) {
     });
 });
 
-// Get the "Check all" and "Uncheck all" button elements
+// ---------- #check-all-dias-button #uncheck-all-dias-button ----------
+
+// Get the button elements
 const checkAllDiasButton = document.querySelector("#check-all-dias-button");
 const uncheckAllDiasButton = document.querySelector("#uncheck-all-dias-button");
 
@@ -394,4 +405,19 @@ uncheckAllDiasButton.addEventListener("click", function(event) {
     checkboxes.forEach(function(checkbox) {
         checkbox.checked = false;
     });
+});
+
+/* ==================== Pageload ==================== */
+// Functions are called when the DOM content has finished loading
+
+document.addEventListener('DOMContentLoaded', () => {
+    selectPuntual();
+    
+    addClassesToHourElements();
+    convertTo12HourClock();
+    convertToSpanishWeekdays();
+    fillDateInputs();
+    updateMaxDayOfMonth();
+    setYearDefaults();
+    selectAllCheckboxes();
 });
