@@ -1,0 +1,10 @@
+
+ordenar no solo por hora, sino por continuidad (cual va despupes de cual)
+
+pagina de editar (se edita ahi mismo?)
+
+pagina de configuracion?
+las actividades son todas las mayor al tiempo actual y menor a 1 anho, configurable
+grafico de gantt
+crear bot que me envie las actividades de la hora o del dia a whatsapp
+integrar AI para saber o dar insights de como resolver mejor el dia
