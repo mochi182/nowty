@@ -254,6 +254,7 @@ function addClassesToHourElements() {
         const hourElement = hourElements[i];
         const hour = parseInt(hourElement.textContent);
 
+        hourElement.classList.add('time');
         if (hour >= 1 && hour <= 6 || hour >= 18 && hour <= 24) {
             hourElement.classList.add('dark');
         } else if (hour === 7 || hour === 17) {

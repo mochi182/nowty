@@ -1,14 +1,20 @@
-<form id="addForm">
+<form id="addForm" class="form-style">
+
+    <center>
+        <h5>
+            Nueva actividad
+        </h5>
+    </center>
 
     <div class="form-group">
-        <label for="actividad-input">Agregar nueva <span id="texto-entidad">actividad</span>:</label>
+        <label for="actividad-input">Nombre de la actividad:</label>
         <input class="form-control" type="text" id="actividad-input" name="actividad-input" required>
     </div>
 
     <div id="opcionesAvanzadas">
 
         <div class="form-group">
-            <label for="dropdown-select">Seleccionar tipo:</label>
+            <label for="dropdown-select">Tipo:</label>
             <select id="dropdown-select" class="form-control" name="dropdown-select">
                 <option value="1" selected>Puntual</option>
                 <option value="2">Rutina</option>
@@ -25,12 +31,12 @@
         <div class="form-group">
             <label for="imagen-input">Imagen:</label>
             <input readonly type="text" class="form-control" id="imagen-input" class="form-control" name="imagen-input">
-            <button id="select-file-btn" class="btn btn-secondary">Seleccionar archivo</button>
-            </div>                      
+            <button id="select-file-btn" class="btn btn-outline-secondary mt-2 mb-2">Seleccionar archivo</button>
+        </div>                      
 
         <div class="form-group">
             <fieldset id="horas-input">
-                <legend class="sr-only">Horas:</legend>
+                <legend>Horas:</legend>
                 <div class="checkbox-group">
                     <% for (var i=1; i <=24; i++) { %>
                         <div class="checkbox-unit">
@@ -41,8 +47,8 @@
                         </div>
                     <% } %>
                 </div>
-                <button id="check-all-horas-button">Check all</button>
-                <button id="uncheck-all-horas-button">Uncheck all</button>
+                <button id="check-all-horas-button" class="btn btn-outline-secondary mt-2 mb-2">✔️ Todos</button>
+                <button id="uncheck-all-horas-button" class="btn btn-outline-danger mt-2 mb-2">⬜ Ninguno</button>
             </fieldset>
         </div>
 
@@ -59,19 +65,19 @@
         <div id="porSemanaInputs">
             <div class="form-group">
                 <fieldset id="dias-input">
-                    <legend class="sr-only">Dias:</legend>
+                    <legend>Dias:</legend>
                     <div class="checkbox-group">
                         <% for (var i=1; i <=7; i++) { %>
                             <div class="checkbox-unit">
                                 <label class="checkbox-container">
                                     <input type="checkbox" class="dias" name="dias-input" value="<%= i %>" />
                                 </label>
-                                <small class="dia-num"><%= i %></small>
+                                <small class="dia-num time weekday"><%= i %></small>
                             </div>
                         <% } %>
                     </div>
-                    <button id="check-all-dias-button">Check all</button>
-                    <button id="uncheck-all-dias-button">Uncheck all</button>
+                    <button id="check-all-dias-button" class="btn btn-outline-secondary mt-2 mb-2">✔️ Todos</button>
+                    <button id="uncheck-all-dias-button" class="btn btn-outline-danger mt-2 mb-2">⬜ Ninguno</button>
                 </fieldset>
             </div>
         </div>
@@ -116,12 +122,15 @@
     </div>
 </form>
 
-<button class="btn btn-primary" id="addButton">
-    Add
-</button>
-
-<button class="btn btn-danger" id="clearButton">
-    Clear
-</button>
+<center>
+    <button class="btn btn-primary" id="addButton">
+        Add
+    </button>
+    
+    <button class="btn btn-danger" id="clearButton">
+        Clear
+    </button>
+    
+</center>
 
 <script src="js/advancedForm.js"></script>
