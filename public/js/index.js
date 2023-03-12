@@ -1,36 +1,40 @@
 // Add an event listener to each checkbox
-const checkboxes = document.querySelectorAll('.hecho-checkbox');
-checkboxes.forEach((checkbox) => {
-    checkbox.addEventListener('click', () => {
-        const isChecked = checkbox.checked;
-        const id = checkbox.id;
-
-        // send a POST request to the server when the checkbox is clicked
-        fetch('/done', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ id, isChecked })
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                console.log('Checkbox status updated successfully');
-            })
-            .catch(error => {
-                console.error('There was a problem updating the checkbox status:', error);
-            });
-    });
-});
+function AssignEventListenersToCheckboxes(){
+  const checkboxes = document.querySelectorAll('.hecho-checkbox');
+  checkboxes.forEach((checkbox) => {
+      checkbox.addEventListener('click', () => {
+          const isChecked = checkbox.checked;
+          const id = checkbox.id;
+  
+          // send a POST request to the server when the checkbox is clicked
+          fetch('/done', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ id, isChecked })
+          })
+              .then(response => {
+                  if (!response.ok) {
+                      throw new Error('Network response was not ok');
+                  }
+                  console.log('Checkbox status updated successfully');
+              })
+              .catch(error => {
+                  console.error('There was a problem updating the checkbox status:', error);
+              });
+      });
+  });  
+}
 
 function createNotasDivs(notas) {
     const notasDivs = notas.map((nota) => {
       const div = {
         id: nota.id,
-        frecuencia_horaria: nota.frecuencia_horaria,
         className: 'notas',
+        attributes: {
+          frecuencia_horaria: nota.frecuencia_horaria,
+        },
         children: [
           {
             tag: 'p',
@@ -57,6 +61,7 @@ function createNotasDivs(notas) {
 
   function createActividadesDivs(actividades) {
     const actividadesDivs = actividades.map((actividad) => {
+      console.log(actividad.hecho)
       const div = {
         id: actividad.id,
         className: 'actividades',
@@ -84,9 +89,11 @@ function createNotasDivs(notas) {
       }
       const checkbox = {
         tag: 'input',
+        className: 'hecho-checkbox',
         attributes: {
+          id: actividad.id,
           type: 'checkbox',
-          checked: actividad.hecho,
+          checked: parseInt(actividad.hecho) ? true : false,
         },
       };
       div.children.push(checkbox);
@@ -99,9 +106,9 @@ function createNotasDivs(notas) {
     return divs.sort((a, b) => {
       const aFrecuencia = parseInt(a.attributes.frecuencia_horaria, 2);
       const bFrecuencia = parseInt(b.attributes.frecuencia_horaria, 2);
-      return aFrecuencia - bFrecuencia;
+      return bFrecuencia - aFrecuencia;
     });
-  }
+  }  
 
   // loop through the list of objects and render them inside a given section
   function renderDivElements(divElements, sectionId) {
@@ -117,15 +124,45 @@ function createNotasDivs(notas) {
         if (child.text) {
           element.textContent = child.text;
         }
+        if (child.className) {
+          element.classList.add(child.className);
+        }
+        if (child.attributes) {
+          for (const [key, value] of Object.entries(child.attributes)) {
+            if (key === "checked" && value) {
+              element.setAttribute(key, "checked");
+            } else if (key !== "checked") {
+              element.setAttribute(key, value);
+            }
+          }
+        }
         div.appendChild(element);
       });
+      
       section.appendChild(div);
     });
-  }
-  
+  }  
 
-  document.addEventListener("DOMContentLoaded", function() {
+// Filter objects with tipo equal to "rutina" or "puntual"
+const actividades = incomingData.filter(obj => obj.tipo === 'rutina' || obj.tipo === 'puntual');
+const actividadesDivs = sortDivsByFrecuenciaHoraria(createActividadesDivs(actividades));
+const renderActividadesPromise = new Promise((resolve, reject) => {
+  renderDivElements(actividadesDivs, "actividadesDivs")
+  resolve();
+});
 
+renderActividadesPromise.then(() => {
+  AssignEventListenersToCheckboxes();
+});
+
+// Filter objects with tipo equal to "nota"
+const notas = incomingData.filter(obj => obj.tipo === 'nota');
+const notasDivs = sortDivsByFrecuenciaHoraria(createNotasDivs(notas));
+renderDivElements(notasDivs, "notasDivs")
+
+function crickey() {
+  // Ejecucion con cookies, para cuando implemente ordenar manualmente las filas con drag n drop.
+  // Falta arreglarlo
     const notasCookie = document.cookie.split(';').find(cookie => cookie.trim().startsWith('notas='));
     const actividadesCookie = document.cookie.split(';').find(cookie => cookie.trim().startsWith('actividades='));
     
@@ -175,6 +212,6 @@ function createNotasDivs(notas) {
         renderDivElements(actividadesDivs, "actividadesDivs")
     }
     
-    });
+    };
 
 

@@ -73,8 +73,8 @@ async function buildData(req) {
         data.atributos.imagen = req.body['imagen-input'];
     }
     data.configuracion = {};
+    data.configuracion.frecuencia_horaria = removeCommasAndBrackets(req.body['horas-input']);
     if (req.body['date-dropdown'] === 'por-semana') {
-        data.configuracion.frecuencia_horaria = removeCommasAndBrackets(req.body['horas-input']);
         data.configuracion.frecuencia_diaria = moveLastCharToFirst(removeCommasAndBrackets(req.body['dias-input']));
     } else {
         if (req.body['dia']) {

@@ -16,6 +16,7 @@ exports.select_all = async function () {
     JOIN tipo_de_actividad AS ta ON a.id_tipo_de_actividad = ta.id
     JOIN configuracion AS c ON a.id = c.id_actividad
     WHERE ta.tipo = 'puntual'
+    AND a.hecho = 0
     AND c.dia IS NOT NULL AND c.mes IS NOT NULL AND c.anho IS NOT NULL
     AND STR_TO_DATE(CONCAT(c.dia, '/', c.mes, '/', c.anho), '%d/%m/%Y') BETWEEN '${todayFormatted}' AND '${maxDateFormatted}'
   `
@@ -52,6 +53,7 @@ exports.select_all = async function () {
   // Combine the queries and get the results
   let query = `${queryPuntual} UNION ${queryRutinaNota} UNION ${queryRutinaNotaFrecuencia}`
   const results = await client.promise().query(query)
+  console.log(results[0])
   return results[0]
 }
 
