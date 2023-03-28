@@ -18,8 +18,20 @@ exports.select_all = async function () {
     WHERE ta.tipo = 'puntual'
     AND a.hecho = 0
     AND c.dia IS NOT NULL AND c.mes IS NOT NULL AND c.anho IS NOT NULL
-    AND STR_TO_DATE(CONCAT(c.dia, '/', c.mes, '/', c.anho), '%d/%m/%Y') BETWEEN '${todayFormatted}' AND '${maxDateFormatted}'
+    AND STR_TO_DATE(CONCAT(c.dia, '/', c.mes, '/', c.anho), '%d/%m/%Y') = '${todayFormatted}'
   `
+
+  // Query for rows of type "rango"
+  let queryRango = `
+  SELECT *
+  FROM actividad AS a
+  JOIN tipo_de_actividad AS ta ON a.id_tipo_de_actividad = ta.id
+  JOIN configuracion AS c ON a.id = c.id_actividad
+  WHERE ta.tipo = 'rango'
+  AND a.hecho = 0
+  AND c.dia IS NOT NULL AND c.mes IS NOT NULL AND c.anho IS NOT NULL
+  AND STR_TO_DATE(CONCAT(c.dia, '/', c.mes, '/', c.anho), '%d/%m/%Y') BETWEEN '${todayFormatted}' AND '${maxDateFormatted}'
+`
 
   // Query for rows of type "rutina" or "nota"
   let queryRutinaNota = `
@@ -27,7 +39,7 @@ exports.select_all = async function () {
     FROM actividad AS a
     JOIN tipo_de_actividad AS ta ON a.id_tipo_de_actividad = ta.id
     JOIN configuracion AS c ON a.id = c.id_actividad
-    WHERE ta.tipo IN ('rutina', 'nota')
+    WHERE ta.tipo = 'rutina'
     AND (
       (c.dia = ${today.getDate()} AND c.mes IS NULL AND c.anho IS NULL) OR
       (c.mes = ${today.getMonth() + 1} AND c.dia IS NULL AND c.anho IS NULL) OR
@@ -45,15 +57,15 @@ exports.select_all = async function () {
   FROM actividad AS a
   JOIN tipo_de_actividad AS ta ON a.id_tipo_de_actividad = ta.id
   JOIN configuracion AS c ON a.id = c.id_actividad
-  WHERE ta.tipo IN ('rutina', 'nota')
+  WHERE ta.tipo = 'rutina'
   AND c.dia IS NULL AND c.mes IS NULL AND c.anho IS NULL
   AND SUBSTR(c.frecuencia_diaria, DAYOFWEEK('${todayFormatted}'), 1) = '1'  
   `
 
   // Combine the queries and get the results
-  let query = `${queryPuntual} UNION ${queryRutinaNota} UNION ${queryRutinaNotaFrecuencia}`
+  let query = `${queryPuntual} UNION ${queryRango} UNION ${queryRutinaNota} UNION ${queryRutinaNotaFrecuencia}`
   const results = await client.promise().query(query)
-  console.log(results[0])
+  //console.log(results[0])
   return results[0]
 }
 
@@ -74,12 +86,13 @@ exports.done = async function (req) {
 exports.insert = async function (data) {
   try {
     // Insert data into 'actividad' table
-    const insertActividadQuery = `INSERT INTO actividad (nombre, descripcion, imagen, id_tipo_de_actividad) VALUES (?, ?, ?, ?)`;
+    const insertActividadQuery = `INSERT INTO actividad (nombre, descripcion, imagen, id_tipo_de_actividad, es_nota) VALUES (?, ?, ?, ?, ?)`;
     const insertActividadResult = await client.promise().query(insertActividadQuery, [
       data.atributos.nombre,
       data.atributos.descripcion || null,
       data.atributos.imagen || null,
-      data.entidad
+      data.entidad,
+      data.es_nota
     ]);
     const actividadId = insertActividadResult[0].insertId;
 
@@ -113,7 +126,7 @@ exports.reset = async function (req) {
     current_date = new Date().toISOString().slice(0, 10);
 
     if (latest_date < current_date) {
-      console.log("Reset will be triggered.")
+      //console.log("Reset will be triggered.")
       query = `INSERT INTO cronjob_log (tiempo) VALUES (CURDATE());`
       await client.promise().query(query)
     } 

@@ -17,12 +17,16 @@ async function sendData () {
 
     const formData = new FormData(addForm);
 
+    const notaInput = document.getElementById('es-nota');
+    const notaValue = notaInput.checked ? 1 : 0;
+
     const horasInputs = document.querySelectorAll('.horas');
     const horasValues = Array.from(horasInputs).map(input => input.checked ? 1 : 0);
 
     const diasInputs = document.querySelectorAll('.dias');
     const diasValues = Array.from(diasInputs).map(input => input.checked ? 1 : 0);
 
+    formData.append('es-nota', JSON.stringify(notaValue));
     formData.append('horas-input', JSON.stringify(horasValues));
     formData.append('dias-input', JSON.stringify(diasValues));
 
@@ -95,14 +99,14 @@ dateDropdown.addEventListener("change", (event) => {
 
 // ---------- #date-dropdown ----------
 
-// Checks if the selected value of "dropdown-select" is "puntual"
+// Checks if the selected value of "dropdown-select" is "puntual" or "rango"
 // If it is, it sets the value of "date-dropdown" to "por-fecha" and disables it
 function selectPuntual() {
     var event = new Event('change');
     var dropdownSelect = document.getElementById("dropdown-select");
     var dateDropdown = document.getElementById("date-dropdown");
 
-    if (dropdownSelect.value === "1") {
+    if (dropdownSelect.value === "1" || dropdownSelect.value === "3") {
         dateDropdown.value = "por-fecha";
         dateDropdown.dispatchEvent(event);
         dateDropdown.disabled = true;

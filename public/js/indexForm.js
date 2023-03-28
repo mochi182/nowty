@@ -1,20 +1,4 @@
 
-// Clears all inputs, textareas and checkboxes. Reverts selects to default.
-var clearButton = document.querySelector(".btn-danger");
-
-async function clearInputs(){
-    var inputs = document.querySelectorAll("input");
-
-    for (var i = 0; i < inputs.length; i++) {
-        inputs[i].value = "";
-    }
-
-}
-
-clearButton.addEventListener("click", function () {
-    clearInputs()
-});
-
 // Sends the form data as a POST request to the backend
 const addButton = document.querySelector('#addButton');
 
@@ -73,8 +57,7 @@ addButton.addEventListener('click', async () => {
     location.reload();
 });
 
-// checks if each input is valid using the checkValidity() method.
-
+// Checks if each input is valid using the checkValidity() method.
 function validateForm(form) {
     const inputs = form.querySelectorAll('input, select, textarea');
     let isValid = true;
@@ -87,3 +70,20 @@ function validateForm(form) {
     }
     return isValid;
 }
+
+
+// Clear button: Clears all inputs, textareas and checkboxes. Reverts selects to default.
+var clearButton = document.querySelector(".btn-danger");
+
+async function clearInputs(){
+    var inputs = document.querySelectorAll("input");
+
+    for (var i = 0; i < inputs.length; i++) {
+        inputs[i].value = "";
+    }
+
+}
+
+clearButton.addEventListener("click", function () {
+    clearInputs()
+});

@@ -11,6 +11,13 @@
         <input class="form-control" type="text" id="actividad-input" name="actividad-input" required>
     </div>
 
+    <div class="form-group">
+        <input class="form-check-input" type="checkbox" value="1" name="es-nota" id="es-nota">
+        <label class="form-check-label" for="flexCheckDefault">
+            ¿Es nota?
+        </label>
+    </div>
+
     <div id="opcionesAvanzadas">
 
         <div class="form-group">
@@ -18,21 +25,20 @@
             <select id="dropdown-select" class="form-control" name="dropdown-select">
                 <option value="1" selected>Puntual</option>
                 <option value="2">Rutina</option>
-                <option value="3">Nota</option>
+                <option value="3">Rango</option>
             </select>
         </div>
 
         <div class="form-group">
             <label for="descripcion-textarea">Descripción:</label>
-            <textarea id="descripcion-textarea" class="form-control" name="descripcion-textarea"
-                rows="4"></textarea>
+            <textarea id="descripcion-textarea" class="form-control" name="descripcion-textarea" rows="4"></textarea>
         </div>
 
         <div class="form-group">
             <label for="imagen-input">Imagen:</label>
             <input readonly type="text" class="form-control" id="imagen-input" class="form-control" name="imagen-input">
             <button id="select-file-btn" class="btn btn-outline-secondary mt-2 mb-2">Seleccionar archivo</button>
-        </div>                      
+        </div>
 
         <div class="form-group">
             <fieldset id="horas-input">
@@ -41,11 +47,14 @@
                     <% for (var i=1; i <=24; i++) { %>
                         <div class="checkbox-unit">
                             <label class="checkbox-container">
-                                <input type="checkbox" class="horas" name="horas-input" value="<%= i %>" <%= i >= 8 && i <= 16 ? "checked" : "" %> />
+                                <input type="checkbox" class="horas" name="horas-input" value="<%= i %>" <%=i>= 8 && i
+                                <= 16 ? "checked" : "" %> />
                             </label>
-                            <small class="hora-num"><%= i %></small>
+                            <small class="hora-num">
+                                <%= i %>
+                            </small>
                         </div>
-                    <% } %>
+                        <% } %>
                 </div>
                 <button id="check-all-horas-button" class="btn btn-outline-secondary mt-2 mb-2">✔️ Todos</button>
                 <button id="uncheck-all-horas-button" class="btn btn-outline-danger mt-2 mb-2">⬜ Ninguno</button>
@@ -72,9 +81,11 @@
                                 <label class="checkbox-container">
                                     <input type="checkbox" class="dias" name="dias-input" value="<%= i %>" />
                                 </label>
-                                <small class="dia-num time weekday"><%= i %></small>
+                                <small class="dia-num time weekday">
+                                    <%= i %>
+                                </small>
                             </div>
-                        <% } %>
+                            <% } %>
                     </div>
                     <button id="check-all-dias-button" class="btn btn-outline-secondary mt-2 mb-2">✔️ Todos</button>
                     <button id="uncheck-all-dias-button" class="btn btn-outline-danger mt-2 mb-2">⬜ Ninguno</button>
@@ -126,11 +137,11 @@
     <button class="btn btn-primary" id="addButton">
         Add
     </button>
-    
+
     <button class="btn btn-danger" id="clearButton">
         Clear
     </button>
-    
+
 </center>
 
 <script src="js/advancedForm.js"></script>

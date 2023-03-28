@@ -63,6 +63,7 @@ exports.insert = async function (req, res) {
 async function buildData(req) {
     let data = {}
     data.entidad = req.body['dropdown-select'];
+    data.es_nota = req.body['es-nota']
     data.atributos = {
         nombre: req.body['actividad-input'],
     }

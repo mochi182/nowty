@@ -136,8 +136,8 @@ function createNotasDivs(notas) {
     });
   }  
 
-// Filter objects with tipo equal to "rutina" or "puntual"
-const actividades = incomingData.filter(obj => obj.tipo === 'rutina' || obj.tipo === 'puntual');
+// Filter objects with tipo "rutina" or "puntual"
+const actividades = incomingData.filter(obj => obj.es_nota === 0);
 const actividadesDivs = sortDivsByFrecuenciaHoraria(createActividadesDivs(actividades));
 const renderActividadesPromise = new Promise((resolve, reject) => {
   renderDivElements(actividadesDivs, "actividadesDivs")
@@ -148,8 +148,8 @@ renderActividadesPromise.then(() => {
   AssignEventListenersToCheckboxes();
 });
 
-// Filter objects with tipo equal to "nota"
-const notas = incomingData.filter(obj => obj.tipo === 'nota');
+// Filter objects with tipo "nota"
+const notas = incomingData.filter(obj => obj.es_nota === 1);
 const notasDivs = sortDivsByFrecuenciaHoraria(createNotasDivs(notas));
 renderDivElements(notasDivs, "notasDivs")
 
