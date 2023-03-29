@@ -109,3 +109,11 @@ function removeCommasAndBrackets(inputString) {
         res.json({"Error": err})
     }
 };
+
+exports.manualReset = async function (req, res) {
+    try {
+        await model.manualReset(req)
+    } catch(err) {
+        res.json({"Error": err})
+    }
+};

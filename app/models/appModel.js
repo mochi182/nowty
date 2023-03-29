@@ -139,3 +139,17 @@ exports.reset = async function (req) {
         throw err;
     }
 }
+
+
+// Reset actividad of type rutina
+exports.manualReset = async function (req) {
+    try {
+        const query = `UPDATE actividad SET hecho = 0 WHERE id_tipo_de_actividad = 2`;
+        const results = await client.promise().query(query);
+        console.log(results[0])
+        return results[0];
+    } catch (err) {
+        console.log(err);
+        throw err;
+    }
+};

@@ -30,6 +30,10 @@ exports.routes = function (app) {
         controller.reset(req, res);
     });
 
+    app.get('/manualreset', function (req, res) {
+        controller.manualReset(req, res);
+    });
+
     // Post:
 
     app.post('/done', function (req, res) {

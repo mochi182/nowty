@@ -1,3 +1,26 @@
+// Button sends a GET request to the backend to reset the routines
+const resetButton = document.querySelector('#resetButton');
+
+async function resetRoutines() {
+    fetch('/manualreset', {
+        method: 'GET'
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            console.log('Routines reset successfully');
+        })
+        .catch(error => {
+            console.error('There was a problem resetting the routines:', error);
+        });
+}
+
+resetButton.addEventListener('click', async () => {
+    await resetRoutines();
+    location.reload();
+});
+
 // Add an event listener to each checkbox
 function AssignEventListenersToCheckboxes(){
   const checkboxes = document.querySelectorAll('.hecho-checkbox');
