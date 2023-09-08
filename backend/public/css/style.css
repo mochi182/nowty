@@ -2,7 +2,6 @@
   body {
     position: relative;
     min-height: 100vh;
-    padding-bottom: calc(134px + 20px); /* Height of the footer + extra padding */
   }
   
   footer {
