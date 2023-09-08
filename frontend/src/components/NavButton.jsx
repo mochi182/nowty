@@ -1,14 +1,13 @@
 import './NavButton.css'
+import '../assets/Buttons.css'
 
 export function NavButton({linkTo, icon, name}) {
     return (
-        <li className="nav-item">
-            <a className="nav-link" href={linkTo}>
-                <center>
-                    <div>{icon}</div>
-                    <small>{name}</small>
-                </center>
-            </a>
-        </li>
+        <a className="overrideLinkStyle light navButton" href={linkTo}>
+            <center>
+                <div>{icon}</div>
+                <small>{name}</small>
+            </center>
+        </a>
     )
 }

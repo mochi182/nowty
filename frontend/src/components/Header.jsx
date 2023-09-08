@@ -6,7 +6,7 @@ export function Header() {
     return (
         <header>
             <nav>
-                <a href="/">
+                <a href="/" id="nowtyLogo">
                     <center>
                         <div>⏰</div>
                         <b>Nowty</b>

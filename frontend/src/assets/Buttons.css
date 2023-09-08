@@ -1,0 +1,137 @@
+.overrideLinkStyle {
+    text-decoration: none;
+    /* Removes underline */
+    color: inherit;
+    /* Inherits the color from parent */
+    /* You can add more specific styles as needed */
+}
+
+.overrideButtonStyle {
+    /* Add your button style overrides here */
+}
+
+
+.customButton {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    /* Default Bootstrap button blue color */
+    color: #fff;
+    text-align: center;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.1s ease-in-out;
+}
+
+.customButton:hover {
+    background-color: #0056b3;
+    /* Slightly darker blue on hover */
+}
+
+/* ----- Colors ----- */
+
+/* Primary */
+.primary {
+    background-color: #007bff; /* Bootstrap's primary color (blue) */
+    color: #fff;
+  }
+  
+  .primary:hover {
+    background-color: #0056b3; /* Slightly darker blue on hover */
+  }
+  
+  /* Secondary */
+  .secondary {
+    background-color: #6c757d; /* Bootstrap's secondary color (gray) */
+    color: #fff;
+  }
+  
+  .secondary:hover {
+    background-color: #545b62; /* Slightly darker gray on hover */
+  }
+  
+  /* Success */
+  .success {
+    background-color: #28a745; /* Bootstrap's success color (green) */
+    color: #fff;
+  }
+  
+  .success:hover {
+    background-color: #218838; /* Slightly darker green on hover */
+  }
+  
+  /* Danger */
+  .danger {
+    background-color: #dc3545; /* Bootstrap's danger color (tomato red) */
+    color: #fff;
+  }
+  
+  .danger:hover {
+    background-color: #bd2130; /* Slightly darker red on hover */
+  }
+  
+  /* Warning */
+  .warning {
+    background-color: #ffc107; /* Bootstrap's warning color (yellow) */
+    color: #212529;
+  }
+  
+  .warning:hover {
+    background-color: #e0a800; /* Slightly darker yellow on hover */
+  }
+  
+  /* Info */
+  .info {
+    background-color: #17a2b8; /* Bootstrap's info color (teal) */
+    color: #fff;
+  }
+  
+  .info:hover {
+    background-color: #138496; /* Slightly darker teal on hover */
+  }
+  
+  /* Light */
+  .light {
+    background-color: #f8f9fa; /* Bootstrap's light color (light gray) */
+    color: #212529;
+    border: 1px solid #ccc; /* Adds an outline */
+  }
+  
+  .light:hover {
+    background-color: #dae0e5; /* Slightly darker gray on hover */
+    border-color: #b6c0c7; /* Darker border on hover */
+  }
+  
+  /* Dark */
+  .dark {
+    background-color: #343a40; /* Bootstrap's dark color (dark gray) */
+    color: #fff;
+  }
+  
+  .dark:hover {
+    background-color: #23272b; /* Slightly darker gray on hover */
+  }
+  
+  /* Muted */
+  .muted {
+    background-color: #6c757d; /* Bootstrap's muted color (gray) */
+    color: #fff;
+  }
+  
+  .muted:hover {
+    background-color: #545b62; /* Slightly darker gray on hover */
+  }
+  
+  /* White */
+  .white {
+    background-color: #fff;
+    color: #212529;
+    border: 1px solid #ccc; /* Adds an outline */
+  }
+  
+  .white:hover {
+    background-color: #f2f2f2; /* Slightly darker white on hover */
+    border-color: #d5d5d5; /* Darker border on hover */
+  }
+  

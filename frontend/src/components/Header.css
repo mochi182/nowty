@@ -1,3 +1,22 @@
 header {
     background-color: rgb(212, 255, 212);
+    font-size: xx-large !important;
+}
+
+nav {
+    display: flex;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+#nowtyLogo {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: larger;
+    line-height: 1.2;
+    min-width: 4em;
+    padding: 0.2em;
 }

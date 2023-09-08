@@ -5,11 +5,11 @@ import './App.css'
 
 function App() {
   return (
-    <>
+    <div id="appContainer">
         <Header/>
         <Hoy/>
         <Footer/>
-    </>
+    </div>
   )
 }
 

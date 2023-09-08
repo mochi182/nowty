@@ -1,4 +1,5 @@
 import './Footer.css'
+import '../assets/Buttons.css'
 
 export function Footer() {
     return (
@@ -7,7 +8,7 @@ export function Footer() {
                 <p>Nowty 2023</p>
                 <p>Created by <a href="#" target="_blank">Frenly Systems Company</a></p>
                 <p>
-                    <a href="/">Homepage</a>
+                    <a href="/" className="overrideLinkStyle customButton danger">Homepage</a>
                 </p>
             </div>
         </footer>
