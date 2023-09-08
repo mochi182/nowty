@@ -8,7 +8,7 @@ export function Footer() {
                 <p>Nowty 2023</p>
                 <p>Created by <a href="#" target="_blank">Frenly Systems Company</a></p>
                 <p>
-                    <a href="/" className="overrideLinkStyle customButton danger">Homepage</a>
+                    <a href="/" className="overrideLinkStyle customButton outline-primary">Homepage</a>
                 </p>
             </div>
         </footer>
