@@ -1,0 +1,18 @@
+.addActivityButtons {
+        height: 3rem;
+        margin-left: 0.2em;
+        margin-right: 0.2em;
+}
+
+form {
+    border-radius: 15px;
+    margin: 30px;
+    padding: 30px;
+    border: 1px solid #cccccc;
+    box-shadow: 2px 2px 2px #646464;
+    background: linear-gradient(232deg, rgb(248, 251, 255) 0%, rgb(244, 241, 247) 87%, rgb(243, 236, 234) 100%);
+  }
+
+  input, select, textarea {
+    box-shadow: inset 1px 1px 1px #979797;
+  }

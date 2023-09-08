@@ -13,7 +13,7 @@
 
 .customButton {
     display: inline-block;
-    padding: 10px 20px;
+    padding: 0.6rem 1.2rem;
     background-color: #007bff;
     /* Default Bootstrap button blue color */
     color: #fff;
@@ -133,5 +133,18 @@
   .white:hover {
     background-color: #f2f2f2; /* Slightly darker white on hover */
     border-color: #d5d5d5; /* Darker border on hover */
+  }
+  
+  /* Outline-Primary */
+.outline-primary {
+    background-color: #fff; /* White background */
+    color: #007bff; /* Bootstrap's primary color (blue) for text and border */
+    border: 1px solid #007bff; /* Blue outline */
+  }
+  
+  .outline-primary:hover {
+    background-color: #007bff; /* Blue background on hover */
+    color: #fff; /* White text on hover */
+    border: 1px solid #007bff; /* Blue border on hover */
   }
   
