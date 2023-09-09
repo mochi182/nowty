@@ -10,6 +10,14 @@ exports.select_all = async function (req, res) {
     }
 };
 
+exports.select_all_json = async function (req, res) {
+    try {
+        res.json(await model.select_all())
+    } catch(err) {
+        res.json({"Error": err})
+    }
+};
+
 exports.advanced = async function (req, res) {
     try {
         res.render('advanced')

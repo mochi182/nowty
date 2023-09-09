@@ -1,5 +1,6 @@
 import { AddActivity } from './AddActivity.jsx'
 import { Activity } from './Activity.jsx'
+import { ResetRoutinesButton } from './ResetRoutinesButton.jsx'
 import '../Content.css'
 
 export function Hoy() {
@@ -20,9 +21,7 @@ export function Hoy() {
             </div>
 
             <center>
-                <button id="resetButton" className="customButton danger">
-                    Reset routines
-                </button>
+                <ResetRoutinesButton />
             </center>
         </section>
     )

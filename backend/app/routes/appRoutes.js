@@ -10,6 +10,10 @@ exports.routes = function (app) {
         controller.select_all(req, res);
     });
 
+    app.get('/activities', function (req, res) {
+        controller.select_all_json(req, res);
+    });
+
     app.get('/advanced', function (req, res) {
         controller.advanced(req, res);
     });

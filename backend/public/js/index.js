@@ -1,5 +1,5 @@
 // Button sends a GET request to the backend to reset the routines
-const resetButton = document.querySelector('#resetButton');
+/* const resetButton = document.querySelector('#resetButton');
 
 async function resetRoutines() {
     fetch('/manualreset', {
@@ -19,7 +19,7 @@ async function resetRoutines() {
 resetButton.addEventListener('click', async () => {
     await resetRoutines();
     location.reload();
-});
+}); */
 
 // Add an event listener to each checkbox
 async function AssignEventListenersToCheckboxes() {
