@@ -15,10 +15,10 @@
                 </h5>
             </center>
 
-            <table class="table table-striped">
+            <table class="table table-hover">
                 <thead>
                     <tr>
-                        <td>🔑</td>
+                        <td>🆔</td>
                         <th>Nombre</th>
                         <th>Tipo</th>
                         <th>Descripción</th>
@@ -26,7 +26,7 @@
                         <th>Es nota</th>
                         <th>Frecuencia diaria</th>
                         <th>Frecuencia horaria</th>
-                        <th>Día-Mes-Año</th>
+                        <th>(dd/mm/aaaa)</th>
                         <th>Edit</th>
                         <th>Delete</th>
                     </tr>
@@ -50,19 +50,30 @@
                                 </p>
                             </th>
                             <td><%= data[i].descripcion %></td>
-                            <td><%= data[i].hecho %></td>
                             <td>
-                                <% if (data[i].es_nota === 1) { %>
-                                    <p>✔️</p>
+                                <% if (data[i].hecho === 1) { %>
+                                    <p>🔳</p>
+                                <% } else { %>
+                                    <p>⬜</p>
                                 <% } %>
                             </td>
                             <td>
-                                <%= typeof data[i].frecuencia_diaria === "object" ? "" : data[i].frecuencia_diaria.split('').map((x) => x == "1" ? "◼️" : "◻️").join('') %>
+                                <% if (data[i].es_nota === 1) { %>
+                                    <p>✏️</p>
+                                <% } %>
+                            </td>
+                            <td>
+                                <% if (typeof data[i].frecuencia_diaria === "object") { %> <% } else { %>
+                                    <p>
+                                        <% fd = data[i].frecuencia_diaria.split(''); %>
+                                        <%= (fd.splice(1, fd.length)).concat([fd[0]]).map((x) => x == "1" ? "◼️" : "◻️").join('') %>
+                                    </p>
+                                <% } %>
                             </td>
                             <td>
                                 <%= typeof data[i].frecuencia_horaria === "object" ? "" : data[i].frecuencia_horaria.split('').map((x) => x == "1" ? "❗" : "❕").join('') %>
                             </td>
-                            <td><%= [data[i].dia, data[i].mes, data[i].anho].join('-') %></td>
+                            <td><%= typeof data[i].dia === "object" ? "" : [data[i].dia, data[i].mes, data[i].anho].join('/') %></td>
                             <td>
                                 <button class="btn btn-success" registro="<%= data[i].id %>">Edit</button>
                             </td>
