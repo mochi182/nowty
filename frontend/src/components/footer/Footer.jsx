@@ -1,5 +1,5 @@
 import './Footer.css'
-import '../assets/Buttons.css'
+import '../../assets/Buttons.css'
 
 export function Footer() {
     return (

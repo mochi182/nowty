@@ -1,6 +1,6 @@
 import './AddActivity.css'
-import '../assets/Buttons.css'
-import '../assets/Forms.css'
+import '../../assets/Buttons.css'
+import '../../assets/Forms.css'
 
 export function AddActivity() {
     return (
@@ -19,7 +19,7 @@ export function AddActivity() {
                     Add
                 </button>
 
-                <button className="customButton primary addActivityButtons">
+                <button className="customButton danger addActivityButtons">
                     Clear
                 </button>
 

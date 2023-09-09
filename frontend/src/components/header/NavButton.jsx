@@ -1,5 +1,5 @@
 import './NavButton.css'
-import '../assets/Buttons.css'
+import '../../assets/Buttons.css'
 
 export function NavButton({linkTo, icon, name}) {
     return (
