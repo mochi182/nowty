@@ -14,6 +14,10 @@ exports.routes = function (app) {
         controller.select_all_json(req, res);
     });
 
+    app.get('/admin', function (req, res) {
+        controller.admin(req, res);
+    })
+
     app.get('/advanced', function (req, res) {
         controller.advanced(req, res);
     });

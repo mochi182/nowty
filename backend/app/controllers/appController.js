@@ -18,6 +18,14 @@ exports.select_all_json = async function (req, res) {
     }
 };
 
+exports.admin = async function (req, res) {
+    try {
+        res.render('admin', {data: await model.admin()})
+    } catch(err) {
+        res.json({"Error": err})
+    }
+};
+
 exports.advanced = async function (req, res) {
     try {
         res.render('advanced')

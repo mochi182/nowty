@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('head'); %>
+
+    <body>
+
+        <%- include('header'); %>
+
+        <section id="contentSection">
+
+            <center>
+                <h5 class="m-3">
+                    Admin.
+                </h5>
+            </center>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <td>🔑</td>
+                        <th>Nombre</th>
+                        <th>Tipo</th>
+                        <th>Descripción</th>
+                        <th>Hecho</th>
+                        <th>Es nota</th>
+                        <th>Frecuencia diaria</th>
+                        <th>Frecuencia horaria</th>
+                        <th>Día-Mes-Año</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (let i = 0; i < data.length; i++) { %>
+                        <tr>
+                            <td><%= data[i].id %></td>
+                            <td><%= data[i].nombre %></td>
+                            <th>
+                                <p class= 
+                                <% if (data[i].tipo === 'rutina') { %>
+                                    "badge btn-primary"
+                                <% } else if (data[i].tipo === 'rango') { %>
+                                    "badge btn-danger"
+                                <% } else if (data[i].tipo === 'puntual') { %>
+                                    "badge btn-success"
+                                <% } %>
+                                >
+                                    <%= data[i].tipo %>
+                                </p>
+                            </th>
+                            <td><%= data[i].descripcion %></td>
+                            <td><%= data[i].hecho %></td>
+                            <td>
+                                <% if (data[i].es_nota === 1) { %>
+                                    <p>✔️</p>
+                                <% } %>
+                            </td>
+                            <td>
+                                <%= typeof data[i].frecuencia_diaria === "object" ? "" : data[i].frecuencia_diaria.split('').map((x) => x == "1" ? "◼️" : "◻️").join('') %>
+                            </td>
+                            <td>
+                                <%= typeof data[i].frecuencia_horaria === "object" ? "" : data[i].frecuencia_horaria.split('').map((x) => x == "1" ? "❗" : "❕").join('') %>
+                            </td>
+                            <td><%= [data[i].dia, data[i].mes, data[i].anho].join('-') %></td>
+                            <td>
+                                <button class="btn btn-success" registro="<%= data[i].id %>">Edit</button>
+                            </td>
+                            <td>
+                                <button onclick="deleteButton(event)" class="btn btn-danger" registro="<%= data[i].id %>">Delete</button>
+                            </td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+
+        </section>
+
+        <%- include('footer'); %>
+
+        <script src="js/admin.js"></script>
+
+    </body>
+
+</html>
