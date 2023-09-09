@@ -3,7 +3,7 @@ function deleteButton(event) {
     const confirmation = confirm('Are you sure you want to delete this activity?');
 
     if (confirmation) {
-        const id =  event.target.getAttribute('registro');
+        const id = event.target.getAttribute('registro');
 
         // Send a POST request to the server when the delete button is clicked
         fetch('/delete', {
@@ -26,3 +26,26 @@ function deleteButton(event) {
             });
     }
 };
+
+// Get the select element
+const filterSelect = document.getElementById('filter');
+
+// Add an event listener to the select element
+filterSelect.addEventListener('change', () => {
+    const selectedFilter = filterSelect.value; // Get the selected filter emoji
+
+    // Get all table rows in the tbody
+    const tableRows = document.querySelectorAll('tbody tr');
+
+    // Loop through each table row and apply the filter
+    tableRows.forEach((row) => {
+        const nombreCell = row.querySelector('td:nth-child(2)'); // Get the cell with emojis
+
+        // Check if the cell contains the selected filter emoji or if "Todos" is selected
+        if (selectedFilter === 'all' || nombreCell.textContent.includes(selectedFilter)) {
+            row.style.display = 'table-row'; // Show the table row
+        } else {
+            row.style.display = 'none'; // Hide the table row
+        }
+    });
+});

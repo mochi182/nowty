@@ -1,25 +1,25 @@
-    // Get the select element
-    const filterSelect = document.getElementById('filter');
+// Get the select element
+const filterSelect = document.getElementById('filter');
 
-    // Add an event listener to the select element
-    filterSelect.addEventListener('change', () => {
-        const selectedFilter = filterSelect.value; // Get the selected filter value
+// Add an event listener to the select element
+filterSelect.addEventListener('change', () => {
+    const selectedFilter = filterSelect.value; // Get the selected filter value
 
-        // Get all <div> elements with class 'actividades'
-        const divs = document.querySelectorAll('.actividades');
+    // Get all <div> elements with class 'actividades'
+    const divs = document.querySelectorAll('.actividades');
 
-        // Loop through each <div> and apply the filter
-        divs.forEach((div) => {
-            const text = div.textContent; // Get the text content of the <div>
-            
-            // Check if the text contains the selected filter
-            if (selectedFilter === 'all' || text.includes(selectedFilter)) {
-                div.style.display = 'flex'; // Show the <div>
-            } else {
-                div.style.display = 'none'; // Hide the <div>
-            }
-        });
+    // Loop through each <div> and apply the filter
+    divs.forEach((div) => {
+        const text = div.textContent; // Get the text content of the <div>
+
+        // Check if the text contains the selected filter
+        if (selectedFilter === 'all' || text.includes(selectedFilter)) {
+            div.style.display = 'flex'; // Show the <div>
+        } else {
+            div.style.display = 'none'; // Hide the <div>
+        }
     });
+});
 
 // Button sends a GET request to the backend to reset the routines
 const resetButton = document.querySelector('#resetButton');
