@@ -1,14 +1,14 @@
   
   body {
-    position: relative;
     min-height: 100vh;
+    display: flex;
+    flex-flow: column;
   }
   
-  footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-  }
+#contentSection {
+    padding-bottom: 4rem;
+    flex-grow: 1;
+}
 
 /* ---- Widget de horas y días ---- */
 

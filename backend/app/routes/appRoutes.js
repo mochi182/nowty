@@ -48,4 +48,8 @@ exports.routes = function (app) {
         controller.insert(req, res);
     });
 
+    app.post('/delete', function (req, res) {
+        controller.delete(req, res);
+    });
+
 };

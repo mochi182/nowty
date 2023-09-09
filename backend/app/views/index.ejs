@@ -12,29 +12,31 @@
 
         <%- include('header'); %>
 
-        <%- include('indexform'); %>
+        <section id="contentSection">
+            <%- include('indexform'); %>
 
-        <br>
-
-        <section id="actividadesDivs">
+            <br>
+    
+            <section id="actividadesDivs">
+            </section>
+    
+            <center>
+                <h5 class="m-3">
+                    Notas
+                </h5>
+            </center>
+    
+            <section id="notasDivs">
+            </section>
+    
+            <br>
+    
+            <center>
+                <button id="resetButton" class="btn btn-danger">
+                    Reset routines
+                </button>
+            </center>
         </section>
-
-        <center>
-            <h5 class="m-3">
-                Notas
-            </h5>
-        </center>
-
-        <section id="notasDivs">
-        </section>
-
-        <br>
-
-        <center>
-            <button id="resetButton" class="btn btn-danger">
-                Reset routines
-            </button>
-        </center>
 
         <%- include('footer'); %>
 

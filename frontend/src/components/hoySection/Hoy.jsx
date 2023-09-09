@@ -2,8 +2,12 @@ import { AddActivity } from './AddActivity.jsx'
 import { Activity } from './Activity.jsx'
 import { ResetRoutinesButton } from './ResetRoutinesButton.jsx'
 import '../Content.css'
+import { useState } from 'react'
 
 export function Hoy() {
+
+    [activities, setActivities] = useState(0)
+
     return (
         <section>
             <AddActivity />

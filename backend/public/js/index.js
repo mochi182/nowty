@@ -1,5 +1,5 @@
 // Button sends a GET request to the backend to reset the routines
-/* const resetButton = document.querySelector('#resetButton');
+const resetButton = document.querySelector('#resetButton');
 
 async function resetRoutines() {
     fetch('/manualreset', {
@@ -19,7 +19,7 @@ async function resetRoutines() {
 resetButton.addEventListener('click', async () => {
     await resetRoutines();
     location.reload();
-}); */
+});
 
 // Add an event listener to each checkbox
 async function AssignEventListenersToCheckboxes() {
@@ -50,10 +50,46 @@ async function AssignEventListenersToCheckboxes() {
     });
 }
 
+// Add an event listener to buttons containing 🗑️ emoji
+async function AssignEventListenersToDeleteButtons() {
+    const deleteButtons = document.querySelectorAll('button');
+    deleteButtons.forEach((button) => {
+        if (button.textContent.includes('🗑️')) {
+            button.addEventListener('click', () => {
+                // Show a confirmation dialog
+                const confirmation = confirm('Are you sure you want to delete this activity?');
+
+                if (confirmation) {
+                    const id = button.getAttribute('registro');
+
+                    // Send a POST request to the server when the delete button is clicked
+                    fetch('/delete', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ id })
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            console.log('Activity deleted successfully');
+                            // Reload the page
+                            window.location.reload();
+                        })
+                        .catch(error => {
+                            console.error('There was a problem deleting the activity:', error);
+                        });
+                }
+            });
+        }
+    });
+}
+
 function createNotasDivs(notas) {
     const notasDivs = notas.map((nota) => {
         const div = {
-            id: nota.id,
             className: 'notas',
             attributes: {
                 frecuencia_horaria: nota.frecuencia_horaria,
@@ -63,9 +99,18 @@ function createNotasDivs(notas) {
                     tag: 'p',
                     className: 'actividad-text',
                     text: nota.nombre + '\n' + nota.descripcion,
+                },
+                {
+                    tag: 'button',
+                    className: 'btn', // Add a white space for multiple classes
+                    text: '🗑️',
+                    attributes: {
+                        registro: nota.id,
+                    }
                 }
             ]
         };
+
         if (nota.imagen) {
             div.children.push({
                 tag: 'img',
@@ -81,9 +126,7 @@ function createNotasDivs(notas) {
 
 function createActividadesDivs(actividades) {
     const actividadesDivs = actividades.map((actividad) => {
-        console.log(actividad.hecho)
         const div = {
-            id: actividad.id,
             className: 'actividades',
             attributes: {
                 frecuencia_horaria: actividad.frecuencia_horaria,
@@ -102,9 +145,24 @@ function createActividadesDivs(actividades) {
                     tag: 'p',
                     className: 'actividad-text',
                     text: actividad.nombre + '\n' + actividad.descripcion,
+                },
+                {
+                    tag: 'button',
+                    className: 'btn',
+                    text: '🗑️',
+                    attributes: {
+                        registro: actividad.id,
+                    },
                 }
             ]
         };
+
+        // Add an event listener to the button
+        const deleteButton = div.children.find(child => child.tag === 'button');
+        deleteButton.onClick = function () {
+            deleteActivity(nota.id); // Call deleteActivity with the activity's ID
+        };
+
         if (actividad.imagen) {
             div.children.push({
                 tag: 'img',
@@ -225,6 +283,7 @@ const renderActividadesPromise = new Promise((resolve, reject) => {
 
 renderActividadesPromise.then(() => {
     AssignEventListenersToCheckboxes();
+    AssignEventListenersToDeleteButtons();
     replaceTextWithCheckboxes();
 });
 

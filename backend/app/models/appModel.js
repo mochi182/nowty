@@ -153,3 +153,23 @@ exports.manualReset = async function (req) {
         throw err;
     }
 };
+
+// Delete
+exports.delete = async function (req) {
+    try {
+        const id_actividad = req.body.id;
+        
+        // Delete record from 'configuracion' table
+        const deleteConfiguracionQuery = `DELETE FROM configuracion WHERE id_actividad = ?`;
+        await client.promise().query(deleteConfiguracionQuery, [id_actividad]);
+
+        // Delete record from 'actividad' table
+        const deleteActividadQuery = `DELETE FROM actividad WHERE id = ?`;
+        await client.promise().query(deleteActividadQuery, [id_actividad]);
+
+        return { message: 'Record deleted successfully' };
+    } catch (err) {
+        console.log(err);
+        throw err;
+    }
+}

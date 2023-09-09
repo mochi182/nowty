@@ -68,6 +68,14 @@ exports.insert = async function (req, res) {
     }
 };
 
+exports.delete = async function (req, res) {
+    try {
+        res.json(await model.delete(req))
+    } catch(err) {
+        res.json({"Error": err})
+    }
+};
+
 async function buildData(req) {
     let data = {}
     data.entidad = req.body['dropdown-select'];
