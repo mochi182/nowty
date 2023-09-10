@@ -17,7 +17,7 @@
             <%- include('indexform'); %>
             <br>
 
-            <center>
+            <div class="form-group d-flex justify-content-center">
                 <select id="filter" class="form-select mb-3 w-25">
                     <option value="all" selected>Todos</option>
                     <option value="⚒️">⚒️ Daily grind</option>
@@ -29,7 +29,9 @@
                     <option value="📖">📖 Universidad</option>
                     <option value="⬜">⬜ N/A</option>
                 </select>
-            </center>
+                <span style="visibility: hidden">sss</span>
+                <input type="date" name="date" class="form-control w-25">
+            </div>
     
             <section id="actividadesDivs">
             </section>

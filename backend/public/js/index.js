@@ -73,43 +73,6 @@ async function AssignEventListenersToCheckboxes() {
     });
 }
 
-// Add an event listener to buttons containing 🗑️ emoji
-async function AssignEventListenersToDeleteButtons() {
-    const deleteButtons = document.querySelectorAll('button');
-    deleteButtons.forEach((button) => {
-        if (button.textContent.includes('🗑️')) {
-            button.addEventListener('click', () => {
-                // Show a confirmation dialog
-                const confirmation = confirm('Are you sure you want to delete this activity?');
-
-                if (confirmation) {
-                    const id = button.getAttribute('registro');
-
-                    // Send a POST request to the server when the delete button is clicked
-                    fetch('/delete', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ id })
-                    })
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error('Network response was not ok');
-                            }
-                            console.log('Activity deleted successfully');
-                            // Reload the page
-                            window.location.reload();
-                        })
-                        .catch(error => {
-                            console.error('There was a problem deleting the activity:', error);
-                        });
-                }
-            });
-        }
-    });
-}
-
 function createNotasDivs(notas) {
     const notasDivs = notas.map((nota) => {
         const div = {
@@ -122,14 +85,6 @@ function createNotasDivs(notas) {
                     tag: 'p',
                     className: 'actividad-text',
                     text: nota.nombre + '\n' + nota.descripcion,
-                },
-                {
-                    tag: 'button',
-                    className: 'btn', // Add a white space for multiple classes
-                    text: '🗑️',
-                    attributes: {
-                        registro: nota.id,
-                    }
                 }
             ]
         };
@@ -168,22 +123,8 @@ function createActividadesDivs(actividades) {
                     tag: 'p',
                     className: 'actividad-text',
                     text: actividad.nombre + '\n' + actividad.descripcion,
-                },
-                {
-                    tag: 'button',
-                    className: 'btn',
-                    text: '🗑️',
-                    attributes: {
-                        registro: actividad.id,
-                    },
                 }
             ]
-        };
-
-        // Add an event listener to the button
-        const deleteButton = div.children.find(child => child.tag === 'button');
-        deleteButton.onClick = function () {
-            deleteActivity(nota.id); // Call deleteActivity with the activity's ID
         };
 
         if (actividad.imagen) {
@@ -306,69 +247,10 @@ const renderActividadesPromise = new Promise((resolve, reject) => {
 
 renderActividadesPromise.then(() => {
     AssignEventListenersToCheckboxes();
-    AssignEventListenersToDeleteButtons();
     replaceTextWithCheckboxes();
+
+    // Render objects with tipo "nota"
+    const notas = incomingData.filter(obj => obj.es_nota === 1);
+    const notasDivs = sortDivsByFrecuenciaHoraria(createNotasDivs(notas));
+    renderDivElements(notasDivs, "notasDivs")
 });
-
-// Render objects with tipo "nota"
-const notas = incomingData.filter(obj => obj.es_nota === 1);
-const notasDivs = sortDivsByFrecuenciaHoraria(createNotasDivs(notas));
-renderDivElements(notasDivs, "notasDivs")
-
-// ---------- COOKIES ----------
-
-function crickey() {
-    // Ejecucion con cookies, para cuando implemente ordenar manualmente las filas con drag n drop.
-    // Falta arreglarlo
-    const notasCookie = document.cookie.split(';').find(cookie => cookie.trim().startsWith('notas='));
-    const actividadesCookie = document.cookie.split(';').find(cookie => cookie.trim().startsWith('actividades='));
-
-    if (notasCookie) {
-        const notasJson = notasCookie.split('=')[1];
-        const notasDivs = JSON.parse(notasJson);
-
-        console.log("COOKIE CARGADO")
-        renderDivElements(notasDivs, "notasDivs")
-
-    } else {
-        // Filter objects with tipo equal to "nota"
-        const notas = incomingData.filter(obj => obj.tipo === 'nota');
-
-        const notasDivs = sortDivsByFrecuenciaHoraria(createNotasDivs(notas));
-
-        // Convert the div lists to JSON format
-        const notasJson = JSON.stringify(notasDivs);
-
-        // Set the cookies with the JSON data
-        document.cookie = `notas=${notasJson}; max-age=${60 * 60 * 24 * 365}`;
-
-        console.log("COOKIE CREADO")
-        renderDivElements(notasDivs, "notasDivs")
-    }
-
-    if (actividadesCookie) {
-        const actividadesJson = actividadesCookie.split('=')[1];
-        const actividadesDivs = JSON.parse(actividadesJson);
-
-        console.log("COOKIE CARGADO")
-        renderDivElements(actividadesDivs, "actividadesDivs")
-
-    } else {
-        // Filter objects with tipo equal to "rutina" or "puntual"
-        const actividades = incomingData.filter(obj => obj.tipo === 'rutina' || obj.tipo === 'puntual');
-
-        const actividadesDivs = sortDivsByFrecuenciaHoraria(createActividadesDivs(actividades));
-
-        // Convert the div lists to JSON format
-        const actividadesJson = JSON.stringify(actividadesDivs);
-
-        // Set the cookies with the JSON data
-        document.cookie = `actividades=${actividadesJson}; max-age=${60 * 60 * 24 * 365}`;
-
-        console.log("COOKIE CREADO")
-        renderDivElements(actividadesDivs, "actividadesDivs")
-    }
-
-};
-
-
