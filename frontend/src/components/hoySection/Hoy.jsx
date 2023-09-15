@@ -2,17 +2,33 @@ import { AddActivity } from './AddActivity.jsx'
 import { Activity } from './Activity.jsx'
 import { ResetRoutinesButton } from './ResetRoutinesButton.jsx'
 import '../Content.css'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export function Hoy() {
-
-    [activities, setActivities] = useState(0)
+    const [activities, setActivities] = useState([])
+    const URL = 'http://localhost:3000/activities'
+    useEffect(() => {
+        fetch(URL)
+        .then(res => res.json())
+        .then(data => {
+            setActivities(data)
+        })
+    }, [])
 
     return (
         <section>
             <AddActivity />
+
             <div id="activitiesContainer">
-            <Activity />
+                {
+                    activities.map(item => (
+                        <Activity 
+                        key={item.id}
+                        nombre={item.nombre}
+                        descripcion={item.descripcion} 
+                        />
+                    ))
+                }
             </div>
 
             <center>

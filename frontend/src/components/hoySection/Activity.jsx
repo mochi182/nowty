@@ -1,11 +1,11 @@
 import './Activity.css'
 
-export function Activity() {
+export function Activity({ nombre, descripcion }) {
     return (
         <div id="activitiesContainer">
             <div id="actividad-id" className="actividades">
                 <input id="actividad-id" className="hecho-checkbox" type="checkbox" checked="true/false" />
-                <p className="actividad-text">actividad-nombre actividad-descripcion</p>
+                <p className="actividad-text">{nombre} {descripcion}</p>
             </div>
         </div>
     )
