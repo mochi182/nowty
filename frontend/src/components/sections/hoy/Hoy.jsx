@@ -1,7 +1,7 @@
 import { AddActivity } from './AddActivity.jsx'
 import { Activity } from './Activity.jsx'
 import { ResetRoutinesButton } from './ResetRoutinesButton.jsx'
-import '../Content.css'
+import '../Section.css'
 import { useEffect, useState } from 'react'
 
 export function Hoy() {
@@ -24,8 +24,7 @@ export function Hoy() {
                     activities.map(item => (
                         <Activity 
                         key={item.id}
-                        nombre={item.nombre}
-                        descripcion={item.descripcion} 
+                        {...item}
                         />
                     ))
                 }

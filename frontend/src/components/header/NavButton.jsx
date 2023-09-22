@@ -1,13 +1,14 @@
 import './NavButton.css'
 import '../../assets/Buttons.css'
+import { Link } from "react-router-dom";
 
 export function NavButton({linkTo, icon, name}) {
     return (
-        <a className="overrideLinkStyle light navButton" href={linkTo}>
+        <Link className="overrideLinkStyle light navButton" to={linkTo}>
             <center>
                 <div>{icon}</div>
                 <small>{name}</small>
             </center>
-        </a>
+        </Link>
     )
 }

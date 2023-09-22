@@ -15,8 +15,9 @@ export function Header() {
 
                 <nav>
                     <NavButton name={'Hoy'} linkTo={'/'} icon={'🌞'} />
-                    <NavButton name={'Avanzado'} linkTo={'/advanced'} icon={'🚀'} />
+                    <NavButton name={'Avanzado'} linkTo={'/avanzado'} icon={'🚀'} />
                     <NavButton name={'Stats.'} linkTo={'/stats'} icon={'📊'} />
+                    <NavButton name={'Admin.'} linkTo={'/admin'} icon={'🛢️'} />
                     <NavButton name={'Config.'} linkTo={'/config'} icon={'⚙️'} />
                 </nav>
             </nav>

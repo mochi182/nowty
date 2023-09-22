@@ -1,13 +1,13 @@
 import { Footer } from './components/footer/Footer.jsx'
 import { Header } from './components/header/Header.jsx'
-import { Hoy } from './components/hoySection/Hoy.jsx'
 import './App.css'
+import { Outlet} from 'react-router-dom'
 
 function App() {
   return (
     <div id="appContainer">
         <Header/>
-        <Hoy/>
+        <Outlet />
         <Footer/>
     </div>
   )

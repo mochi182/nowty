@@ -1,4 +1,4 @@
-import '../../assets/Buttons.css'
+import '../../../assets/Buttons.css'
 
 export function ResetRoutinesButton() {
     const url = 'http://localhost:3000/manualreset'

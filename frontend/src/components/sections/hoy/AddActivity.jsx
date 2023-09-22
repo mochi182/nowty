@@ -1,6 +1,6 @@
 import './AddActivity.css'
-import '../../assets/Buttons.css'
-import '../../assets/Forms.css'
+import '../../../assets/Buttons.css'
+import '../../../assets/Forms.css'
 
 export function AddActivity() {
     return (
@@ -8,7 +8,7 @@ export function AddActivity() {
             <form id="addForm" className="">
 
                 <div className="form-group">
-                    <label for="actividad-input">Nueva actividad:</label>
+                    <label>Nueva actividad:</label>
                     <input className="form-control" type="text" id="actividad-input" name="actividad-input" required />
                 </div>
 
