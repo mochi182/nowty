@@ -1,17 +1,18 @@
 import './Header.css'
 import { NavButton } from './NavButton.jsx'
+import { Link } from "react-router-dom";
 
 export function Header() {
 
     return (
         <header>
             <nav>
-                <a href="/" id="nowtyLogo">
+                <Link to="/" id="nowtyLogo">
                     <center>
                         <div>⏰</div>
                         <b>Nowty</b>
                     </center>
-                </a>
+                </Link>
 
                 <nav>
                     <NavButton name={'Hoy'} linkTo={'/'} icon={'🌞'} />
