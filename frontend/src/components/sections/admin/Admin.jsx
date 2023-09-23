@@ -31,7 +31,7 @@ export function Admin() {
         .then(data => {
             setActivities(data)
         })
-    })
+    }, [])
 
     return (
         <section id="contentSection">
