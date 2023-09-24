@@ -1,6 +1,6 @@
 /* ---- Actividades y notas ---- */
 
-.actividades,
+.actividad,
 .notas {
     border-radius: 8px;
     margin-left: 30px;
@@ -10,7 +10,7 @@
     box-shadow: 2px 2px 2px #646464;
 }
 
-.actividades {
+.actividad {
     display: flex;
     background: linear-gradient(232deg, rgb(255, 255, 255) 0%, rgb(252, 249, 250) 87%, rgb(252, 249, 248) 100%);
 }

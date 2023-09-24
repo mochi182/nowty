@@ -21,7 +21,7 @@ export function Hoy() {
 
             <div id="activitiesContainer">
                 {
-                    activities.map(item => (
+                    activities && activities.map(item => (
                         <Activity 
                         key={item.id}
                         {...item}

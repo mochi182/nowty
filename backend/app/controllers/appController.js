@@ -67,6 +67,7 @@ exports.update = async function (req, res) {
 };
 
 exports.done = async function (req, res) {
+    console.log("Donef: ", req.body)
     try {
         res.json(await model.done(req))
     } catch(err) {
@@ -93,7 +94,7 @@ exports.delete = async function (req, res) {
 };
 
 exports.test = async function (req, res) {
-    console.log(req.body)
+    console.log("Test: ", req.body)
     try {
         res.json({"Hola": "Mundo"})
     } catch(err) {
