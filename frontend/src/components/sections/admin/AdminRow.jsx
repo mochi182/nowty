@@ -1,7 +1,41 @@
 import '../../../assets/Buttons.css'
 import '../../../assets/Badge.css'
+import { useNavigate } from 'react-router-dom'
 
 export function AdminRow({ id, nombre, tipo, descripcion, hecho, es_nota, frecuencia_diaria, frecuencia_horaria, dia, mes, anho, }) {
+    // Hook to reload page
+    const navigate = useNavigate()
+
+    // Sends request to delete row
+    function deleteButton() {
+        // Show a confirmation dialog
+        const confirmation = confirm('Are you sure you want to delete this activity?');
+
+        if (confirmation) {
+            const deleteURL = 'http://localhost:3000/delete'
+            fetch(deleteURL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                console.log('Activity deleted successfully');
+            })
+            .then(() => {
+                navigate(0)
+            })
+            .catch(error => {
+                console.error('There was a problem deleting the activity:', error);
+            });
+        }
+    }
+
+    // Returns a class according to type of activity
     function getTypeClass(tipo) {
         switch (tipo) {
             case 'rutina':
@@ -14,7 +48,6 @@ export function AdminRow({ id, nombre, tipo, descripcion, hecho, es_nota, frecue
                 return '';
         }
     }
-
 
     return (
         <tr>
@@ -44,46 +77,17 @@ export function AdminRow({ id, nombre, tipo, descripcion, hecho, es_nota, frecue
                 {typeof dia === 'object' ? '' : `${dia}/${mes}/${anho}`}
             </td>
             <td>
-                <button className="customButton success" registro={id}>
+                <button className="customButton success">
                     Edit
                 </button>
             </td>
             <td>
-                <button 
-                onClick={(e) => deleteButton(e, id)} 
-                className="customButton danger">
+                <button
+                    onClick={deleteButton}
+                    className="customButton danger">
                     Delete
                 </button>
             </td>
         </tr>
     );
-}
-
-function deleteButton(event) {
-    // Show a confirmation dialog
-    const confirmation = confirm('Are you sure you want to delete this activity?');
-
-    if (confirmation) {
-        const id = event.target.getAttribute('registro');
-
-        // Send a POST request to the server when the delete button is clicked
-        fetch('/delete', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ id })
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            console.log('Activity deleted successfully');
-            // Reload the page
-            window.location.reload();
-        })
-        .catch(error => {
-            console.error('There was a problem deleting the activity:', error);
-        });
-    }
 }

@@ -168,6 +168,7 @@ exports.manualReset = async function (req) {
 
 // Delete
 exports.delete = async function (req) {
+    console.log(req.body.id, "HEHEHEH")
     try {
         const id_actividad = req.body.id;
         
