@@ -3,29 +3,21 @@ import { useEffect, useState } from 'react'
 import { AdminRow } from './AdminRow.jsx'
 import '../../../assets/FormSelect.css'
 
-function filterSelect(event) {
-    const selectedFilter = event.target.value; // Get the selected filter emoji
-
-    // Get all table rows in the tbody
-    const tableRows = document.querySelectorAll('tbody tr');
-
-    // Loop through each table row and apply the filter
-    tableRows.forEach((row) => {
-        const nombreCell = row.querySelector('td:nth-child(2)'); // Get the cell with emojis
-
-        // Check if the cell contains the selected filter emoji or if "Todos" is selected
-        if (selectedFilter === 'all' || nombreCell.textContent.includes(selectedFilter)) {
-            row.style.display = 'table-row'; // Show the table row
-        } else {
-            row.style.display = 'none'; // Hide the table row
-        }
-    });
-}
-
 export function Admin() {
     const [activities, setActivities] = useState([])
-    URL = 'http://localhost:3000/admin_json'
+    const [selectedFilter, setSelectedFilter] = useState('all');
+
+    const filterActivities = () => {
+        return activities.filter((item) => {
+          if (selectedFilter === 'all' || item.nombre.includes(selectedFilter)) {
+            return true;
+          }
+          return false;
+        });
+      };
+
     useEffect(() => {
+        const URL = 'http://localhost:3000/admin_json'
         fetch(URL)
         .then(res => res.json())
         .then(data => {
@@ -37,8 +29,13 @@ export function Admin() {
         <section id="contentSection">
 
             <center>
-                <select id="filter" className="form-select" onChange={filterSelect}>
-                    <option value="all" selected>Todos</option>
+                <select 
+                id="filter" 
+                className="form-select" 
+                defaultValue="all" 
+                onChange={(e) => setSelectedFilter(e.target.value)}
+                >
+                    <option value="all">Todos</option>
                     <option value="⚒️">⚒️ Daily grind</option>
                     <option value="💪">💪 Fuerza</option>
                     <option value="💻">💻 Programación</option>
@@ -68,16 +65,12 @@ export function Admin() {
                 </thead>
                 <tbody>
                     {
-                        activities.map(item => (
-                            <AdminRow 
-                            key={item.id}
-                            {...item}
-                            />
+                        filterActivities().map((item) => (
+                            <AdminRow key={item.id} {...item} />
                         ))
                     }
                 </tbody>
             </table>
-
         </section>
     )
 }

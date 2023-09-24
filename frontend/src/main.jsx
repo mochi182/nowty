@@ -34,7 +34,7 @@ import {
                 element: <Stats />
             },
             {
-                path: "/admin",
+                path: "/admindata",
                 element: <Admin />
             },
             {
