@@ -26,6 +26,14 @@ exports.admin = async function (req, res) {
     }
 };
 
+exports.admin_json = async function (req, res) {
+    try {
+        res.json(await model.admin())
+    } catch(err) {
+        res.json({"Error": err})
+    }
+};
+
 exports.advanced = async function (req, res) {
     try {
         res.render('advanced')
@@ -79,6 +87,15 @@ exports.insert = async function (req, res) {
 exports.delete = async function (req, res) {
     try {
         res.json(await model.delete(req))
+    } catch(err) {
+        res.json({"Error": err})
+    }
+};
+
+exports.test = async function (req, res) {
+    console.log(req.body)
+    try {
+        res.json({"Hola": "Mundo"})
     } catch(err) {
         res.json({"Error": err})
     }

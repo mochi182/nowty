@@ -15,6 +15,19 @@
     background: linear-gradient(232deg, rgb(255, 255, 255) 0%, rgb(252, 249, 250) 87%, rgb(252, 249, 248) 100%);
 }
 
+.actividadCol2 {
+    margin-left: 1rem;
+}
+
+.actividadCol2 p {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.actividadName {
+    font-weight: bold;
+}
+
 .notas {
     display: flex;
     background: linear-gradient(232deg, rgb(255, 255, 255) 0%, rgb(249, 252, 250) 87%, rgb(250, 248, 252) 100%);
@@ -32,15 +45,4 @@ input[type='checkbox'].hecho-checkbox {
     width: 50px;
     margin: 2px;
     accent-color: rgb(99, 93, 131);
-}
-
-.actividad-text {
-    white-space: pre-wrap;
-    margin-left: 20px;
-    margin-right: 20px;
-    flex-grow: 3
-}
-
-.actividad-text::first-line {
-    font-weight: bold
 }

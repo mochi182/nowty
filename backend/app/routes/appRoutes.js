@@ -18,6 +18,10 @@ exports.routes = function (app) {
         controller.admin(req, res);
     })
 
+    app.get('/admin_json', function (req, res) {
+        controller.admin_json(req, res);
+    })
+
     app.get('/advanced', function (req, res) {
         controller.advanced(req, res);
     });
@@ -43,6 +47,10 @@ exports.routes = function (app) {
     });
 
     // Post:
+
+    app.post('/test', function (req, res) {
+        controller.test(req, res);
+    });
 
     app.post('/done', function (req, res) {
         controller.done(req, res);

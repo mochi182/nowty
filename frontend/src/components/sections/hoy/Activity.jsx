@@ -11,10 +11,13 @@ export function Activity({ nombre, descripcion, hecho, es_nota }) {
   return (
     <div id="activitiesContainer">
       <div id="actividad-id" className="actividades">
-        {!parseInt(es_nota) ? <input id="actividad-id" className="hecho-checkbox" type="checkbox" checked={hecho} /> : <></>}
-        <p className="actividad-text">{nombre}</p>
-        <div className="descripcion">{descriptionWithCheckboxes}</div>
-
+        <div className="actividadCol1">
+            {!parseInt(es_nota) ? <input id="actividad-id" className="hecho-checkbox" type="checkbox" checked={hecho} /> : <></>}
+        </div>
+        <div className="actividadCol2">
+            <p className="actividadName">{nombre}</p>
+            <p className="descripcion">{descriptionWithCheckboxes}</p>
+        </div>
       </div>
     </div>
   );
@@ -22,14 +25,19 @@ export function Activity({ nombre, descripcion, hecho, es_nota }) {
 
 // Replaces the [] with checkboxes in the description
 function replaceTextWithCheckboxes(description) {
+    if (!description) {
+        return
+    }
     let splitDescription = description.split('[]')
     if (splitDescription.length > 1){
         let checkboxes = splitDescription.slice(1, splitDescription.length).map((part, index) => {
             // Checkbox part
             return (
-              <label key={index}>
-                <input type="checkbox" className="inner-checkbox" /> {part}
-              </label>
+                <p key={index}>
+                    <label>
+                        <input type="checkbox" className="inner-checkbox" /> {part}
+                    </label>
+                </p>
             )}) 
         checkboxes.unshift(splitDescription[0])
         return checkboxes
