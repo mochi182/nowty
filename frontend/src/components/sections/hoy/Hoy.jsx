@@ -2,7 +2,6 @@ import { AddActivity } from './AddActivity.jsx'
 import { Activity } from './Activity.jsx'
 import { ResetRoutinesButton } from './ResetRoutinesButton.jsx'
 import '../Section.css'
-import './Hoy.css'
 import { useEffect, useState } from 'react'
 
 export function Hoy() {

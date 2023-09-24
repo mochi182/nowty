@@ -85,7 +85,6 @@ exports.insert = async function (req, res) {
 };
 
 exports.delete = async function (req, res) {
-    console.log(req.body, "LALA")
     try {
         res.json(await model.delete(req))
     } catch(err) {

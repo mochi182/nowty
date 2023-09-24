@@ -5,9 +5,9 @@
 }
 
 form {
-    border-radius: 15px;
-    margin: 30px;
-    padding: 30px;
+    border-radius: 1rem;
+    padding: 2rem;
+    margin-bottom: 1rem;
     border: 1px solid #cccccc;
     box-shadow: 2px 2px 2px #646464;
     background: linear-gradient(232deg, rgb(248, 251, 255) 0%, rgb(244, 241, 247) 87%, rgb(243, 236, 234) 100%);
