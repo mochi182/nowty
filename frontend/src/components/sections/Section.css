@@ -2,6 +2,6 @@ section {
     flex-grow: 1;
 }
 
-#activitiesContainer, #notasContainer {
+#activitiesContainer {
     padding-top: 1rem;
 }

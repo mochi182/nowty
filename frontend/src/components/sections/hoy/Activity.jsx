@@ -98,7 +98,7 @@ export function Activity({ id, nombre, descripcion, hecho, es_nota }) {
             
     return (
         <>
-            <div className="actividad">
+            <div className={es_nota ? "nota" : "actividad"}>
                 <div className="actividadCol1">
                     {!parseInt(es_nota) ? 
                     <input 

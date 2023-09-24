@@ -1,7 +1,8 @@
 /* ---- Actividades y notas ---- */
 
 .actividad,
-.notas {
+.nota {
+    display: flex;
     border-radius: 8px;
     margin-left: 30px;
     margin-right: 30px;
@@ -11,8 +12,11 @@
 }
 
 .actividad {
-    display: flex;
     background: linear-gradient(232deg, rgb(255, 255, 255) 0%, rgb(252, 249, 250) 87%, rgb(252, 249, 248) 100%);
+}
+
+.nota {
+    background: linear-gradient(232deg, rgb(255, 255, 255) 0%, rgb(249, 252, 250) 87%, rgb(250, 248, 252) 100%);
 }
 
 .actividadCol2 {
@@ -26,11 +30,6 @@
 
 .actividadName {
     font-weight: bold;
-}
-
-.notas {
-    display: flex;
-    background: linear-gradient(232deg, rgb(255, 255, 255) 0%, rgb(249, 252, 250) 87%, rgb(250, 248, 252) 100%);
 }
 
 img {

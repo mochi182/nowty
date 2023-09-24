@@ -2,6 +2,7 @@ import { AddActivity } from './AddActivity.jsx'
 import { Activity } from './Activity.jsx'
 import { ResetRoutinesButton } from './ResetRoutinesButton.jsx'
 import '../Section.css'
+import './Hoy.css'
 import { useEffect, useState } from 'react'
 
 export function Hoy() {
@@ -22,22 +23,36 @@ export function Hoy() {
             <div id="activitiesContainer">
                 {
                     activities && activities.map(item => (
+                        !item.es_nota ? 
                         <Activity 
                         key={item.id}
                         {...item}
                         />
+                        : <></>
                     ))
                 }
             </div>
 
             <center>
-                <h5>
+                <h3>
                     Notas
-                </h5>
+                </h3>
             </center>
 
             <div id="notasContainer">
+                {
+                    activities && activities.map(item => (
+                        item.es_nota ? 
+                        <Activity 
+                        key={item.id}
+                        {...item}
+                        />
+                        : <></>
+                    ))
+                }
             </div>
+
+            <br></br>
 
             <center>
                 <ResetRoutinesButton />
