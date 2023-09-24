@@ -1,5 +1,6 @@
 import './Footer.css'
 import '../../assets/Buttons.css'
+import { Link } from 'react-router-dom'
 
 export function Footer() {
     return (
@@ -8,7 +9,7 @@ export function Footer() {
                 <p>Nowty 2023</p>
                 <p>Created by <a href="#" target="_blank">Frenly Systems Company</a></p>
                 <p>
-                    <a href="/" className="overrideLinkStyle customButton outline-primary">Homepage</a>
+                    <Link to="/" className="overrideLinkStyle customButton outline-primary">Homepage</Link>
                 </p>
             </div>
         </footer>
