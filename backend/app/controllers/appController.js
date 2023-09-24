@@ -67,7 +67,6 @@ exports.update = async function (req, res) {
 };
 
 exports.done = async function (req, res) {
-    console.log("Donef: ", req.body)
     try {
         res.json(await model.done(req))
     } catch(err) {
