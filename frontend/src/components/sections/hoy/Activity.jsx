@@ -1,7 +1,7 @@
 import './Activity.css'
 import { useEffect, useState } from 'react';
 
-export function Activity({ nombre, descripcion, hecho }) {
+export function Activity({ nombre, descripcion, hecho, es_nota }) {
   const [descriptionWithCheckboxes, setDescriptionWithCheckboxes] = useState(descripcion);
 
   useEffect(() => {
@@ -11,9 +11,10 @@ export function Activity({ nombre, descripcion, hecho }) {
   return (
     <div id="activitiesContainer">
       <div id="actividad-id" className="actividades">
-        <input id="actividad-id" className="hecho-checkbox" type="checkbox" checked={hecho} />
+        {!parseInt(es_nota) ? <input id="actividad-id" className="hecho-checkbox" type="checkbox" checked={hecho} /> : <></>}
         <p className="actividad-text">{nombre}</p>
         <div className="descripcion">{descriptionWithCheckboxes}</div>
+
       </div>
     </div>
   );
