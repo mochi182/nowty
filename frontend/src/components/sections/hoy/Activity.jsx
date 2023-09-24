@@ -110,8 +110,8 @@ export function Activity({ id, nombre, descripcion, hecho, es_nota }) {
                     : <></>}
                 </div>
                 <div className="actividadCol2">
-                    <p className="actividadName">{nombre}</p>
-                    <p className="descripcion">{descriptionWithCheckboxes}</p>
+                    <div className="actividadName">{nombre}</div>
+                    <div className="descripcion">{descriptionWithCheckboxes}</div>
                 </div>
             </div>
         </>
