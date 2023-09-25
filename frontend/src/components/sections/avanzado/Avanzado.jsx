@@ -3,8 +3,10 @@ import '../../../assets/Buttons.css'
 import '../../../assets/Forms.css'
 import './Avanzado.css'
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export function Avanzado() {
+    const navigate = useNavigate()
     const now = new Date();
     const [mouseDown, setMouseDown] = useState(false)
     const [formData, setFormData] = useState({
@@ -77,11 +79,6 @@ export function Avanzado() {
         }
     }
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        // Handle form submission here
-    };
-
     const handleSelectAllHours = (event) => {
         event.preventDefault()
         const newHours = new Array(24).fill(true)
@@ -119,7 +116,7 @@ export function Avanzado() {
     }
 
     const logForm = () => {
-        console.log(formData)
+        console.log(JSON.stringify(formData))
     }
 
     const addClassesToHours = (i) => {
@@ -194,12 +191,45 @@ export function Avanzado() {
         }
     }
 
+    const handleSubmit = (event) => {
+        event.preventDefault()
+        const isValid = true // validateForm(addForm);
+    
+        if (!isValid) {
+            alert("Form inválido, revisa los datos ingresados.")
+            return;
+        }
+
+        // Converts formdata to JSON
+        let json = JSON.stringify(formData);
+        const URL = 'http://localhost:3000/test'
+        fetch(URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: json
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            console.log('Data inserted successfully');
+        })
+        .then(() => {
+            navigate(0)
+        })
+        .catch(error => {
+            console.error('There was a problem inserting the data:', error);
+        });
+    }
+
     return (
         <section>
 
             <button onClick={logForm}>Clickee</button>
 
-            <form id="addForm" className="form-style" onSubmit={handleSubmit}>
+            <form id="addForm" className="form-style">
                 <center>
                     <h3>Nueva actividad</h3>
                 </center>
@@ -459,7 +489,11 @@ export function Avanzado() {
             </form>
 
             <center>
-                <button className="customButton primary btnMargin" id="addButton" type="submit">
+                <button 
+                className="customButton primary btnMargin" 
+                id="addButton"
+                onClick={handleSubmit}
+                >
                     Add
                 </button>
                 <button 
