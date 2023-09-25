@@ -1,0 +1,70 @@
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.checkbox-unit {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+}
+
+.checkbox-group label {
+    position: relative;
+    height: fit-content;
+    margin: none;
+}
+
+input[type='checkbox'].horas {
+    height: 65px;
+    width: 65px;
+    margin: 2px;
+    accent-color: rgb(99, 93, 131);
+}
+
+input[type='checkbox'].dias {
+    height: 70px;
+    width: 70px;
+    margin: 2px;
+    accent-color: rgb(245, 78, 142);
+}
+
+.time {
+    border-radius: 5px;
+    padding: 2px 6px;
+    font-size: smaller;
+}
+
+.time.weekday {
+    background-color: #ffdfba;
+    color: #646464;
+}
+
+.time.dark {
+    background-color: #bdc9d4;
+    color: #646464;
+}
+
+.time.semilight {
+    background-color: #ffdfba;
+    color: #646464;
+}
+
+.time.light {
+    background-color: #fff6c0;
+    color: #646464;
+}
+
+.time.dark:before {
+    content: "\1F31C ";
+}
+
+.time.semilight:before {
+    content: "\1F307 ";
+}
+
+.time.light:before {
+    content: "\1F31E ";
+}

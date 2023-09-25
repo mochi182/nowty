@@ -68,3 +68,39 @@
     box-shadow: 0 0 0 .2rem rgba(0, 123, 255, .25);
   }
   
+
+  /* Emulate Bootstrap button styles for input[type="image"] */
+.bootstrappy-image-button {
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    background-color: #fff;
+    color: #495057;
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+  
+  .bootstrappy-image-button:hover {
+    background-color: #f8f9fa;
+  }
+  
+  .bootstrappy-image-button:focus {
+    outline: 0;
+    box-shadow: 0 0 0 .2rem rgba(0, 123, 255, .25);
+  }
+  
+  .bootstrappy-image-button:active {
+    background-color: #e2e6ea;
+    border-color: #dae0e5;
+  }
+  
+
+  /* Emulate Bootstrap's fieldset style */
+  fieldset {
+    border: 1px solid #ced4da;
+    padding: 10px;
+    border-radius: 0.25rem;
+    margin-bottom: 20px;
+  }

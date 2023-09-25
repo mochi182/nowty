@@ -71,7 +71,7 @@ export function AddActivity() {
 
     return (
         <>
-            <form id="addForm" className="" onSubmit={handleFormSubmit}>
+            <form id="addForm">
 
                 <div className="form-group">
                     <label>Nueva actividad:</label>
