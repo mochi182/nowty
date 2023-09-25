@@ -4,7 +4,7 @@ Nowty is an application that I use to manage daily activities, including routine
 
 ## 🚀 Technologies Used
 
-The app is built using Node.js, ExpressJS and MySQL.
+The app is built using React, ExpressJS and MySQL.
 
 ## 🌟 Features
 

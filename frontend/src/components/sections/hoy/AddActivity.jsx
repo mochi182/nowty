@@ -2,9 +2,10 @@ import './AddActivity.css'
 import '../../../assets/Buttons.css'
 import '../../../assets/Forms.css'
 import { useState }  from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 export function AddActivity() {
+    const navigate = useNavigate()
     const [inputValue, setInputValue] = useState('')
 
     const handleInputChange = (event) => {
@@ -46,7 +47,7 @@ export function AddActivity() {
         let json = JSON.stringify(object);
 
         // Send the POST request
-        const URL = 'http://localhost:3000/test'
+        const URL = 'http://localhost:3000/insert'
         fetch(URL, {
             method: 'POST',
             headers: {
@@ -59,6 +60,9 @@ export function AddActivity() {
                 throw new Error('Network response was not ok');
             }
             alert('Data inserted successfully');
+            })
+            .then(() => {
+                navigate(0)
             })
             .catch(error => {
             console.error('There was a problem inserting the data:', error);
