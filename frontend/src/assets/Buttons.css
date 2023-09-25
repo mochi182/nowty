@@ -1,3 +1,7 @@
+.btnMargin {
+    margin: 1rem 0.5rem 1rem 0rem;
+}
+
 .overrideLinkStyle {
     text-decoration: none;
     /* Removes underline */
@@ -5,11 +9,6 @@
     /* Inherits the color from parent */
     /* You can add more specific styles as needed */
 }
-
-.overrideButtonStyle {
-    /* Add your button style overrides here */
-}
-
 
 .customButton {
     display: inline-block;
@@ -148,3 +147,29 @@
     border: 1px solid #007bff; /* Blue border on hover */
   }
   
+
+  /* Outline-Secondary */
+  .outline-secondary {
+    background-color: #fff; /* White background */
+    color: #6c757d; /* Bootstrap's primary color (blue) for text and border */
+    border: 1px solid #6c757d; /* Blue outline */
+  }
+  
+  .outline-secondary:hover {
+    background-color: #6c757d; /* Blue background on hover */
+    color: #fff; /* White text on hover */
+    border: 1px solid #6c757d; /* Blue border on hover */
+  }
+
+    /* Outline-Danger */
+    .outline-danger {
+        background-color: #fff; /* White background */
+        color: #dc3545; /* Bootstrap's primary color (blue) for text and border */
+        border: 1px solid #dc3545; /* Blue outline */
+      }
+      
+      .outline-danger:hover {
+        background-color: #dc3545; /* Blue background on hover */
+        color: #fff; /* White text on hover */
+        border: 1px solid #dc3545; /* Blue border on hover */
+      }

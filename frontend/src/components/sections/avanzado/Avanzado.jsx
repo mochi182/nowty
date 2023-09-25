@@ -1,22 +1,24 @@
 import '../Section.css'
 import '../../../assets/Buttons.css'
+import '../../../assets/Forms.css'
 import { useState } from 'react'
 
 export function Avanzado() {
     const [formData, setFormData] = useState({
-        actividad: '',
-        esNota: false,
-        tipo: '1',
-        descripcion: '',
-        imagen: '',
-        horas: new Array(24).fill(false),
-        configuracion: 'por-fecha',
-        dias: new Array(7).fill(false),
-        dia: '',
-        mes: '',
-        anho: '',
+        activity: '',
+        isNote: false,
+        type: '1',
+        description: '',
+        image: '',
+        hours: new Array(24).fill(false),
+        config: 'por-semana',
+        weekdays: new Array(7).fill(false),
+        day: '',
+        month: '',
+        year: '',
     });
 
+    // Generic change handler (text / checkbox)
     const handleChange = (event) => {
         const { name, value, type, checked } = event.target;
         setFormData((prevData) => ({
@@ -25,21 +27,23 @@ export function Avanzado() {
         }));
     };
 
-    const handleHorasCheckbox = (index) => {
-        const newHoras = [...formData.horas];
-        newHoras[index] = !newHoras[index];
+    const handleHoursChange = (event) => {
+        const index = event.target.value - 1;
+        const newHours = [...formData.hours];
+        newHours[index] = !newHours[index];
         setFormData((prevData) => ({
             ...prevData,
-            horas: newHoras,
+            hours: newHours,
         }));
     };
 
-    const handleDiasCheckbox = (index) => {
-        const newDias = [...formData.dias];
-        newDias[index] = !newDias[index];
+    const handleWeekdaysChange = (event) => {
+        const index = event.target.value - 1;
+        const newDays = [...formData.weekdays];
+        newDays[index] = !newDays[index];
         setFormData((prevData) => ({
             ...prevData,
-            dias: newDias,
+            weekdays: newDays,
         }));
     };
 
@@ -48,31 +52,39 @@ export function Avanzado() {
         // Handle form submission here
     };
 
+    const logForm = () => {
+        console.log(formData)
+    }
+
     return (
         <section>
+
+            <button onClick={logForm}>Clickee</button>
 
             <form id="addForm" className="form-style" onSubmit={handleSubmit}>
                 <center>
                     <h5>Nueva actividad</h5>
                 </center>
+
                 <div className="form-group">
                     <label htmlFor="actividad-input">Nombre de la actividad:</label>
                     <input
                         className="form-control"
                         type="text"
                         id="actividad-input"
-                        name="actividad"
+                        name="activity"
                         value={formData.actividad}
                         onChange={handleChange}
                         required
                     />
                 </div>
+
                 <div className="form-group">
                     <input
                         className="form-check-input"
                         type="checkbox"
                         value="1"
-                        name="esNota"
+                        name="isNote"
                         id="es-nota"
                         checked={formData.esNota}
                         onChange={handleChange}
@@ -84,13 +96,15 @@ export function Avanzado() {
 
                 <div id="opcionesAvanzadas">
 
-                    <div class="form-group">
+                    <div className="form-group">
                         <label htmlFor="dropdown-select">Tipo:</label>
                         <select
                             id="dropdown-select"
                             className="form-control"
-                            name="dropdown-select"
+                            name="type"
                             defaultValue="1"
+                            onChange={handleChange} 
+                            value={formData.tipo}
                         >
                             <option value="1">Puntual</option>
                             <option value="2">Rutina</option>
@@ -102,8 +116,10 @@ export function Avanzado() {
                         <label htmlFor="descripcion-textarea">Descripción:</label>
                         <textarea
                             id="descripcion-textarea"
-                            className="form-control"
-                            name="descripcion-textarea"
+                            className="custom-textarea"
+                            name="description"
+                            value={formData.description}
+                            onChange={handleChange}
                             rows="4"
                         ></textarea>
                     </div>
@@ -115,12 +131,15 @@ export function Avanzado() {
                             type="text"
                             className="form-control"
                             id="imagen-input"
-                            name="imagen-input"
+                            name="image"
+                            value={formData.image}
+                            onChange={handleChange}
                         />
 
                         <button
                             id="select-file-btn"
-                            className="btn btn-outline-secondary mt-2 mb-2"
+                            className="customButton outline-secondary btnMargin"
+                            onClick={() => {}}
                         >
                             Seleccionar archivo
                         </button>
@@ -130,20 +149,21 @@ export function Avanzado() {
                         <fieldset id="horas-input">
                             <legend>Horas:</legend>
                             <div className="checkbox-group">
-                                {  Array.from({length: 24}, (_, i) => i + 1).map(i => {
+                                {  [...Array(24).keys()].map(i => {
                                     return(
                                         <div key={i*100} className="checkbox-unit">
                                             <label className="checkbox-container">
                                                 <input 
                                                 type="checkbox" 
                                                 className="horas" 
-                                                name="horas-input" 
-                                                value={i} 
-                                                checked={8 <= i && i <= 16}
+                                                name="hours" 
+                                                value={i + 1} 
+                                                checked={formData.hours[i]}
+                                                onChange={handleHoursChange}
                                                 />
                                             </label>
                                             <small className="hora-num">
-                                                 {i}
+                                                 {i+1}
                                             </small>
                                         </div>
                                     )
@@ -153,14 +173,14 @@ export function Avanzado() {
                             </div>
                             <button 
                             id="check-all-horas-button" 
-                            className="btn btn-outline-secondary mt-2 mb-2"
+                            className="customButton outline-secondary btnMargin"
                             >
                                 ✔️ Todos
                             </button>
 
                             <button 
                             id="uncheck-all-horas-button" 
-                            className="btn btn-outline-danger mt-2 mb-2"
+                            className="customButton outline-danger btnMargin"
                             >
                                 ⬜ Ninguno
                             </button>
@@ -175,10 +195,12 @@ export function Avanzado() {
                         <select 
                         id="date-dropdown" 
                         className="form-control" 
-                        name="date-dropdown"
+                        name="config" 
+                        onChange={handleChange}
+                        value={formData.config}
                         >
-                            <option value="por-fecha" selected>Por fecha</option>
                             <option value="por-semana">Por semana</option>
+                            <option value="por-fecha" selected>Por fecha</option>
                         </select>
                     </div>
 
@@ -187,14 +209,21 @@ export function Avanzado() {
                             <fieldset id="dias-input">
                                 <legend>Dias:</legend>
                                 <div className="checkbox-group">
-                                    { Array.from({length: 24}, (_, i) => i + 1).map(i => {
+                                    { [...Array(7).keys()].map(i => {
                                         return (
                                             <div key={i*101} className="checkbox-unit">
                                                 <label className="checkbox-container">
-                                                    <input type="checkbox" className="dias" name="dias-input" value="<%= i %>" />
+                                                    <input 
+                                                    type="checkbox" 
+                                                    className="dias" 
+                                                    name="weekdays" 
+                                                    value={i + 1} 
+                                                    checked={formData.weekdays[i]}  
+                                                    onChange={handleWeekdaysChange} 
+                                                    />
                                                 </label>
                                                 <small className="dia-num time weekday">
-                                                    {i}
+                                                    {i + 1}
                                                 </small>
                                             </div>
                                         )
@@ -203,14 +232,16 @@ export function Avanzado() {
                                 </div>
                                 <button 
                                 id="check-all-dias-button" 
-                                className="btn btn-outline-secondary mt-2 mb-2"
+                                className="customButton outline-secondary btnMargin"
                                 >
                                     ✔️ Todos
-                                    </button>
+                                </button>
+
                                 <button 
                                 id="uncheck-all-dias-button" 
-                                className="btn btn-outline-danger mt-2 mb-2"
-                                >⬜ Ninguno
+                                className="customButton outline-danger btnMargin"
+                                >
+                                    ⬜ Ninguno
                                 </button>
                             </fieldset>
                         </div>
@@ -221,7 +252,17 @@ export function Avanzado() {
                             <div className="col-md-4">
                                 <div className="form-group">
                                     <label htmlFor="dia">Día (1-<span id="max-day-of-month"></span>): </label>
-                                    <input type="number" id="dia" className="form-control" name="dia" min="1" max="31" required />
+                                    <input 
+                                    type="number" 
+                                    id="dia" 
+                                    className="form-control" 
+                                    name="day" 
+                                    min="1" 
+                                    max="31" 
+                                    onChange={handleChange}
+                                    value={formData.day}
+                                    required 
+                                    />
                                 </div>
                             </div>
                             <div className="col-md-4">
@@ -230,8 +271,9 @@ export function Avanzado() {
                                     <select 
                                     id="mes" 
                                     className="form-control" 
-                                    name="mes" 
-                                    defaultValue={""} 
+                                    name="month" 
+                                    onChange={handleChange} 
+                                    value={formData.mes}
                                     required>
                                         <option value=""></option>
                                         <option value="1">Enero</option>
@@ -252,7 +294,17 @@ export function Avanzado() {
                             <div className="col-md-4">
                                 <div className="form-group">
                                     <label htmlFor="anho">Año (<span id="anho-actual"></span>-2100): </label>
-                                    <input type="number" id="anho" className="form-control" name="anho" min="2023" max="2100" required />
+                                    <input 
+                                    type="number" 
+                                    id="anho" 
+                                    className="form-control" 
+                                    name="year" 
+                                    min="2023" 
+                                    max="2100" 
+                                    onChange={handleChange}
+                                    value={formData.year}
+                                    required 
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -262,10 +314,10 @@ export function Avanzado() {
             </form>
 
             <center>
-                <button className="btn btn-primary" id="addButton" type="submit">
+                <button className="customButton primary btnMargin" id="addButton" type="submit">
                     Add
                 </button>
-                <button className="btn btn-danger" id="clearButton" type="button">
+                <button className="customButton danger btnMargin" id="clearButton" type="button">
                     Clear
                 </button>
             </center>
