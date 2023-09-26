@@ -11,13 +11,13 @@ export function Avanzado() {
     const [mouseDown, setMouseDown] = useState(false)
     const [formData, setFormData] = useState({
         activityName: '',
-        isNote: false,
-        activityType: "rutina",
+        isNote: 0,
+        activityType: 'rutina',
         description: '',
         image: '',
-        hours: new Array(24).fill(false),
+        hours: [0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0],
         config: 'por-semana',
-        weekdays: new Array(7).fill(false),
+        weekdays: new Array(7).fill(0),
         day: now.getDate(),
         month: now.getMonth() + 1,
         year: '',
@@ -59,7 +59,7 @@ export function Avanzado() {
         const { name, value } = event.target;
         const index = value - 1
         const newValues = [...formData[name]]
-        newValues[index] = !newValues[index]
+        newValues[index] = 1 - newValues[index]
         setFormData((prevData) => ({
             ...prevData,
             [name]: newValues,
@@ -71,7 +71,7 @@ export function Avanzado() {
             const { name, value } = event.target;
             const index = value - 1
             const newValues = [...formData[name]]
-            newValues[index] = !newValues[index]
+            newValues[index] = 1 - newValues[index]
             setFormData((prevData) => ({
                 ...prevData,
                 [name]: newValues,
@@ -81,7 +81,7 @@ export function Avanzado() {
 
     const handleSelectAllHours = (event) => {
         event.preventDefault()
-        const newHours = new Array(24).fill(true)
+        const newHours = new Array(24).fill(1)
         setFormData((prevData) => ({
             ...prevData,
             hours: newHours
@@ -90,7 +90,7 @@ export function Avanzado() {
 
     const handleSelectNoHours = (event) => {
         event.preventDefault()
-        const newHours = new Array(24).fill(false)
+        const newHours = new Array(24).fill(0)
         setFormData((prevData) => ({
             ...prevData,
             hours: newHours
@@ -99,7 +99,7 @@ export function Avanzado() {
 
     const handleSelectAllWeekdays = (event) => {
         event.preventDefault()
-        const newDays = new Array(7).fill(true)
+        const newDays = new Array(7).fill(1)
         setFormData((prevData) => ({
             ...prevData,
             weekdays: newDays,
@@ -108,15 +108,11 @@ export function Avanzado() {
 
     const handleSelectNoWeekdays = (event) => {
         event.preventDefault()
-        const newDays = new Array(7).fill(false)
+        const newDays = new Array(7).fill(0)
         setFormData((prevData) => ({
             ...prevData,
             weekdays: newDays,
         }))
-    }
-
-    const logForm = () => {
-        console.log(JSON.stringify(formData))
     }
 
     const addClassesToHours = (i) => {
@@ -202,7 +198,7 @@ export function Avanzado() {
 
         // Converts formdata to JSON
         let json = JSON.stringify(formData);
-        const URL = 'http://localhost:3000/test'
+        const URL = 'http://localhost:3000/insert'
         fetch(URL, {
             method: 'POST',
             headers: {
@@ -214,7 +210,7 @@ export function Avanzado() {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-            console.log('Data inserted successfully');
+            alert('Data inserted successfully');
         })
         .then(() => {
             navigate(0)
@@ -226,10 +222,11 @@ export function Avanzado() {
 
     return (
         <section>
-
-            <button onClick={logForm}>Clickee</button>
-
-            <form id="addForm" className="form-style">
+            <form 
+            id="addForm" 
+            className="form-style"
+            onSubmit={(e) => {e.preventDefault()}}
+            >
                 <center>
                     <h3>Nueva actividad</h3>
                 </center>

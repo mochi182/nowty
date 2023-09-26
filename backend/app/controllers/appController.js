@@ -75,6 +75,8 @@ exports.done = async function (req, res) {
 };
 
 exports.insert = async function (req, res) {
+    //console.log("Controlador: ", req.body)
+
     try {
         const data = await buildData(req);
         const result = await model.insert(data);
@@ -103,30 +105,40 @@ exports.test = async function (req, res) {
 
 async function buildData(req) {
     let data = {}
-    data.entidad = req.body['dropdown-select'];
-    data.es_nota = req.body['es-nota']
+
+    if (req.body['activityType'] == 'puntual') {
+        data.entidad = 1
+    } else if (req.body['activityType'] == 'rutina') {
+        data.entidad = 2
+    } else if (req.body['activityType'] == 'rango') {
+        data.entidad = 3
+    }
+
+    data.es_nota = req.body['isNote']
     data.atributos = {
-        nombre: req.body['actividad-input'],
+        nombre: req.body['activityName'],
     }
-    if (req.body['descripcion-textarea']) {
-        data.atributos.descripcion = req.body['descripcion-textarea'];
+    if (req.body['description']) {
+        data.atributos.descripcion = req.body['description'];
     }
-    if (req.body['imagen-input']) {
-        data.atributos.imagen = req.body['imagen-input'];
+    if (req.body['image']) {
+        data.atributos.imagen = req.body['image'];
     }
+
     data.configuracion = {};
-    data.configuracion.frecuencia_horaria = removeCommasAndBrackets(req.body['horas-input']);
-    if (req.body['date-dropdown'] === 'por-semana') {
-        data.configuracion.frecuencia_diaria = moveLastCharToFirst(removeCommasAndBrackets(req.body['dias-input']));
+    data.configuracion.frecuencia_horaria = removeCommasAndBrackets(JSON.stringify(req.body['hours']));
+
+    if (req.body['config'] === 'por-semana') {
+        data.configuracion.frecuencia_diaria = moveLastCharToFirst(removeCommasAndBrackets(JSON.stringify(req.body['weekdays'])));
     } else {
-        if (req.body['dia']) {
-            data.configuracion.dia = req.body['dia'];
+        if (req.body['day']) {
+            data.configuracion.dia = req.body['day'];
         }
-        if (req.body['mes']) {
-            data.configuracion.mes = req.body['mes'];
+        if (req.body['month']) {
+            data.configuracion.mes = req.body['month'];
         }
-        if (req.body['anho']) {
-            data.configuracion.anho = req.body['anho'];
+        if (req.body['year']) {
+            data.configuracion.anho = req.body['year'];
         }
     }
 

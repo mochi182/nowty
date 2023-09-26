@@ -6,45 +6,36 @@ import { Link, useNavigate } from 'react-router-dom'
 
 export function AddActivity() {
     const navigate = useNavigate()
-    const [inputValue, setInputValue] = useState('')
+    const now = new Date();
+    const [formData, setFormData] = useState({
+        activityName: '',
+        isNote: 0,
+        activityType: 'puntual',
+        description: '',
+        image: '',
+        hours: [0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0],
+        config: 'por-fecha',
+        weekdays: new Array(7).fill(0),
+        day: now.getDate(),
+        month: now.getMonth() + 1,
+        year: now.getFullYear(),
+    });
 
     const handleInputChange = (event) => {
-        setInputValue(event.target.value)
+        setFormData((prevData) => ({
+            ...prevData,
+            activityName: event.target.value
+        }))  
     }
 
     const handleClearButtonClick = () => {
-        setInputValue('')
+        setFormData('')
     }
 
     const handleFormSubmit = (event) => {
         event.preventDefault()
 
-        const formData = new FormData();
-    
-        formData.append('actividad-input', inputValue);
-        formData.append('dropdown-select', '1');
-        formData.append('descripcion-textarea', '');
-        formData.append('imagen-input', '');
-        formData.append('dias-input', '');
-        
-        const horasValues = '[0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0]';
-        formData.append('horas-input', horasValues);
-        
-        formData.append('date-dropdown', 'por-fecha');
-    
-        formData.append('es-nota', JSON.stringify({"es-nota": 0}));
-    
-        const currentDate = new Date();
-        formData.append('dia', currentDate.getDate().toString());
-        formData.append('mes', (currentDate.getMonth() + 1).toString());
-        formData.append('anho', currentDate.getFullYear().toString());
-        
-        // Converts formdata to JSON
-        let object = {};
-        formData.forEach(function (value, key) {
-            object[key] = value;
-        });
-        let json = JSON.stringify(object);
+        let json = JSON.stringify(formData);
 
         // Send the POST request
         const URL = 'http://localhost:3000/insert'
@@ -71,16 +62,18 @@ export function AddActivity() {
 
     return (
         <>
-            <form id="addForm">
+            <form 
+            id="addForm"
+            onSubmit={handleFormSubmit}
+            >
 
                 <div className="form-group">
                     <label>Nueva actividad:</label>
                     <input 
                     className="form-control" 
                     type="text" 
-                    id="actividad-input" 
-                    name="actividad-input" 
-                    value={inputValue}
+                    name="activityName" 
+                    value={formData.activityName}
                     onChange={handleInputChange}
                     />
                 </div>
