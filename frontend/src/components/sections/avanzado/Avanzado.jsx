@@ -228,7 +228,7 @@ export function Avanzado() {
             onSubmit={(e) => {e.preventDefault()}}
             >
                 <center>
-                    <h3>Nueva actividad</h3>
+                    <h3>Avanzado</h3>
                 </center>
 
                 <div className="form-group">

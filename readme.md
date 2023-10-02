@@ -14,6 +14,12 @@ The app is built using React, ExpressJS and MySQL.
 - **Advanced Entry:** Detailed input for complex tasks.
 - **Routine Creation:** Weekly or monthly routines.
 
+## Screenshots
+
+<p align="center">
+  <img src="./readme_pics/pic1.png" alt="Screenshot 1" width="738">
+</p>
+
 ## 🤔 Challenges
 
 Transitioning from vanilla JavaScript to React for the frontend was challenging. Adapting an existing app required careful planning and learning, but it was a rewarding process.
