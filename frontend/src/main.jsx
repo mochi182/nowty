@@ -8,6 +8,7 @@ import { Avanzado } from './components/sections/avanzado/Avanzado.jsx'
 import { Stats } from './components/sections/stats/Stats.jsx'
 import { Admin } from './components/sections/admin/Admin.jsx'
 import { Config } from './components/sections/config/Config.jsx'
+import { Edit } from './components/sections/avanzado/Edit.jsx'
 
 
 import {
@@ -40,6 +41,10 @@ import {
             {
                 path: "/config",
                 element: <Config />
+            },
+            {
+                path: "/edit/:actividadId",
+                element: <Edit />
             }
         ]
     }
