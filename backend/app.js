@@ -30,8 +30,12 @@ routes(app); //register the route
 
 // Servidor
 var port = process.env.SERVER_PORT;
-app.listen(port);
-console.log('API server started on: ' + port);
+const server = app.listen(port, 'localhost', () => {
+    server.keepAliveTimeout = 0; // Disable default keep-alive timeout
+    server.headersTimeout = 0;   // Disable default headers timeout
+    console.log('Server is running on port ' + port);
+});
+  
 
 // Cronjob ----------
 var timeout = require('connect-timeout');
