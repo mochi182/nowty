@@ -1,3 +1,6 @@
+# Svelte app build
+/backend/public
+
 # Logs
 logs
 *.log

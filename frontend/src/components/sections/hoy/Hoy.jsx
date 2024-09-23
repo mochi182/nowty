@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 
 export function Hoy() {
     const [activities, setActivities] = useState([])
-    const URL = 'http://localhost:3000/activities'
+    const URL = 'http://localhost:3000/api/activities'
     useEffect(() => {
         fetch(URL)
         .then(res => res.json())

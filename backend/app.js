@@ -16,6 +16,7 @@ app.use(express.json());
 
 // Recursos
 app.use(express.static(__dirname + '/public'));
+//app.use(express.static(path.join(__dirname, 'public/client')));
 
 // Configurar plantillas
 app.set('view engine', 'ejs');

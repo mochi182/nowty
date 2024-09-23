@@ -1,16 +1,17 @@
 'use strict';
 
+const path = require('path');
 let model = require('../models/appModel.js');
 
-exports.select_all = async function (req, res) {
+exports.get_client = async function (req, res) {
     try {
-        res.render('index', {data: await model.select_all()})
+        res.sendFile(path.join(__dirname, '../../public/index.html'));
     } catch(err) {
         res.json({"Error": err})
     }
-};
+}
 
-exports.select_all_json = async function (req, res) {
+exports.select_all = async function (req, res) {
     try {
         res.json(await model.select_all())
     } catch(err) {
@@ -18,17 +19,9 @@ exports.select_all_json = async function (req, res) {
     }
 };
 
-exports.admin = async function (req, res) {
+exports.admindata = async function (req, res) {
     try {
-        res.render('admin', {data: await model.admin()})
-    } catch(err) {
-        res.json({"Error": err})
-    }
-};
-
-exports.admin_json = async function (req, res) {
-    try {
-        res.json(await model.admin())
+        res.json(await model.admindata())
     } catch(err) {
         res.json({"Error": err})
     }
@@ -37,30 +30,6 @@ exports.admin_json = async function (req, res) {
 exports.advanced = async function (req, res) {
     try {
         res.render('advanced')
-    } catch(err) {
-        res.json({"Error": err})
-    }
-};
-
-exports.stats = async function (req, res) {
-    try {
-        res.render('stats')
-    } catch(err) {
-        res.json({"Error": err})
-    }
-};
-
-exports.config = async function (req, res) {
-    try {
-        res.render('config')
-    } catch(err) {
-        res.json({"Error": err})
-    }
-};
-
-exports.update = async function (req, res) {
-    try {
-        res.render('update')
     } catch(err) {
         res.json({"Error": err})
     }

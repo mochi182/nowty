@@ -17,7 +17,7 @@ export function Admin() {
       };
 
     useEffect(() => {
-        const URL = 'http://localhost:3000/admin_json'
+        const URL = 'http://localhost:3000/api/admindata'
         fetch(URL)
         .then(res => res.json())
         .then(data => {

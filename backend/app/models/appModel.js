@@ -71,7 +71,7 @@ exports.select_all = async function () {
     return results[0]
 }
 
-exports.admin = async function () {
+exports.admindata = async function () {
     let query = `
     SELECT *
     FROM actividad AS a
