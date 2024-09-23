@@ -1,6 +1,7 @@
 const { app, BrowserWindow } = require('electron');
 const { exec } = require('child_process');
 const axios = require('axios');
+const psTree = require('ps-tree');
 
 let backendProcess;
 
@@ -29,9 +30,8 @@ async function isServerRunning(url) {
   }
 
 // Check if the backend server is running
+const backendUrl = "http://localhost:3000";
 async function checkBackend() {
-  const backendUrl = "http://localhost:3000";
-
   let backendReady = false;
   while (!backendReady) {
     backendReady = await isServerRunning(backendUrl);
@@ -57,19 +57,33 @@ function createWindow() {
   });
 
   mainWindow.removeMenu();
-  mainWindow.loadURL("http://localhost:3000"); // Backend serves the frontend here
+  mainWindow.loadURL(backendUrl);
   mainWindow.on("closed", function () {
     mainWindow = null;
   });
 }
 
 // Kill backend process when Electron is closed
-function stopBackend() {
-  if (backendProcess) {
-    backendProcess.kill();
-    console.log('Backend stopped.');
+async function stopBackend() {
+    if (backendProcess) {
+      const pid = backendProcess.pid;
+      return new Promise((resolve, reject) => {
+        psTree(pid, (err, children) => {
+          if (err) return reject(err);
+          
+          // Kill each child process
+          children.forEach(child => {
+            process.kill(child.PID, 'SIGTERM'); // Use SIGTERM to request a graceful shutdown
+          });
+  
+          // Now kill the parent process
+          backendProcess.kill();
+          console.log('Backend and child processes stopped.');
+          resolve();
+        });
+      });
+    }
   }
-}
 
 app.whenReady().then(async () => {
   // Start the backend
@@ -84,11 +98,10 @@ app.whenReady().then(async () => {
   }
 
   // Kill backend when Electron quits
-  app.on('window-all-closed', () => {
-    stopBackend(); // Stop the backend first
+  app.on('window-all-closed', async () => {
+    await stopBackend(); // Stop the backend first
     if (process.platform !== 'darwin') {
       app.quit();
-      process.exit();
     }
   });
 
@@ -99,15 +112,14 @@ app.whenReady().then(async () => {
   });
 });
 
-// Capture termination signals to close the backend if the script is manually stopped
 process.on('SIGINT', () => {
-    console.log('SIGINT received, stopping backend...');
+    console.log('SIGINT received, stopping servers...');
     stopBackend();
     process.exit();
   });
-
+  
 process.on('SIGTERM', () => {
-    console.log('SIGTERM received, stopping backend...');
+    console.log('SIGTERM received, stopping servers...');
     stopBackend();
     process.exit();
 });
