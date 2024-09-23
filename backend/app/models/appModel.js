@@ -2,7 +2,7 @@
 
 let client = require('./db.js');
 
-exports.select_all = async function () {
+exports.get_activities = async function () {
     // Get today's date and the max date (365 days from now)
     const today = new Date()
     const todayFormatted = new Date(today.getTime() - (today.getTimezoneOffset() * 60000)).toISOString().split('T')[0]
@@ -71,7 +71,7 @@ exports.select_all = async function () {
     return results[0]
 }
 
-exports.admindata = async function () {
+exports.get_admin_data = async function () {
     let query = `
     SELECT *
     FROM actividad AS a
@@ -129,27 +129,7 @@ exports.insert = async function (data) {
 };
 
 exports.reset = async function (req) {
-    // Causes reset_actividad_hecho TRIGGER to fire
-    try {
-        // Get the latest date in the cronjob_log table
-        let query = `SELECT DATE(tiempo) as latest_date FROM cronjob_log ORDER BY tiempo DESC LIMIT 1;`
-        const results = await client.promise().query(query)
-        const latest_date = results[0][0].latest_date.toISOString().slice(0, 10);
-
-        // Insert a new row into the cronjob_log table if the latest date is less than the current date
-        current_date = new Date().toISOString().slice(0, 10);
-
-        if (latest_date < current_date) {
-            //console.log("Reset will be triggered.")
-            query = `INSERT INTO cronjob_log (tiempo) VALUES (CURDATE());`
-            await client.promise().query(query)
-        }
-
-        return results[0]
-    } catch (err) {
-        console.log(err)
-        throw err;
-    }
+    // Reset periodically
 }
 
 

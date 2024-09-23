@@ -12,7 +12,7 @@ export function AdminRow({ id, nombre, tipo, descripcion, hecho, es_nota, frecue
         const confirmation = confirm('Are you sure you want to delete this activity?');
 
         if (confirmation) {
-            const deleteURL = 'http://localhost:3000/delete'
+            const deleteURL = `${import.meta.env.VITE_API_URL}/api/delete`
             fetch(deleteURL, {
                 method: 'POST',
                 headers: {

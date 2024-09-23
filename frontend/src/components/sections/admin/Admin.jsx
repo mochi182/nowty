@@ -17,7 +17,7 @@ export function Admin() {
       };
 
     useEffect(() => {
-        const URL = 'http://localhost:3000/api/admindata'
+        const URL = `${import.meta.env.VITE_API_URL}/api/admindata`
         fetch(URL)
         .then(res => res.json())
         .then(data => {

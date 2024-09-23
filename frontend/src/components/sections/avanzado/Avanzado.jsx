@@ -198,7 +198,7 @@ export function Avanzado() {
 
         // Converts formdata to JSON
         let json = JSON.stringify(formData);
-        const URL = 'http://localhost:3000/insert'
+        const URL = `${import.meta.env.VITE_API_URL}/api/insert`
         fetch(URL, {
             method: 'POST',
             headers: {

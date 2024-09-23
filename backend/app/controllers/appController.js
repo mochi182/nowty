@@ -3,7 +3,7 @@
 const path = require('path');
 let model = require('../models/appModel.js');
 
-exports.get_client = async function (req, res) {
+exports.get_client_app = async function (req, res) {
     try {
         res.sendFile(path.join(__dirname, '../../public/index.html'));
     } catch(err) {
@@ -11,29 +11,27 @@ exports.get_client = async function (req, res) {
     }
 }
 
-exports.select_all = async function (req, res) {
+///// API calls
+
+// Get data
+
+exports.get_activities = async function (req, res) {
     try {
-        res.json(await model.select_all())
+        res.json(await model.get_activities())
     } catch(err) {
         res.json({"Error": err})
     }
 };
 
-exports.admindata = async function (req, res) {
+exports.get_admin_data = async function (req, res) {
     try {
-        res.json(await model.admindata())
+        res.json(await model.get_admin_data())
     } catch(err) {
         res.json({"Error": err})
     }
 };
 
-exports.advanced = async function (req, res) {
-    try {
-        res.render('advanced')
-    } catch(err) {
-        res.json({"Error": err})
-    }
-};
+// GUI actions
 
 exports.done = async function (req, res) {
     try {
@@ -45,7 +43,6 @@ exports.done = async function (req, res) {
 
 exports.insert = async function (req, res) {
     //console.log("Controlador: ", req.body)
-
     try {
         const data = await buildData(req);
         const result = await model.insert(data);
@@ -63,14 +60,7 @@ exports.delete = async function (req, res) {
     }
 };
 
-exports.test = async function (req, res) {
-    console.log("Test: ", req.body)
-    try {
-        res.json({"Hola": "Mundo"})
-    } catch(err) {
-        res.json({"Error": err})
-    }
-};
+// Helper functions
 
 async function buildData(req) {
     let data = {}

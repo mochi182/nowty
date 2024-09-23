@@ -3,6 +3,11 @@ const { exec } = require('child_process');
 const axios = require('axios');
 const psTree = require('ps-tree');
 
+// Configurar variables de entorno
+var dotenv = require('dotenv');
+dotenv_path = './env/.env';
+dotenv.config({path: dotenv_path});
+
 let backendProcess;
 
 // Function to start the backend
@@ -30,7 +35,8 @@ async function isServerRunning(url) {
   }
 
 // Check if the backend server is running
-const backendUrl = "http://localhost:3000";
+var port = process.env.SERVER_PORT
+const backendUrl = `http://localhost:${port}`;
 async function checkBackend() {
   let backendReady = false;
   while (!backendReady) {

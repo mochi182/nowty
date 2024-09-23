@@ -6,7 +6,8 @@ import { useEffect, useState } from 'react'
 
 export function Hoy() {
     const [activities, setActivities] = useState([])
-    const URL = 'http://localhost:3000/api/activities'
+    const URL = `${import.meta.env.VITE_API_URL}/api/activities`
+    console.log(URL)
     useEffect(() => {
         fetch(URL)
         .then(res => res.json())

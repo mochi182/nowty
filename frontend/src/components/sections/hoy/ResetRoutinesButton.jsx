@@ -2,11 +2,11 @@ import '../../../assets/Buttons.css'
 import { useNavigate } from 'react-router-dom'
 
 export function ResetRoutinesButton() {
-    const url = 'http://localhost:3000/manualreset'
+    const URL = `${import.meta.env.VITE_API_URL}/api/manualreset`
     const navigate = useNavigate()
 
     const resetRoutines = () => {
-        fetch(url, {
+        fetch(URL, {
             method: 'GET'
         })
         .then(response => {

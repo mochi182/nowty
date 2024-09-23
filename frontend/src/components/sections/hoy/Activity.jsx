@@ -42,7 +42,7 @@ export function Activity({ id, nombre, descripcion, hecho, es_nota }) {
     }
 
     useEffect(() => {
-        const URL = 'http://localhost:3000/done'
+        const URL = `${import.meta.env.VITE_API_URL}/api/done`
         fetch(URL, {
             method: 'POST',
             headers: {

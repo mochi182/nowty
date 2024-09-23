@@ -38,7 +38,7 @@ export function AddActivity() {
         let json = JSON.stringify(formData);
 
         // Send the POST request
-        const URL = 'http://localhost:3000/insert'
+        const URL = `${import.meta.env.VITE_API_URL}/api/insert`
         fetch(URL, {
             method: 'POST',
             headers: {
