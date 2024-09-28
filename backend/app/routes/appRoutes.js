@@ -29,7 +29,6 @@ exports.routes = function (app) {
     // Post:
 
     app.post('/api/done', function (req, res) {
-        console.log("HOLAAAAA")
         controller.done(req, res);
     });
 
